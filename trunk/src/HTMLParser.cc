@@ -212,16 +212,16 @@ bool isRegisterValue(const xmlChar* val) {
 		xmlStrcasecmp(val, (const xmlChar*)"signup") == 0 ||
 		xmlStrcasecmp(val, (const xmlChar*)"registration") == 0 ||
 		xmlStrcasecmp(val, (const xmlChar*)"join") == 0 ||
-		xmlStrcasecmp(val, (const xmlChar*)"join now"))
+		xmlStrcasecmp(val, (const xmlChar*)"join now") == 0)
 			return true;
-	
+	printf("val:%s clean1\n", val);
 	if(xmlStrcasestr(val, (const xmlChar*)"signup") ||
 		xmlStrcasestr(val, (const xmlChar*)"register") ||
 		xmlStrcasestr(val, (const xmlChar*)"registration") || 
 		xmlStrcasestr(val, (const xmlChar*)"login") ||
 		xmlStrcasestr(val, (const xmlChar*)"join"))
 		return true;
-
+  printf("val:%s clean2\n", val);
 	return false;
 }
 
@@ -288,9 +288,11 @@ void FindRegisterLink(htmlNodePtr element)
 #endif
 						//printf("Element=%s\n", node->name);
 						if(node->properties != NULL) {
+						//if(xmlStrcasecmp(node->name, (const xmlChar*)"a") == 0 ||
+						//	xmlStrcasecmp(node->name, (const xmlChar*)"button") == 0) {
 							for(attr = node->properties; attr != NULL; attr = attr->next) {
 								if(xmlStrcasecmp(attr->name, (const xmlChar*)"href") == 0) {
-									//printf("node=%s\n", attr->children->content);
+									printf("node=%s\n", attr->children->content);
 									if(isRegisterValue(attr->children->content)) {
 										printf("Register link found\n");
 									}
@@ -341,54 +343,3 @@ void parseHTML(const char* code)
 		}
 #endif
 }
-
-#if 0
-int main(int argc, char *argv[])
-{
-  CURL *conn = NULL;
-  CURLcode code;
-  std::string title;
-
-  // Ensure one argument is given
-
-  if (argc != 2)
-  {
-    fprintf(stderr, "Usage: %s <url>\n", argv[0]);
-
-    exit(EXIT_FAILURE);
-  }
-
-  curl_global_init(CURL_GLOBAL_DEFAULT);
-
-  // Initialize CURL connection
-
-  if (!init(conn, argv[1]))
-  {
-    fprintf(stderr, "Connection initializion failed\n");
-
-    exit(EXIT_FAILURE);
-  }
-
-  // Retrieve content for the URL
-
-  code = curl_easy_perform(conn);
-  curl_easy_cleanup(conn);
-
-  if (code != CURLE_OK)
-  {
-    fprintf(stderr, "Failed to get '%s' [%s]\n", argv[1], errorBuffer);
-
-    exit(EXIT_FAILURE);
-  }
-
-  // Parse the (assumed) HTML code
-
-  //parseHtml(buffer, title);
-	parseHTML(buffer.c_str());
-  // Display the extracted title
-
-  //printf("Title: %s\n", title.c_str());
-  printf("Program Exited Normally\n");
-  return EXIT_SUCCESS;
-}
-#endif
