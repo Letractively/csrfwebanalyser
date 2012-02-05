@@ -16,6 +16,7 @@
 using namespace std;
 
 #define REDIRECTIONS 0
+#define DEBUG_LEVEL 0
 
 FILE* alexa_top_1M_filep;
 sem_t alexa_file_sem;
@@ -28,6 +29,15 @@ typedef struct Website{
 	size_t header_size;
 	size_t body_size;
 }Website;
+
+typedef enum CSRF_Defenses{
+	SECRET_VALIDATION_TOKEN = 0;
+	REFERER_VALIDATION = 1;
+	CUSTOM_HTTP_HEADER = 2;
+	X_FRAME_OPTIONS_HEADER = 3;
+	ACCESS_CONTROL_ALLOW_ORIGIN_HEADER = 4;
+}CSRF_Defenses;
+
 
 static size_t
 BodyDataCallback(void *contents, size_t size, size_t nmemb, void *userp)
@@ -122,6 +132,7 @@ string get_next_url(){
 	  return url;
 }
 
+s
 int get_url_id(){
 	int curr_url_id;
 	sem_wait(&url_id_sem);
@@ -137,7 +148,9 @@ void process_url(string url){
  		website.header = (char*)  malloc(1);  /* will be grown as needed by the realloc above */ 
 		website.body_size = 0; /* no data at this point */ 
 		website.header_size = 0;    /* no data at this point */ 
+		#if DEBUG_LEVEL > 0
 		fprintf(stderr, "Processing %s\n", url.c_str());
+		#endif
 		/* init the curl session */ 
 		curl_handle = curl_easy_init();
  
@@ -211,11 +224,13 @@ void process_url(string url){
   		}
 }
 
-void* do_crawl(void* i){
+void* do_crawl(void* threadargs){
 	string url;
-	fprintf(stderr, "Thread %d starting...\n", *((int*)i));
+//	fprintf(stderr, "Thread %d starting...\n",  threadargs);
 	while(!(url=get_next_url()).empty()){
-		//printf("Got url %s\n", url.c_str());
+		#if DEBUG_LEVEL > 1
+		 printf("Got url %s\n", url.c_str());
+		#endif
 		process_url(url);
 	}
 }
@@ -223,7 +238,11 @@ void* do_crawl(void* i){
 int main(int argc, char* argv[])
 {
           pthread_t * threads;
-          int * threadids;
+          typedef struct Threadargs{
+          	 map <string, pair<CSRF_Defenses, string > > CrawlResultsMap;
+          	 const int threadid;
+          }Threadargs;
+          Threadargs * threadargs;
           int nthreads=1, thread_error, i;
 
           char url_buff[100];
@@ -232,7 +251,6 @@ int main(int argc, char* argv[])
           sem_init(&alexa_file_sem, 0, 1);
           sem_init(&url_id_sem, 0, 1);
 
-          fprintf(stderr, "Edw1\n");
           if (!get_alexa_top_1M()){
                 fprintf(stderr, "Could not open alexa top 1M sites file\n");
                 exit(EXIT_FAILURE);
@@ -251,13 +269,11 @@ int main(int argc, char* argv[])
           }
 
           threads = (pthread_t*)  malloc(nthreads * sizeof(pthread_t));
-          threadids = (int*) malloc(nthreads * sizeof(int));
-
-          fprintf(stderr, "Edw2\n");
+          threadargs = (Threadargs*) malloc(nthreads * sizeof(Threadargs));
 
           for(i=0; i< nthreads; i++) {
-                threadids[i] = i;
-                thread_error = pthread_create(&threads[i], NULL, /* default attributes please */ do_crawl,(void *) &threadids[i]);
+                threadargs[i].threadid = i;
+                thread_error = pthread_create(&threads[i], NULL, /* default attributes please */ do_crawl,(void *) &threadargs[i]);
                  if(thread_error != 0)
                       fprintf(stderr, "Couldn't run thread number %d, errno %d\n", i, thread_error);
           }
