@@ -8,20 +8,20 @@ OBJ_DIR=obj
 SRC_DIR=src
 INCLUDE_DIR=include
 
-VPATH=$(SRC_DIR):$(OBJ_DIR):$(INCLUDE_DIR)
+VPATH=$(SRC_DIR):$(INCLUDE_DIR)
 
 all: crawler
 
-HTMLParser.o: HTMLParser.cc HTMLParser.h
-	$(CC) -c $(CFLAGS) $(INCLUDE) $< -o $(OBJ_DIR)/$@ 
+$(OBJ_DIR)/HTMLParser.o: HTMLParser.cc HTMLParser.h
+	$(CC) -c $(CFLAGS) $(INCLUDE) $< -o $@ 
 
-HTTPHeaderParser.o: HTTPHeaderParser.cc HTTPHeaderParser.h
-	$(CC) -c $(CFLAGS) $(INCLUDE) $< -o $(OBJ_DIR)/$@ 
+$(OBJ_DIR)/HTTPHeaderParser.o: HTTPHeaderParser.cc HTTPHeaderParser.h
+	$(CC) -c $(CFLAGS) $(INCLUDE) $< -o $@ 
 
-crawler: crawler.cc HTTPHeaderParser.o HTMLParser.o
+crawler: crawler.cc $(OBJ_DIR)/HTTPHeaderParser.o $(OBJ_DIR)/HTMLParser.o
 	$(CC)  $(CFLAGS) $(INCLUDE) $^ -o $(BIN_DIR)/$@ $(LIB_DIR) $(LIB)
 
-htmlParser: htmlParser.cc HTMLParser.o
+htmlParser: htmlParserTest.cc $(OBJ_DIR)/HTMLParser.o
 	$(CC)  $(CFLAGS) $(INCLUDE) $^ -o $(BIN_DIR)/$@ $(LIB_DIR) $(LIB)
 
 clean: 
