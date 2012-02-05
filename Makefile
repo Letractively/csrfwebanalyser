@@ -21,6 +21,8 @@ HTTPHeaderParser.o: HTTPHeaderParser.cc HTTPHeaderParser.h
 crawler: crawler.cc HTTPHeaderParser.o HTMLParser.o
 	$(CC)  $(CFLAGS) $(INCLUDE) $^ -o $(BIN_DIR)/$@ $(LIB_DIR) $(LIB)
 
+htmlParser:
+
 clean: 
 	rm -f $(BIN_DIR)/* $(OBJ_DIR)/*
 
