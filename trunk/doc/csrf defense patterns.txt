@@ -1,0 +1,30 @@
+Secret Validation Token
+BODY
+
+<input type="hidden" value="kjg9sjsagogw3m" />
+------------------------------------------------
+
+Referer Validation
+HEADER
+
+Referer: http://www.example.com
+------------------------------------------------
+
+Custom HTTP Header
+HEADER
+
+X-Requested-By: XMLHttpRequest
+------------------------------------------------
+
+
+X-Frame-Options Header
+HEADER
+
+X-Frame-Options: SAMEORIGIN
+------------------------------------------------
+
+Access-Control-Allow-Origin Header
+HEADER
+
+Access-Control-Allow-Origin Header: *
+------------------------------------------------
