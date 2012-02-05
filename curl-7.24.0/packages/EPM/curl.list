@@ -1,9 +1,9 @@
 # Directories...
-$prefix=/home/kasas/CSD/cs557/csrfwebanalyser/libcurl
+$prefix=/home/grads1/hassapis/cs557/csrfwebanalyser/libcurl
 $exec_prefix=${prefix}
 $bindir=${exec_prefix}/bin
 $confdir=${prefix}/etc
-$docdir=/home/kasas/CSD/cs557/csrfwebanalyser/libcurl/doc
+$docdir=/home/grads1/hassapis/cs557/csrfwebanalyser/libcurl/doc
 $mandir=${datarootdir}/man
 $libdir=${exec_prefix}/lib
 $srcdir=../..

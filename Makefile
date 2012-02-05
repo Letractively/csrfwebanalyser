@@ -1,16 +1,28 @@
 CC=g++
 CFLAGS=-g
-INCLUDE=-Ilibcurl/include -Ilibxml/include/libxml2
+INCLUDE=-Iinclude/ -Ilibcurl/include/ -Ilibxml/include/libxml2/
 LIB_DIR=-Llibcurl/lib -Llibxml/lib
 LIB=-lcurl -lxml2
+BIN_DIR=bin
+OBJ_DIR=obj
+SRC_DIR=src
+INCLUDE_DIR=include
 
-all: crawler htmltitle
+VPATH=$(SRC_DIR):$(OBJ_DIR):$(INCLUDE_DIR)
 
-crawler: crawler.cc
-	g++ $(INCLUDE) crawler.cc -o crawler.out $(LIB_DIR) $(LIB)
+all: crawler
 
-htmltitle: htmltitle.cc
-	$(CC)  $(CFLAGS) $(INCLUDE) htmltitle.cc -o htmltitle.out $(LIB_DIR) $(LIB)
+HTMLParser.o: HTMLParser.cc HTMLParser.h
+	$(CC) -c $(CFLAGS) $(INCLUDE) $< -o $(OBJ_DIR)/$@ 
+
+HTTPHeaderParser.o: HTTPHeaderParser.cc HTTPHeaderParser.h
+	$(CC) -c $(CFLAGS) $(INCLUDE) $< -o $(OBJ_DIR)/$@ 
+
+crawler: crawler.cc HTTPHeaderParser.o HTMLParser.o
+	$(CC)  $(CFLAGS) $(INCLUDE) $^ -o $(BIN_DIR)/$@ $(LIB_DIR) $(LIB)
 
 clean: 
-	rm -f *.out 
+	rm -f $(BIN_DIR)/* $(OBJ_DIR)/*
+
+clear: 
+	rm -f $(SRC_DIR)/*~ $(INCLUDE_DIR)/*~ *~

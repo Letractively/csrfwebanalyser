@@ -8,7 +8,7 @@ from distutils.core import setup, Extension
 # Below ROOT, we expect to find include, include/libxml2, lib and bin.
 # On *nix, it is not needed (but should not harm), 
 # on Windows, it is set by configure.js.
-ROOT = r'/home/kasas/CSD/cs557/csrfwebanalyser/libxml' 
+ROOT = r'/home/grads1/hassapis/cs557/csrfwebanalyser/libxml' 
 
 # Thread-enabled libxml2
 with_threads = 1

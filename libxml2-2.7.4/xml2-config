@@ -1,6 +1,6 @@
 #! /bin/sh
 
-prefix=/home/kasas/CSD/cs557/csrfwebanalyser/libxml
+prefix=/home/grads1/hassapis/cs557/csrfwebanalyser/libxml
 exec_prefix=${prefix}
 includedir=${prefix}/include
 libdir=${exec_prefix}/lib
