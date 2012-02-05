@@ -1,0 +1,2 @@
+You need libxml and libcurl to compile
+Edit the include paths in the Makefile 
