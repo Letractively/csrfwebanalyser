@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-g
-INCLUDE=-I../../curl/include -I../../libxml/include/libxml2
-LIB_DIR=-L../../curl/lib -L../../libxml/lib
+INCLUDE=-Ilibcurl/include -Ilibxml/include/libxml2
+LIB_DIR=-Llibcurl/lib -Llibxml/lib
 LIB=-lcurl -lxml2
 
 all: crawler htmltitle
