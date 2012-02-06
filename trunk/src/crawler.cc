@@ -10,6 +10,7 @@
 #include <semaphore.h>
 #include <string.h>
 #include <map>
+#include <unistd.h>
 
 #include "HTTPHeaderParser.h"
 #include "HTMLParser.h"
@@ -20,8 +21,8 @@ using namespace std;
 #define SAVE_ALL_SITES 0
 
 
-FILE* alexa_top_1M_filep;
-sem_t alexa_file_sem;
+FILE* websites_filep;
+sem_t websites_file_sem;
 sem_t url_id_sem;
 int url_id;
 
@@ -85,31 +86,33 @@ HeaderDataCallback(void *contents, size_t size, size_t nmemb, void *userp)
 }
 
 
-/* returns 0 if the alexa top 1M sites file could not be opened */
-int get_alexa_top_1M(){
-	  string alexa_top_1M = "top-1m.csv";
-	  FILE * alexa_top_1M_last_updated_filep;
+/* returns 0 if the websites file could not be opened */
+int get_websites(string websites){
+//	  string websites = "top-1m.csv";
+	  if(websites.empty())
+	  		websites = "stumbleupon.com";
+	  FILE * websites_last_updated_filep;
 	  time_t hours;
 	  time_t nowhours;
 	  nowhours = time(NULL)/3600;
 	  unsigned int update = 0;
 
-	  alexa_top_1M_last_updated_filep = fopen("alexa_top_1M_last_updated.txt", "r");
+	  websites_last_updated_filep = fopen("websites_last_updated.txt", "r");
 
-	  if (alexa_top_1M_last_updated_filep){
-		  fscanf(alexa_top_1M_last_updated_filep, "%ld", &hours);
+	  if (websites_last_updated_filep){
+		  fscanf(websites_last_updated_filep, "%ld", &hours);
 		  if(nowhours - hours > 24){
 			update = 1;
-			fprintf(stderr, "Updating alexa top 1M sites...\n");
+			fprintf(stderr, "Updating websites...\n");
 		  }
 	  }
-	  sem_wait(&alexa_file_sem);
-	  if( (alexa_top_1M_filep = fopen(alexa_top_1M.c_str(), "r")) == NULL){
-		fprintf(stderr, "Error opening file %s\n", alexa_top_1M.c_str());
-	  	sem_post(&alexa_file_sem);
+	  sem_wait(&websites_file_sem);
+	  if( (websites_filep = fopen(websites.c_str(), "r")) == NULL){
+		fprintf(stderr, "Error opening file %s\n", websites.c_str());
+	  	sem_post(&websites_file_sem);
 		return 0;
 	  }
-	  sem_post(&alexa_file_sem);
+	  sem_post(&websites_file_sem);
 	  return 1;
 }
  
@@ -118,11 +121,11 @@ string get_next_url(){
 	  char url_buff [100];
 	  memset(url_buff, 0, 100 * sizeof(char));
 
-	  sem_wait(&alexa_file_sem);
+	  sem_wait(&websites_file_sem);
 	  sem_wait(&url_id_sem);
-	    fscanf(alexa_top_1M_filep, "%d,%s\n", &url_id, url_buff);
-	  sem_post(&alexa_file_sem);
+	    fscanf(websites_filep, "%d,%s\n", &url_id, url_buff);
 	  sem_post(&url_id_sem);
+	  sem_post(&websites_file_sem);
 	  if(string(url_buff).empty())
 		return string("");
 	  url+= string(url_buff);
@@ -160,14 +163,26 @@ list< pair < CSRF_Defenses, string > > process_url(string url){
 		/* send all header data to this function  */
         	curl_easy_setopt(curl_handle, CURLOPT_HEADERFUNCTION, HeaderDataCallback);
 
-		/* follow locations  */
-        	curl_easy_setopt(curl_handle, CURLOPT_FOLLOWLOCATION, 1);
+		/* redirection limit is set to 10 redirections */
+        curl_easy_setopt(curl_handle, CURLOPT_MAXREDIRS, 10);
+
+        /* total transfer operation maximum time limit is set to 20 seconds */
+        curl_easy_setopt(curl_handle, CURLOPT_TIMEOUT, 20);
+
+        /* total time for the connection with the server is set to 10 seconds */
+        curl_easy_setopt(curl_handle, CURLOPT_CONNECTTIMEOUT, 10);
+	  	
+        /* follow locations  */
+        curl_easy_setopt(curl_handle, CURLOPT_FOLLOWLOCATION, 1);
  
 		/* we pass our 'chunk' struct to the callback function */ 
  	 	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&website);
 
 		/* we pass our 'chunk' struct to the callback function */ 
 	  	curl_easy_setopt(curl_handle, CURLOPT_WRITEHEADER, (void *)&website);
+
+	  	curl_easy_setopt(curl_handle, CURLOPT_NOPROGRESS, 1);
+
 
  
 		/* some servers don't like requests that are made without a user-agent
@@ -233,12 +248,9 @@ void* do_crawl(void* threadresults){
 	fprintf(stderr, "Thread %d starting...\n",  ((Threadresults*)threadresults)->threadid);
 	while(!(url=get_next_url()).empty()){
 		#if DEBUG_LEVEL > 1
-			printf("Got url %s\n", url.c_str());
+			fprintf(stderr, "Thread %d got url %s...\n",  ((Threadresults*)threadresults)->threadid, url.c_str());
 		#endif
-		if (get_url_id() > 500){
-			break;
-		}
-		// adding map entry for the processed url
+		/* adding map entry for the processed url */
 		#if SAVE_ALL_SITES
 			((Threadresults*)threadresults)->CrawlResultsMap.insert(make_pair(url, process_url( url ) ) );
 		#else
@@ -247,6 +259,13 @@ void* do_crawl(void* threadresults){
 				((Threadresults*)threadresults)->CrawlResultsMap.insert(make_pair(url, results ) );
 			}
 		#endif
+		#if DEBUG_LEVEL > 1
+			fprintf(stderr, "Thread %d process_url completed!!...\n",  ((Threadresults*)threadresults)->threadid);
+		#endif
+//		if (get_url_id() > 200){
+//			fprintf(stderr, "Thread %d do_crawl THE END!!...\n",  ((Threadresults*)threadresults)->threadid);
+//			break;
+//		}
 	}
 }
 
@@ -272,28 +291,35 @@ int main(int argc, char* argv[])
           pthread_t * threads;
           Threadresults * threadresults;
           int nthreads=1, thread_error, i;
+          string websites;
 
           char url_buff[100];
-          char c;
+          int c;
+          const char * opstr = "zn";
 
-          sem_init(&alexa_file_sem, 0, 1);
+          sem_init(&websites_file_sem, 0, 1);
           sem_init(&url_id_sem, 0, 1);
-
-          if (!get_alexa_top_1M()){
-                fprintf(stderr, "Could not open alexa top 1M sites file\n");
-                exit(EXIT_FAILURE);
-          }
 
           curl_global_init(CURL_GLOBAL_ALL);
 
-          while ((c = getopt(argc, argv, "N")) != -1) {
+          while ((c = getopt(argc, argv, opstr)) != -1) {
                 switch(c){
-                        case 'N':
+                        case 'z':
+                    		cout << argv[optind] <<endl;
+                    		websites = string(argv[optind]);
+                    		break;
+                        case 'n':
                                 nthreads = atoi(argv[optind]);
                                 break;
                         default:
                                 break;
                 }
+          }
+
+          cout << " Websites : " << websites <<endl;
+          if (!get_websites(websites)){
+            fprintf(stderr, "Could not open websites file\n");
+            exit(EXIT_FAILURE);
           }
 
           threads = (pthread_t*)  malloc(nthreads * sizeof(pthread_t));
