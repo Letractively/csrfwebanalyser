@@ -1,8 +1,8 @@
 CC=g++
-CFLAGS=-g
-INCLUDE=-Iinclude/ -Ilibcurl/include/ -Ilibxml/include/libxml2/
-LIB_DIR=-Llibcurl/lib -Llibxml/lib
-LIB=-lcurl -lxml2
+CFLAGS=-g -std=c++0x -O3
+INCLUDE=-Iinclude/ -Ilibcurl/include/ -Ilibxml/include/libxml2/ -Ilibpcre/include/
+LIB_DIR=-Llibcurl/lib -Llibxml/lib -Llibpcre/lib
+LIB=-lcurl -lxml2 -lpcre -lpcrecpp
 BIN_DIR=bin
 OBJ_DIR=obj
 SRC_DIR=src
