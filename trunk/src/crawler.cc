@@ -88,9 +88,8 @@ HeaderDataCallback(void *contents, size_t size, size_t nmemb, void *userp)
 
 /* returns 0 if the websites file could not be opened */
 int get_websites(string websites){
-//	  string websites = "top-1m.csv";
 	  if(websites.empty())
-	  		websites = "stumbleupon.com";
+	  		websites = "top-1m.csv";
 	  FILE * websites_last_updated_filep;
 	  time_t hours;
 	  time_t nowhours;
@@ -166,11 +165,11 @@ list< pair < CSRF_Defenses, string > > process_url(string url){
 		/* redirection limit is set to 10 redirections */
         curl_easy_setopt(curl_handle, CURLOPT_MAXREDIRS, 10);
 
-        /* total transfer operation maximum time limit is set to 20 seconds */
-        curl_easy_setopt(curl_handle, CURLOPT_TIMEOUT, 20);
+        /* total transfer operation maximum time limit is set to 120 seconds */
+        curl_easy_setopt(curl_handle, CURLOPT_TIMEOUT, 120);
 
-        /* total time for the connection with the server is set to 10 seconds */
-        curl_easy_setopt(curl_handle, CURLOPT_CONNECTTIMEOUT, 10);
+//        /* total time for the connection with the server is set to 20 seconds */
+  //      curl_easy_setopt(curl_handle, CURLOPT_CONNECTTIMEOUT, 20);
 	  	
         /* follow locations  */
         curl_easy_setopt(curl_handle, CURLOPT_FOLLOWLOCATION, 1);
@@ -262,10 +261,10 @@ void* do_crawl(void* threadresults){
 		#if DEBUG_LEVEL > 1
 			fprintf(stderr, "Thread %d process_url completed!!...\n",  ((Threadresults*)threadresults)->threadid);
 		#endif
-//		if (get_url_id() > 200){
-//			fprintf(stderr, "Thread %d do_crawl THE END!!...\n",  ((Threadresults*)threadresults)->threadid);
-//			break;
-//		}
+		if (get_url_id() > 1500){
+			fprintf(stderr, "Thread %d do_crawl THE END!!...\n",  ((Threadresults*)threadresults)->threadid);
+			break;
+		}
 	}
 }
 
@@ -281,6 +280,14 @@ string enum_to_str(int csrf_def){
 			return "X-Frame-Options Header";
 		case ACCESS_CONTROL_ALLOW_ORIGIN_HEADER:
 			return "Access Control Allow Origin Header";
+		case CONTENT_SECURITY_POLICY:
+			return "Content-Security-Policy";
+		case CONTENT_SECURITY_POLICY_REPORT_ONLY:
+			return "Content-Security-Policy-Report-Only";
+		case X_CONTENT_SECURITY_POLICY:
+			return "X-Content-Security-Policy";
+		case X_WEBKIT_CSP:
+			return "X-WebKit-CSP";
 		case NOT_ASSIGNED:
 			return "Defense not assigned";
 	}
@@ -295,7 +302,7 @@ int main(int argc, char* argv[])
 
           char url_buff[100];
           int c;
-          const char * opstr = "zn";
+          const char * opstr = "fn";
 
           sem_init(&websites_file_sem, 0, 1);
           sem_init(&url_id_sem, 0, 1);
@@ -304,19 +311,17 @@ int main(int argc, char* argv[])
 
           while ((c = getopt(argc, argv, opstr)) != -1) {
                 switch(c){
-                        case 'z':
-                    		cout << argv[optind] <<endl;
+                        case 'f':
                     		websites = string(argv[optind]);
                     		break;
                         case 'n':
-                                nthreads = atoi(argv[optind]);
-                                break;
+                            nthreads = atoi(argv[optind]);
+                            break;
                         default:
                                 break;
                 }
           }
 
-          cout << " Websites : " << websites <<endl;
           if (!get_websites(websites)){
             fprintf(stderr, "Could not open websites file\n");
             exit(EXIT_FAILURE);
