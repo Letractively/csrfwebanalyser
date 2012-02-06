@@ -12,153 +12,8 @@
 #include <iostream>
 #include "pcrecpp.h"
 #include "includes.h"
-//
-//  Case-insensitive string comparison
-//
 
-#ifdef _MSC_VER
-#define COMPARE(a, b) (!stricmp((a), (b)))
-#else
-#define COMPARE(a, b) (!strcasecmp((a), (b)))
-#endif
-
-//
-//  libxml callback context structure
-//
-
-struct Context
-{
-  Context(): addTitle(false) { }
-
-  bool addTitle;
-  std::string title;
-};
-
-#if 0
-//
-//  libxml start element callback function
-//
-
-static void StartElement(void *voidContext,
-                         const xmlChar *name,
-                         const xmlChar **attributes)
-{
-  Context *context = (Context *)voidContext;
-
-  if (COMPARE((char *)name, "TITLE"))
-  {
-    context->title = "";
-    context->addTitle = true;
-  }
-}
-
-//
-//  libxml end element callback function
-//
-
-static void EndElement(void *voidContext,
-                       const xmlChar *name)
-{
-  Context *context = (Context *)voidContext;
-
-  if (COMPARE((char *)name, "TITLE"))
-    context->addTitle = false;
-}
-
-//
-//  Text handling helper function
-//
-
-static void handleCharacters(Context *context,
-                             const xmlChar *chars,
-                             int length)
-{
-  if (context->addTitle)
-    context->title.append((char *)chars, length);
-}
-
-//
-//  libxml PCDATA callback function
-//
-
-static void Characters(void *voidContext,
-                       consCURLOPT_USERAGENTt xmlChar *chars,
-                       int length)
-{
-  Context *context = (Context *)voidContext;
-
-  handleCharacters(context, chars, length);
-}
-
-//
-//  libxml CDATA callback function
-//
-
-static void cdata(void *voidContext,
-                  const xmlChar *chars,
-                  int length)
-{
-  Context *context = (Context *)voidContext;
-
-  handleCharacters(context, chars, length);
-}
-
-//
-//  libxml SAX callback structure
-//
-
-static htmlSAXHandler saxHandler =
-{
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  StartElement,
-  EndElement,
-  NULL,
-  Characters,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  cdata,
-  NULL
-};
-
-//
-//  Parse given (assumed to be) HTML text and return the title
-//
-
-static void parseHtml(const std::string &html,
-                      std::string &title)
-{
-  htmlParserCtxtPtr ctxt;
-  Context context;
-
-  ctxt = htmlCreatePushParserCtxt(&saxHandler, &context, "", 0, "",
-                                  XML_CHAR_ENCODING_NONE);
-
-  htmlParseChunk(ctxt, html.c_str(), html.size(), 0);
-  htmlParseChunk(ctxt, "", 0, 1);
-
-  htmlFreeParserCtxt(ctxt);
-
-  title = context.title;
-}
-#endif
+#define MAX_DEPTH 1
 
 //code "borrowed" from chromium project
 std::string XmlStringToStdString(const xmlChar* xmlstring) {
@@ -171,89 +26,82 @@ std::string XmlStringToStdString(const xmlChar* xmlstring) {
 
 
 bool isNonce(const xmlChar* val) {
-#if 0
-	regex_t regex;
-  int reti;
 
-	//reti = regcomp(&regex, "[A-Za-z0-9_^.^ \t\r\n\v\f]", 0);
-	reti = regcomp(&regex, "^\\d*$", REG_EXTENDED);
-	if(reti) { 
-		fprintf(stderr, "Could not compile regex\n"); 
-		exit(1); 
-	}
-
-	/* Execute regular expression */
-  //reti = regexec(&regex, reinterpret_cast<const char*>(val), 0, NULL, 0);
-  reti = regexec(&regex, "19216811", 0, NULL, 0);
-	if(!reti) {
-		printf("match!");
-		return false;
-  }
-  else if(reti == REG_NOMATCH) {
-		return false;
-  }
-  else {
-		//regerror(reti, &regex, val, xmlStrlen(val));
-    fprintf(stderr, "Regex match failed: %s\n", val);
-    exit(1);
-	}
-	/* Free compiled regular expression if you want to use the regex_t again */
-	regfree(&regex);
-	return false;
-
-	//if(xmlStrlen(val) <= 10) return false;
-	//return true;
-#endif
 	int i;
 	string s;
-	pcrecpp::RE re("[A-Za-z0-9_=]{10,}");
-	if (re.error().length() > 0) {
-		std::cout << "PCRE compilation failed with error: " << re.error() << "\n";
+	//normally this should be a hash value
+	pcrecpp::RE re("[A-Za-z0-9_]{10,}");
+	if(re.error().length() > 0) {
+		std::cout << "PCRE: compilation failed with error: " << re.error() << "\n";
   }
-  if (re.FullMatch(XmlStringToStdString(val))) {
+  if(re.FullMatch(XmlStringToStdString(val))) {
 		//printf("match!");
 		return true;
 	}
 	return false;
 }
 
-bool FindToken(htmlNodePtr element, std::list<std::pair<CSRF_Defenses, string> > *result)
-{
-	  bool is_hidden = false;
-    for(htmlNodePtr node = element; node != NULL; node = node->next)
-    {
-        if(node->type == XML_ELEMENT_NODE)
-        {
-            if(xmlStrcasecmp(node->name, (const xmlChar*)"input") == 0)
-            {
-                for(xmlAttrPtr attr = node->properties; attr != NULL; attr = attr->next)
-                {
-                    if(xmlStrcasecmp(attr->name, (const xmlChar*)"type") == 0)
-                    {
-											if(xmlStrcasecmp(attr->children->content, (const xmlChar*)"hidden") == 0) {
-												//printf("hidden input tag found, how interesting...\n");
-												is_hidden = true;
-											}
-                    }
-                    else if(xmlStrcasecmp(attr->name, (const xmlChar*)"value") == 0 && is_hidden) {
-											if(isNonce(attr->children->content)) {	
-												printf("hiddent value is %s\n", attr->children->content);
-												result->push_back(make_pair(SECRET_VALIDATION_TOKEN, 
-																					XmlStringToStdString(attr->children->content)));
-												//if pattern matches return true
-											}
-										}
-                }
-            }
-            if(node->children != NULL)
-            {
-                FindToken(node->children, result);
-            }
-        }
-    }
-    return false;
+bool isRegisterValue(const xmlChar* val) {
+	int i;
+	string register_regex = "sign(\\s*|_*)(up|in)|(regist(er|ration))|join(\\s*|_*)\\w*|login|create(\\s*|_*)account";
+	pcrecpp::RE_Options opt;
+	opt.set_caseless(true);
+	pcrecpp::RE re(register_regex, opt);
+	if(re.error().length() > 0) {
+		std::cout<< "PCRE: complilation failed with error: " << re.error() << "\n";
+	}
+	//std::cout << XmlStringToStdString(val) << "\n";
+	//if(register_regex.FullMatch(XmlStringToStdString(val))) {
+	if(re.PartialMatch(XmlStringToStdString(val))) {
+		//std::cout << "match!";
+		return true;
+	}
+	return false;
 }
 
+bool isRegisterLink(const xmlChar* val) {
+	int i;
+	std::string uri_regex = "^((http|https)://)+(www\\.)*.+";
+	std::string register_regex = "sign(\\s*|_*)(up|in)|(regist(er|ration))|join(\\s*|_*)\\w*|login|create(\\s*|_*)account";
+	pcrecpp::RE_Options opt;
+	opt.set_caseless(true);
+	pcrecpp::RE re_link(uri_regex, opt);
+	pcrecpp::RE re_register(register_regex, opt);
+	if(re_link.error().length() > 0) {
+		std::cout<< "PCRE: complilation failed with error: " << re_link.error() << "\n";
+	}
+	//std::cout << XmlStringToStdString(val) << "\n";
+	//if(register_regex.FullMatch(XmlStringToStdString(val))) {
+	if(re_link.FullMatch(XmlStringToStdString(val)) && 
+		 re_register.PartialMatch(XmlStringToStdString(val))) {
+		//std::cout << "++++++Link match!+++++++++\n";
+		return true;
+	}
+	if(re_register.error().length() > 0) {
+		std::cout<< "PCRE: complilation failed with error: " << re_register.error() << "\n";
+	}
+	return false;
+}
+
+bool couldHoldNonce(const xmlChar* val) {
+	string register_regex = "sign(\\s*|_*)(up|in)|(regist(er|ration))|auth|login|account|token|secret|refer+er"; 
+	//actually if it's referer and not referrer chances are better
+	pcrecpp::RE_Options opt;
+	opt.set_caseless(true);
+	pcrecpp::RE re(register_regex, opt);
+	if(re.error().length() > 0) {
+		std::cout<< "PCRE: complilation failed with error: " << re.error() << "\n";
+	}
+	//std::cout << XmlStringToStdString(val) << "\n";
+	//if(register_regex.FullMatch(XmlStringToStdString(val))) {
+	if(re.PartialMatch(XmlStringToStdString(val))) {
+		//std::cout << "match!";
+		return true;
+	}
+	return false;
+}
+
+#if 0
 bool isRegisterValue(const xmlChar* val) {
 	if(xmlStrcasecmp(val, (const xmlChar*)"Sign Up") == 0 ||
 		xmlStrcasecmp(val, (const xmlChar*)"Register") == 0 ||
@@ -272,10 +120,67 @@ bool isRegisterValue(const xmlChar* val) {
 	
 	return false;
 }
+#endif
 
-void FindRegisterLink(htmlNodePtr element, std::list<std::pair<CSRF_Defenses, string> > *result)
+bool FindToken(htmlNodePtr element, std::list<std::pair<CSRF_Defenses, string> > *result)
 {
-	
+	  bool is_hidden = false;
+		bool name_is_auth = false;
+		bool token_found = false;
+    for(htmlNodePtr node = element; node != NULL; node = node->next)
+    {
+        if(node->type == XML_ELEMENT_NODE)
+        {
+            if(xmlStrcasecmp(node->name, (const xmlChar*)"input") == 0)
+            {
+							  is_hidden = false;
+								name_is_auth = false;
+                for(xmlAttrPtr attr = node->properties; attr != NULL; attr = attr->next)
+                {
+                    if(xmlStrcasecmp(attr->name, (const xmlChar*)"type") == 0)
+                    {
+											if(xmlStrcasecmp(attr->children->content, (const xmlChar*)"hidden") == 0) {
+												//printf("hidden input tag found, how interesting...\n");
+												is_hidden = true;
+											}
+                    }
+                    else if(is_hidden && xmlStrcasecmp(attr->name, (const xmlChar*)"value") == 0) {
+											if(isNonce(attr->children->content)) {
+												token_found = true;
+												printf("hiddent value is %s\n", attr->children->content);
+												result->push_back(make_pair(SECRET_VALIDATION_TOKEN, 
+																					XmlStringToStdString(attr->children->content)));
+												//if pattern matches return true
+											}
+											else if(xmlStrlen(attr->children->content) == 0 && name_is_auth) {
+												token_found = true;
+												//FIXME: should place different enumeration here, to express uncertainty
+												result->push_back(make_pair(SECRET_VALIDATION_TOKEN, 
+																					XmlStringToStdString(attr->children->content)));
+											}
+										}
+										else if(is_hidden && xmlStrcasecmp(attr->name, (const xmlChar*)"name") == 0) {
+											if(couldHoldNonce(attr->children->content)) {
+												name_is_auth = true;
+											}
+										}
+                }
+            }
+            if(node->children != NULL)
+            {
+                FindToken(node->children, result);
+            }
+        }
+    }
+    return false;
+}
+
+void FindRegisterLink(htmlNodePtr element, 
+											std::list<std::pair<CSRF_Defenses, string> > *result,
+											std::list<std::pair<CSRF_Defenses, std::string> > (*process_url)(std::string, unsigned int),
+											unsigned int currDepth)
+{
+	  bool visited_link = false;
 	  xmlAttrPtr attr, attr1, attr2;
     for(htmlNodePtr node = element; node != NULL; node = node->next)
     {
@@ -341,25 +246,42 @@ void FindRegisterLink(htmlNodePtr element, std::list<std::pair<CSRF_Defenses, st
 							for(attr = node->properties; attr != NULL; attr = attr->next) {
 								if(xmlStrcasecmp(attr->name, (const xmlChar*)"href") == 0) {
 									//printf("node=%s\n", attr->children->content);
-									if(isRegisterValue(attr->children->content)) {
-										printf("Register link found\n");
+									if(isRegisterLink(attr->children->content)) {
+										if(currDepth <= MAX_DEPTH) {
+											printf("Register link found:%s\n", attr->children->content);
+											visited_link = true;
+											process_url(XmlStringToStdString(attr->children->content), currDepth+1);
+											//printf("returned from depth=%d\n", currDepth+1);
+											break;
+										}
 									}
-									if(node->children != NULL && isRegisterValue(node->children->content)) {
-										printf("Register link found\n");
+									else if(node->children != NULL && isRegisterLink(node->children->content)) {
+										if(currDepth <= MAX_DEPTH) {
+											printf("Register link found:%s\n", attr->children->content);
+											visited_link = true;
+											process_url(XmlStringToStdString(attr->children->content), currDepth+1);
+											//printf("returned from depth=%d\n", currDepth+1);
+											break;
+										}
 									}
 								}
 							}
 						}
+						if(visited_link) break;
             if(node->children != NULL)
             {
-                FindRegisterLink(node->children, result);
+                FindRegisterLink(node->children, result, process_url, currDepth);
             }
         }
     }
 }
 
-void parseHTML(const char* code, std::list<std::pair<CSRF_Defenses, std::string> > *result)
+void parseHTML(const char* code, 
+							 std::list<std::pair<CSRF_Defenses, std::string> > *result,
+							 std::list<std::pair<CSRF_Defenses, std::string> > (*process_url)(std::string, unsigned int),
+							 unsigned int currDepth)
 {
+	  if(currDepth == MAX_DEPTH) return;
 	  //paypal has a hidden referes input without value however
 	  //printf("%s", code);
 	  xmlChar *html = xmlCharStrdup((char *)code);
@@ -370,6 +292,7 @@ void parseHTML(const char* code, std::list<std::pair<CSRF_Defenses, std::string>
         htmlNodePtr root = xmlDocGetRootElement(doc);
         if(root != NULL)
         {
+					  //printf("searching for token (depth=%d)\n", currDepth);
 					  if(FindToken(root, result)) {
 							//token found, add to possible csrf defences
 							return;
@@ -379,15 +302,11 @@ void parseHTML(const char* code, std::list<std::pair<CSRF_Defenses, std::string>
 							//indeed present throughout the session
 							//we could also mark the sites that possibly use this defence, to see if
 							//token changes when starting a new session
-							FindRegisterLink(root, result);
+							//printf("no token was found, searching for  singIn/signUp forms\n");
+							FindRegisterLink(root, result, process_url, currDepth);
 						}
         }
         xmlFreeDoc(doc);
         doc = NULL;
     }
-#if 0
-    if(xmlStrcasestr((const xmlChar*)"/signup?next=%2Fchannels%3Ffeature%3Dsignup", (const xmlChar*)"signup")) {
-			printf("haystack works!\n");
-		}
-#endif
 }
