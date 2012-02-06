@@ -1,30 +1,17 @@
-/*****************************************************************************
- *                                  _   _ ____  _
- *  Project                     ___| | | |  _ \| |
- *                             / __| | | | |_) | |
- *                            | (__| |_| |  _ <| |___
- *                             \___|\___/|_| \_\_____|
- *
- * $Id: htmltitle.cc,v 1.3 2005/02/09 15:15:01 giva Exp $
- */
-
-// Get a web page, parse it with libxml.
-//
-// Written by Lars Nilsson , modified by Kasas and Dimos
-//
-// GNU C++ compile command line suggestion (edit paths accordingly):
-//
-// g++ -Wall -I/opt/curl/include -I/opt/libxml/include/libxml2 htmltitle.cc \
-// -o htmltitle -L/opt/curl/lib -L/opt/libxml/lib -lcurl -lxml2
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <string>
+#include <list>
 #include <curl/curl.h>
 #include <libxml/HTMLparser.h>
 #include <libxml/xmlstring.h>
 #include "HTMLParser.h"
+#include <regex.h>
+#include <iostream>
+#include "pcrecpp.h"
+#include "includes.h"
 //
 //  Case-insensitive string comparison
 //
@@ -173,7 +160,64 @@ static void parseHtml(const std::string &html,
 }
 #endif
 
-bool FindToken(htmlNodePtr element)
+//code "borrowed" from chromium project
+std::string XmlStringToStdString(const xmlChar* xmlstring) {
+  // xmlChar*s are UTF-8, so this cast is safe.
+  if (xmlstring)
+    return std::string(reinterpret_cast<const char*>(xmlstring));
+  else
+    return "";
+}
+
+
+bool isNonce(const xmlChar* val) {
+#if 0
+	regex_t regex;
+  int reti;
+
+	//reti = regcomp(&regex, "[A-Za-z0-9_^.^ \t\r\n\v\f]", 0);
+	reti = regcomp(&regex, "^\\d*$", REG_EXTENDED);
+	if(reti) { 
+		fprintf(stderr, "Could not compile regex\n"); 
+		exit(1); 
+	}
+
+	/* Execute regular expression */
+  //reti = regexec(&regex, reinterpret_cast<const char*>(val), 0, NULL, 0);
+  reti = regexec(&regex, "19216811", 0, NULL, 0);
+	if(!reti) {
+		printf("match!");
+		return false;
+  }
+  else if(reti == REG_NOMATCH) {
+		return false;
+  }
+  else {
+		//regerror(reti, &regex, val, xmlStrlen(val));
+    fprintf(stderr, "Regex match failed: %s\n", val);
+    exit(1);
+	}
+	/* Free compiled regular expression if you want to use the regex_t again */
+	regfree(&regex);
+	return false;
+
+	//if(xmlStrlen(val) <= 10) return false;
+	//return true;
+#endif
+	int i;
+	string s;
+	pcrecpp::RE re("[A-Za-z0-9_=]{10,}");
+	if (re.error().length() > 0) {
+		std::cout << "PCRE compilation failed with error: " << re.error() << "\n";
+  }
+  if (re.FullMatch(XmlStringToStdString(val))) {
+		//printf("match!");
+		return true;
+	}
+	return false;
+}
+
+bool FindToken(htmlNodePtr element, std::list<std::pair<CSRF_Defenses, string> > *result)
 {
 	  bool is_hidden = false;
     for(htmlNodePtr node = element; node != NULL; node = node->next)
@@ -187,19 +231,23 @@ bool FindToken(htmlNodePtr element)
                     if(xmlStrcasecmp(attr->name, (const xmlChar*)"type") == 0)
                     {
 											if(xmlStrcasecmp(attr->children->content, (const xmlChar*)"hidden") == 0) {
-												printf("hidden input tag found, how interesting...\n");
+												//printf("hidden input tag found, how interesting...\n");
 												is_hidden = true;
 											}
                     }
                     else if(xmlStrcasecmp(attr->name, (const xmlChar*)"value") == 0 && is_hidden) {
+											if(isNonce(attr->children->content)) {	
 												printf("hiddent value is %s\n", attr->children->content);
+												result->push_back(make_pair(SECRET_VALIDATION_TOKEN, 
+																					XmlStringToStdString(attr->children->content)));
 												//if pattern matches return true
+											}
 										}
                 }
             }
             if(node->children != NULL)
             {
-                FindToken(node->children);
+                FindToken(node->children, result);
             }
         }
     }
@@ -213,19 +261,19 @@ bool isRegisterValue(const xmlChar* val) {
 		xmlStrcasecmp(val, (const xmlChar*)"registration") == 0 ||
 		xmlStrcasecmp(val, (const xmlChar*)"join") == 0 ||
 		xmlStrcasecmp(val, (const xmlChar*)"join now") == 0)
-			return true;
-	printf("val:%s clean1\n", val);
+		return true;
+
 	if(xmlStrcasestr(val, (const xmlChar*)"signup") ||
 		xmlStrcasestr(val, (const xmlChar*)"register") ||
 		xmlStrcasestr(val, (const xmlChar*)"registration") || 
 		xmlStrcasestr(val, (const xmlChar*)"login") ||
 		xmlStrcasestr(val, (const xmlChar*)"join"))
 		return true;
-  printf("val:%s clean2\n", val);
+	
 	return false;
 }
 
-void FindRegisterLink(htmlNodePtr element)
+void FindRegisterLink(htmlNodePtr element, std::list<std::pair<CSRF_Defenses, string> > *result)
 {
 	
 	  xmlAttrPtr attr, attr1, attr2;
@@ -241,7 +289,7 @@ void FindRegisterLink(htmlNodePtr element)
                     if(xmlStrcasecmp(attr1->name, (const xmlChar*)"type") == 0)
                     {
 											if(xmlStrcasecmp(attr1->children->content, (const xmlChar*)"submit") == 0) {
-												printf("Submit button found, let's see...\n");
+												//printf("Submit button found, let's see...\n");
 												for(attr2 = node->properties; attr2 != NULL; attr2 = attr2->next) {
 													if(xmlStrcasecmp(attr2->name, (const xmlChar*)"value") == 0)	{
 														if(isRegisterValue(attr2->name)) {
@@ -257,7 +305,7 @@ void FindRegisterLink(htmlNodePtr element)
 											//printf("%s=%s\n", attr1->name, attr1->children->content);
 											//printf("sign up\n");
 											if(isRegisterValue(attr1->children->content)) {
-												printf("Register value found, let's see...\n");
+												//printf("Register value found, let's see...\n");
 												for(attr2 = node->properties; attr2 != NULL; attr2 = attr2->next) {
 													if(xmlStrcasecmp(attr2->name, (const xmlChar*)"type") == 0) {
 														if(xmlStrcasecmp(attr2->children->content, (const xmlChar*)"submit") == 0) {
@@ -292,7 +340,7 @@ void FindRegisterLink(htmlNodePtr element)
 						//	xmlStrcasecmp(node->name, (const xmlChar*)"button") == 0) {
 							for(attr = node->properties; attr != NULL; attr = attr->next) {
 								if(xmlStrcasecmp(attr->name, (const xmlChar*)"href") == 0) {
-									printf("node=%s\n", attr->children->content);
+									//printf("node=%s\n", attr->children->content);
 									if(isRegisterValue(attr->children->content)) {
 										printf("Register link found\n");
 									}
@@ -304,13 +352,13 @@ void FindRegisterLink(htmlNodePtr element)
 						}
             if(node->children != NULL)
             {
-                FindRegisterLink(node->children);
+                FindRegisterLink(node->children, result);
             }
         }
     }
 }
 
-void parseHTML(const char* code)
+void parseHTML(const char* code, std::list<std::pair<CSRF_Defenses, std::string> > *result)
 {
 	  //paypal has a hidden referes input without value however
 	  //printf("%s", code);
@@ -322,7 +370,7 @@ void parseHTML(const char* code)
         htmlNodePtr root = xmlDocGetRootElement(doc);
         if(root != NULL)
         {
-					  if(FindToken(root)) {
+					  if(FindToken(root, result)) {
 							//token found, add to possible csrf defences
 							return;
 						}
@@ -331,7 +379,7 @@ void parseHTML(const char* code)
 							//indeed present throughout the session
 							//we could also mark the sites that possibly use this defence, to see if
 							//token changes when starting a new session
-							FindRegisterLink(root);
+							FindRegisterLink(root, result);
 						}
         }
         xmlFreeDoc(doc);

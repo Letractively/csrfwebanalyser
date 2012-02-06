@@ -6,6 +6,8 @@
 #include <libxml/HTMLparser.h>
 #include <libxml/xmlstring.h>
 #include "HTMLParser.h"
+#include <list>
+#include <includes.h>
 
 //
 //  libcurl variables for error strings and returned data
@@ -138,7 +140,8 @@ int main(int argc, char *argv[])
   // Parse the (assumed) HTML code
 
   //parseHtml(buffer, title);
-	parseHTML(buffer.c_str());
+	std::list<std::pair<CSRF_Defenses, std::string> > results;
+	parseHTML(buffer.c_str(), &results);
   // Display the extracted title
 
   //printf("Title: %s\n", title.c_str());
