@@ -9,6 +9,7 @@
 #include <curl/curl.h>
 #include <semaphore.h>
 #include <string.h>
+#include <map>
 
 #include "HTTPHeaderParser.h"
 #include "HTMLParser.h"
@@ -16,12 +17,15 @@
 using namespace std;
 
 #define REDIRECTIONS 0
-#define DEBUG_LEVEL 0
+#define SAVE_ALL_SITES 0
+
 
 FILE* alexa_top_1M_filep;
 sem_t alexa_file_sem;
 sem_t url_id_sem;
 int url_id;
+
+
 
 typedef struct Website{
 	char* header;
@@ -30,13 +34,6 @@ typedef struct Website{
 	size_t body_size;
 }Website;
 
-typedef enum CSRF_Defenses{
-	SECRET_VALIDATION_TOKEN = 0;
-	REFERER_VALIDATION = 1;
-	CUSTOM_HTTP_HEADER = 2;
-	X_FRAME_OPTIONS_HEADER = 3;
-	ACCESS_CONTROL_ALLOW_ORIGIN_HEADER = 4;
-}CSRF_Defenses;
 
 
 static size_t
@@ -132,7 +129,7 @@ string get_next_url(){
 	  return url;
 }
 
-s
+
 int get_url_id(){
 	int curr_url_id;
 	sem_wait(&url_id_sem);
@@ -141,7 +138,7 @@ int get_url_id(){
 	return curr_url_id;
 }
 
-void process_url(string url){
+list< pair < CSRF_Defenses, string > > process_url(string url){
 		CURL* curl_handle;
 		Website website;
 		website.body = (char*)  malloc(1);  /* will be grown as needed by the realloc above */ 
@@ -198,8 +195,9 @@ void process_url(string url){
 		ss<< string(website.header);
 		string firstline;
 		getline(ss, firstline);
+		list< pair < CSRF_Defenses, string > > results = list< pair < CSRF_Defenses, string > >();
 		if(website.header){
-			check_for_headers(website.header, url.c_str());
+			check_for_headers(website.header, url.c_str(), &results);
 			if(firstline.find(string("200"))==string::npos && firstline.find(string("301"))==string::npos && firstline.find(string("302"))==string::npos ) {
 				fprintf(stderr,  "------------------\n");
 				fprintf(stdout, "%s not 200, 301, 302, but %s\n", url.c_str(), firstline.c_str());
@@ -219,30 +217,60 @@ void process_url(string url){
   		}
 		if(website.body){
 			//printf("=======================================%s\n==========================", website.body);
-			parseHTML(website.body);
+			//parseHTML(website.body, &results);
 			free(website.body);
   		}
+  		return results;
 }
 
-void* do_crawl(void* threadargs){
+typedef struct Threadresults{
+	map <string, list< pair<CSRF_Defenses, string > > > CrawlResultsMap;
+	int threadid;
+}Threadresults;
+
+void* do_crawl(void* threadresults){
 	string url;
-//	fprintf(stderr, "Thread %d starting...\n",  threadargs);
+	fprintf(stderr, "Thread %d starting...\n",  ((Threadresults*)threadresults)->threadid);
 	while(!(url=get_next_url()).empty()){
 		#if DEBUG_LEVEL > 1
-		 printf("Got url %s\n", url.c_str());
+			printf("Got url %s\n", url.c_str());
 		#endif
-		process_url(url);
+		if (get_url_id() > 500){
+			break;
+		}
+		// adding map entry for the processed url
+		#if SAVE_ALL_SITES
+			((Threadresults*)threadresults)->CrawlResultsMap.insert(make_pair(url, process_url( url ) ) );
+		#else
+			list< pair<CSRF_Defenses, string > > results = process_url( url );
+			if(results.size() != 0){
+				((Threadresults*)threadresults)->CrawlResultsMap.insert(make_pair(url, results ) );
+			}
+		#endif
+	}
+}
+
+string enum_to_str(int csrf_def){
+	switch(csrf_def){
+		case SECRET_VALIDATION_TOKEN:
+			return "Secret Validation Token";
+		case REFERER_VALIDATION:
+			return "Referer Validation";
+		case CUSTOM_HTTP_HEADER:
+			return "Custom HTTP Header";
+		case X_FRAME_OPTIONS_HEADER:
+			return "X-Frame-Options Header";
+		case ACCESS_CONTROL_ALLOW_ORIGIN_HEADER:
+			return "Access Control Allow Origin Header";
+		case NOT_ASSIGNED:
+			return "Defense not assigned";
 	}
 }
 
 int main(int argc, char* argv[])
 {
           pthread_t * threads;
-          typedef struct Threadargs{
-          	 map <string, pair<CSRF_Defenses, string > > CrawlResultsMap;
-          	 const int threadid;
-          }Threadargs;
-          Threadargs * threadargs;
+          Threadresults * threadresults;
           int nthreads=1, thread_error, i;
 
           char url_buff[100];
@@ -269,11 +297,12 @@ int main(int argc, char* argv[])
           }
 
           threads = (pthread_t*)  malloc(nthreads * sizeof(pthread_t));
-          threadargs = (Threadargs*) malloc(nthreads * sizeof(Threadargs));
+          threadresults = (Threadresults*) malloc(nthreads * sizeof(Threadresults));
 
           for(i=0; i< nthreads; i++) {
-                threadargs[i].threadid = i;
-                thread_error = pthread_create(&threads[i], NULL, /* default attributes please */ do_crawl,(void *) &threadargs[i]);
+          	    threadresults[i].CrawlResultsMap = map <string, list< pair<CSRF_Defenses, string > > >();
+                threadresults[i].threadid = i;
+                thread_error = pthread_create(&threads[i], NULL, /* default attributes please */ do_crawl,(void *) &threadresults[i]);
                  if(thread_error != 0)
                       fprintf(stderr, "Couldn't run thread number %d, errno %d\n", i, thread_error);
           }
@@ -283,6 +312,19 @@ int main(int argc, char* argv[])
 	      thread_error = pthread_join(threads[i], NULL);
               fprintf(stderr, "Thread %d terminated\n", i);
           }
+
+          #if DEBUG_LEVEL >= 0
+          /* print the results */
+          for(i=0; i< nthreads; i++) {
+          		for(map <string, list< pair<CSRF_Defenses, string > > >::iterator it=threadresults[i].CrawlResultsMap.begin(); it != threadresults[i].CrawlResultsMap.end(); it++){
+          			cout<< "****** " <<it->first << " ******" <<endl;
+          			cout << (it->second.size()!=0 ? "  Defenses : \n" : "") ;
+          			for(list< pair<CSRF_Defenses, string > >::iterator list_it = it->second.begin(); list_it != it->second.end(); list_it++){
+          				cout << "  - " << enum_to_str(list_it->first) << " : " << list_it->second << endl;
+          			}
+          		}
+          }
+          #endif
 
           /* we're done with libcurl, so clean it up */
           curl_global_cleanup();
