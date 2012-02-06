@@ -1,6 +1,6 @@
 
-#ifndef __CRAWLER_H__
-#define __CRAWLER_H__
+#ifndef HTTPHEADERPARSER_H
+#define HTTPHEADERPARSER_H
 
 
 #include <list>

@@ -35,8 +35,6 @@ typedef struct Website{
 	size_t body_size;
 }Website;
 
-
-
 static size_t
 BodyDataCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
@@ -140,7 +138,7 @@ int get_url_id(){
 	return curr_url_id;
 }
 
-list< pair < CSRF_Defenses, string > > process_url(string url){
+list< pair < CSRF_Defenses, string > > process_url(string url, unsigned int currDepth){
 		CURL* curl_handle;
 		Website website;
 		website.body = (char*)  malloc(1);  /* will be grown as needed by the realloc above */ 
@@ -223,7 +221,7 @@ list< pair < CSRF_Defenses, string > > process_url(string url){
 			if((location_header_pos = string(website.header).find(string("Location:")) ) != string::npos){
 				string redirect_url = string(website.header+location_header_pos+10);
 				fprintf(stderr, "Redirecting to %s\n", redirect_url.c_str());
-				process_url(redirect_url);
+				process_url(redirect_url, currDepth);
 			}
 #endif
 			free(website.header);
@@ -231,7 +229,7 @@ list< pair < CSRF_Defenses, string > > process_url(string url){
   		}
 		if(website.body){
 			//printf("=======================================%s\n==========================", website.body);
-			//parseHTML(website.body, &results);
+			parseHTML(website.body, &results, process_url, currDepth);
 			free(website.body);
   		}
   		return results;
@@ -251,9 +249,9 @@ void* do_crawl(void* threadresults){
 		#endif
 		/* adding map entry for the processed url */
 		#if SAVE_ALL_SITES
-			((Threadresults*)threadresults)->CrawlResultsMap.insert(make_pair(url, process_url( url ) ) );
+			((Threadresults*)threadresults)->CrawlResultsMap.insert(make_pair(url, process_url( url, 0 ) ) );
 		#else
-			list< pair<CSRF_Defenses, string > > results = process_url( url );
+			list< pair<CSRF_Defenses, string > > results = process_url( url, 0 );
 			if(results.size() != 0){
 				((Threadresults*)threadresults)->CrawlResultsMap.insert(make_pair(url, results ) );
 			}

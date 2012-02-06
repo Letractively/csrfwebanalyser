@@ -8,9 +8,6 @@ using namespace std;
 
 
 void add_to_results(CSRF_Defenses header_type, char* header, int location, int offset, list< pair < CSRF_Defenses, string > > * results){
-		#if DEBUG_LEVEL > 0
-			fprintf(stderr, "---------------\n%s\n", url);
-		#endif
 		int i=location;
 		string firstline="";
 		while(header[i]!='\n'){
@@ -38,7 +35,10 @@ void check_for_headers(char* header, const char* url, list< pair < CSRF_Defenses
 	Access-Control-Allow-Origin Header: *, smth
 	------------------------------------------------
 	************************************************/
-	int location,i;
+	int location;
+	#if DEBUG_LEVEL > 0
+		fprintf(stderr, "---------------\n%s\n", url);
+	#endif
 	if((location=string(header).find(string("X-Requested-By")))!=string::npos){
 		add_to_results(CUSTOM_HTTP_HEADER, header, location, 15, results);
 	}

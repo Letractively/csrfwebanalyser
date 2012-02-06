@@ -14,7 +14,7 @@
 
 static char errorBuffer[CURL_ERROR_SIZE];
 static std::string buffer;
-
+std::list<std::pair<CSRF_Defenses, std::string> > results;
 //
 //  libcurl write callback function
 //
@@ -34,7 +34,7 @@ static int writer(char *data, size_t size, size_t nmemb,
 //  libcurl connection initialization
 //
 
-static bool init(CURL *&conn, char *url)
+static bool init(CURL *&conn, const char *url)
 {
   CURLcode code;
 	char agent[128] = "Mozilla/4.73 [en] (X11; U; Linux 2.2.15 i686)";
@@ -99,14 +99,40 @@ static bool init(CURL *&conn, char *url)
   return true;
 }
 
-int main(int argc, char *argv[])
-{
+std::list<std::pair<CSRF_Defenses, std::string> > process_url(std::string url, unsigned int currDepth) {
   CURL *conn = NULL;
   CURLcode code;
-  std::string title;
 
+	// Initialize CURL connection
+  if (!init(conn, url.c_str()))
+  {
+    fprintf(stderr, "Connection initializion failed\n");
+
+    exit(EXIT_FAILURE);
+  }
+
+  // Retrieve content for the URL
+  code = curl_easy_perform(conn);
+  curl_easy_cleanup(conn);
+
+  if (code != CURLE_OK)
+  {
+    fprintf(stderr, "Failed to get '%s' [%s]\n", url.c_str(), errorBuffer);
+
+    exit(EXIT_FAILURE);
+  }
+
+  // Parse the (assumed) HTML code
+
+  //parseHtml(buffer, title);
+	parseHTML(buffer.c_str(), &results, process_url, currDepth);
+  // Display the extracted title
+	return results;
+}
+
+int main(int argc, char *argv[])
+{
   // Ensure one argument is given
-
   if (argc != 2)
   {
     fprintf(stderr, "Usage: %s <url>\n", argv[0]);
@@ -116,34 +142,7 @@ int main(int argc, char *argv[])
 
   curl_global_init(CURL_GLOBAL_DEFAULT);
 
-  // Initialize CURL connection
-
-  if (!init(conn, argv[1]))
-  {
-    fprintf(stderr, "Connection initializion failed\n");
-
-    exit(EXIT_FAILURE);
-  }
-
-  // Retrieve content for the URL
-
-  code = curl_easy_perform(conn);
-  curl_easy_cleanup(conn);
-
-  if (code != CURLE_OK)
-  {
-    fprintf(stderr, "Failed to get '%s' [%s]\n", argv[1], errorBuffer);
-
-    exit(EXIT_FAILURE);
-  }
-
-  // Parse the (assumed) HTML code
-
-  //parseHtml(buffer, title);
-	std::list<std::pair<CSRF_Defenses, std::string> > results;
-	parseHTML(buffer.c_str(), &results);
-  // Display the extracted title
-
+	process_url(argv[1], 0);
   //printf("Title: %s\n", title.c_str());
   printf("Program Exited Normally\n");
   return EXIT_SUCCESS;
