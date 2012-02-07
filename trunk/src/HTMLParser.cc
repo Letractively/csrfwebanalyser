@@ -7,13 +7,13 @@
 #include <curl/curl.h>
 #include <libxml/HTMLparser.h>
 #include <libxml/xmlstring.h>
-#include "HTMLParser.h"
 #include <regex.h>
 #include <iostream>
 #include "pcrecpp.h"
 #include "includes.h"
+#include "HTMLParser.h"
 
-#define MAX_DEPTH 1
+#define MAX_DEPTH 1 //haven't seen any improvement from visiting links in greater depth, and takes significant more time for https
 
 //code "borrowed" from chromium project
 std::string XmlStringToStdString(const xmlChar* xmlstring) {
@@ -23,7 +23,6 @@ std::string XmlStringToStdString(const xmlChar* xmlstring) {
   else
     return "";
 }
-
 
 bool isNonce(const xmlChar* val) {
 
@@ -127,6 +126,7 @@ bool FindToken(htmlNodePtr element, std::list<std::pair<CSRF_Defenses, string> >
 	  bool is_hidden = false;
 		bool name_is_auth = false;
 		bool token_found = false;
+		std::string auth_name;
     for(htmlNodePtr node = element; node != NULL; node = node->next)
     {
         if(node->type == XML_ELEMENT_NODE)
@@ -147,20 +147,20 @@ bool FindToken(htmlNodePtr element, std::list<std::pair<CSRF_Defenses, string> >
                     else if(is_hidden && xmlStrcasecmp(attr->name, (const xmlChar*)"value") == 0) {
 											if(isNonce(attr->children->content)) {
 												token_found = true;
-												printf("hiddent value is %s\n", attr->children->content);
+												printf("possible hidden token value tag is %s\n", attr->children->content);
 												result->push_back(make_pair(SECRET_VALIDATION_TOKEN, 
 																					XmlStringToStdString(attr->children->content)));
 												//if pattern matches return true
 											}
 											else if(xmlStrlen(attr->children->content) == 0 && name_is_auth) {
 												token_found = true;
-												//FIXME: should place different enumeration here, to express uncertainty
-												result->push_back(make_pair(SECRET_VALIDATION_TOKEN, 
-																					XmlStringToStdString(attr->children->content)));
+												printf("possible hidden token name tag is %s\n", auth_name.c_str());
+												result->push_back(make_pair(POSSIBLE_SECRET_VALIDATION_TOKEN, auth_name));
 											}
 										}
 										else if(is_hidden && xmlStrcasecmp(attr->name, (const xmlChar*)"name") == 0) {
 											if(couldHoldNonce(attr->children->content)) {
+												auth_name = XmlStringToStdString(attr->children->content);
 												name_is_auth = true;
 											}
 										}

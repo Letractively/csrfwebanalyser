@@ -286,7 +286,11 @@ string enum_to_str(int csrf_def){
 			return "X-Content-Security-Policy";
 		case X_WEBKIT_CSP:
 			return "X-WebKit-CSP";
+		case POSSIBLE_SECRET_VALIDATION_TOKEN:
+			return "Possible Secrete Validation Token";
 		case NOT_ASSIGNED:
+			return "Defense not assigned";
+		default:
 			return "Defense not assigned";
 	}
 }
