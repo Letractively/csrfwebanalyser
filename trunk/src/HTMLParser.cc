@@ -15,7 +15,16 @@
 
 #define MAX_DEPTH 1 //haven't seen any improvement from visiting links in greater depth, and takes significant more time for https
 
-//code "borrowed" from chromium project
+std::string token_regex = "[A-Za-z0-9_=]{10,}";
+std::string register_regex = "sign(\\s*|_*)(up|in)|(regist(er|ration))|join(\\s*|_*)\\w*|login|create(\\s*|_*)account";
+std::string uri_regex = "^((http|https)://)+(www\\.)*.+";
+std::string name_regex = "sign(\\s*|_*)(up|in)|(regist(er|ration))|auth|login|account|token|secret|refer+er|pass|id"; 
+
+void initHTMLParser(void) {
+	
+}
+
+//function "borrowed" from chromium project
 std::string XmlStringToStdString(const xmlChar* xmlstring) {
   // xmlChar*s are UTF-8, so this cast is safe.
   if (xmlstring)
@@ -25,11 +34,9 @@ std::string XmlStringToStdString(const xmlChar* xmlstring) {
 }
 
 bool isNonce(const xmlChar* val) {
-
-	int i;
 	string s;
 	//normally this should be a hash value
-	pcrecpp::RE re("[A-Za-z0-9_]{10,}");
+	pcrecpp::RE re(token_regex);
 	if(re.error().length() > 0) {
 		std::cout << "PCRE: compilation failed with error: " << re.error() << "\n";
   }
@@ -40,9 +47,7 @@ bool isNonce(const xmlChar* val) {
 	return false;
 }
 
-bool isRegisterValue(const xmlChar* val) {
-	int i;
-	string register_regex = "sign(\\s*|_*)(up|in)|(regist(er|ration))|join(\\s*|_*)\\w*|login|create(\\s*|_*)account";
+bool isRegisterValue(const xmlChar* val) {	
 	pcrecpp::RE_Options opt;
 	opt.set_caseless(true);
 	pcrecpp::RE re(register_regex, opt);
@@ -59,13 +64,11 @@ bool isRegisterValue(const xmlChar* val) {
 }
 
 bool isRegisterLink(const xmlChar* val) {
-	int i;
-	std::string uri_regex = "^((http|https)://)+(www\\.)*.+";
-	std::string register_regex = "sign(\\s*|_*)(up|in)|(regist(er|ration))|join(\\s*|_*)\\w*|login|create(\\s*|_*)account";
 	pcrecpp::RE_Options opt;
 	opt.set_caseless(true);
 	pcrecpp::RE re_link(uri_regex, opt);
 	pcrecpp::RE re_register(register_regex, opt);
+	if(val == NULL) return false;
 	if(re_link.error().length() > 0) {
 		std::cout<< "PCRE: complilation failed with error: " << re_link.error() << "\n";
 	}
@@ -83,11 +86,10 @@ bool isRegisterLink(const xmlChar* val) {
 }
 
 bool couldHoldNonce(const xmlChar* val) {
-	string register_regex = "sign(\\s*|_*)(up|in)|(regist(er|ration))|auth|login|account|token|secret|refer+er"; 
 	//actually if it's referer and not referrer chances are better
 	pcrecpp::RE_Options opt;
 	opt.set_caseless(true);
-	pcrecpp::RE re(register_regex, opt);
+	pcrecpp::RE re(name_regex, opt);
 	if(re.error().length() > 0) {
 		std::cout<< "PCRE: complilation failed with error: " << re.error() << "\n";
 	}
