@@ -24,7 +24,7 @@ using namespace std;
 FILE* websites_filep;
 sem_t websites_file_sem;
 sem_t url_id_sem;
-int url_id;
+int url_id = 0;
 
 
 
@@ -115,12 +115,14 @@ int get_websites(string websites){
  
 string get_next_url(){
 	  string url = "http://www.";
+	  int url_alexa_number;
 	  char url_buff [100];
 	  memset(url_buff, 0, 100 * sizeof(char));
 
 	  sem_wait(&websites_file_sem);
 	  sem_wait(&url_id_sem);
-	    fscanf(websites_filep, "%d,%s\n", &url_id, url_buff);
+	    fscanf(websites_filep, "%d,%s\n", &url_alexa_number, url_buff);
+	    url_id++;
 	  sem_post(&url_id_sem);
 	  sem_post(&websites_file_sem);
 	  if(string(url_buff).empty())
@@ -229,7 +231,7 @@ list< pair < CSRF_Defenses, string > > process_url(string url, unsigned int curr
   		}
 		if(website.body){
 			//printf("=======================================%s\n==========================", website.body);
-			parseHTML(website.body, &results, process_url, currDepth);
+			//parseHTML(website.body, &results, process_url, currDepth);
 			free(website.body);
   		}
   		return results;
@@ -259,7 +261,7 @@ void* do_crawl(void* threadresults){
 		#if DEBUG_LEVEL > 1
 			fprintf(stderr, "Thread %d process_url completed!!...\n",  ((Threadresults*)threadresults)->threadid);
 		#endif
-		if (get_url_id() > 1500){
+		if (get_url_id() > 10000){
 			fprintf(stderr, "Thread %d do_crawl THE END!!...\n",  ((Threadresults*)threadresults)->threadid);
 			break;
 		}
