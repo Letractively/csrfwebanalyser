@@ -93,20 +93,21 @@ int get_websites(string websites){
 	  time_t hours;
 	  time_t nowhours;
 	  nowhours = time(NULL)/3600;
+		int ret;
 	  unsigned int update = 0;
 
 	  websites_last_updated_filep = fopen("websites_last_updated.txt", "r");
 
 	  if (websites_last_updated_filep){
-		  fscanf(websites_last_updated_filep, "%ld", &hours);
+		  ret = fscanf(websites_last_updated_filep, "%ld", &hours);
 		  if(nowhours - hours > 24){
 			update = 1;
-			fprintf(stderr, "Updating websites...\n");
+			ret = fprintf(stderr, "Updating websites...\n");
 		  }
 	  }
 	  sem_wait(&websites_file_sem);
 	  if( (websites_filep = fopen(websites.c_str(), "r")) == NULL){
-		fprintf(stderr, "Error opening file %s\n", websites.c_str());
+		ret = fprintf(stderr, "Error opening file %s\n", websites.c_str());
 	  	sem_post(&websites_file_sem);
 		return 0;
 	  }
