@@ -232,7 +232,7 @@ void process_url(string url, Results *results, unsigned int currDepth){
   		}
 		if(website.body){
 			//printf("=======================================%s\n==========================", website.body);
-			//parseHTML(website.body, &results, process_url, currDepth);
+			parseHTML(website.body, url, results, process_url, currDepth);
 			free(website.body);
   		}
 }
@@ -305,17 +305,18 @@ int main(int argc, char* argv[])
           sem_init(&url_id_sem, 0, 1);
 
           curl_global_init(CURL_GLOBAL_ALL);
-
+					initHTMLParser();
+					
           while ((c = getopt(argc, argv, opstr)) != -1) {
                 switch(c){
                         case 'f':
-                    		websites = string(optarg);
-                    		break;
+													websites = string(optarg);
+													break;
                         case 'n':
                             nthreads = atoi(optarg);
                             break;
                         default:
-                                break;
+                            break;
                 }
           }
 
@@ -341,12 +342,15 @@ int main(int argc, char* argv[])
               fprintf(stderr, "Thread %d terminated\n", i);
           }
 
-          #if DEBUG_LEVEL >= 0
+          #if DEBUG_LEVEL >= 0 //8a to kanw define -1 gia na ma8eis...
           /* print the results */
+					Results total_results = Results();
           for(i=0; i< nthreads; i++) {
-						threadresults[i].results.PrintUrlsMap();
-						threadresults[i].results.PrintDefensesMap();
+						total_results.MergeUrlDefensesMaps(threadresults[i].results.GetUrlDefensesMap());
+						total_results.MergeDefenseUrlsMaps(threadresults[i].results.GetDefenseUrlsMap());
           }
+          total_results.PrintUrlsMap();
+					total_results.PrintDefensesMap();
           #endif
 
           /* we're done with libcurl, so clean it up */
@@ -354,4 +358,3 @@ int main(int argc, char* argv[])
 
           return 0;
 }
-

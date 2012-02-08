@@ -15,13 +15,37 @@
 
 #define MAX_DEPTH 1 //haven't seen any improvement from visiting links in greater depth, and takes significant more time for https
 
-std::string token_regex = "[A-Za-z0-9_=]{10,}";
-std::string register_regex = "sign(\\s*|_*)(up|in)|(regist(er|ration))|join(\\s*|_*)\\w*|login|create(\\s*|_*)account";
-std::string uri_regex = "^((http|https)://)+(www\\.)*.+";
-std::string name_regex = "sign(\\s*|_*)(up|in)|(regist(er|ration))|auth|login|account|token|secret|refer+er|pass|id"; 
+pcrecpp::RE nonce_re(""), register_re(""), uri_re(""), authname_re(""); 
+pcrecpp::RE_Options opt;
 
 void initHTMLParser(void) {
-	
+	//normally this should be a hash value, but...
+	std::string token_regex = "[A-Za-z0-9_=]{8,}";
+	std::string register_regex = "sign(\\s*|_*)(up|in)|(regist(er|ration))|join(\\s*|_*)\\w*|login|create(\\s*|_*)account";
+	std::string uri_regex = "^((http|https)://)+(www\\.)*.+";
+	std::string authname_regex = "sign(\\s*|_*)(up|in)|(regist(er|ration))|auth|login|account|token|secret|refer+er|pass|id";
+	opt.set_caseless(true);
+	//compile all regural expressions once
+	nonce_re = pcrecpp::RE(token_regex, opt);
+	if(nonce_re.error().length() > 0) {
+		std::cout << "PCRE: compilation failed with error: " << nonce_re.error() << "\n";
+		exit(1);
+	}
+	register_re = pcrecpp::RE(register_regex, opt);
+	if(register_re.error().length() > 0) {
+		std::cout<< "PCRE: complilation failed with error: " << register_re.error() << "\n";
+		exit(1);
+	}
+	uri_re = pcrecpp::RE(uri_regex,opt);
+	if(uri_re.error().length() > 0) {
+		std::cout<< "PCRE: complilation failed with error: " << uri_re.error() << "\n";
+		exit(1);
+	}
+	authname_re = pcrecpp::RE(authname_regex, opt);
+	if(authname_re.error().length() > 0) {
+		std::cout<< "PCRE: complilation failed with error: " << authname_re.error() << "\n";
+		exit(1);
+	}
 }
 
 //function "borrowed" from chromium project
@@ -34,13 +58,8 @@ std::string XmlStringToStdString(const xmlChar* xmlstring) {
 }
 
 bool isNonce(const xmlChar* val) {
-	string s;
-	//normally this should be a hash value
-	pcrecpp::RE re(token_regex);
-	if(re.error().length() > 0) {
-		std::cout << "PCRE: compilation failed with error: " << re.error() << "\n";
-  }
-  if(re.FullMatch(XmlStringToStdString(val))) {
+	//pcrecpp::RE re(token_regex);
+  if(nonce_re.FullMatch(XmlStringToStdString(val))) {
 		//printf("match!");
 		return true;
 	}
@@ -48,15 +67,8 @@ bool isNonce(const xmlChar* val) {
 }
 
 bool isRegisterValue(const xmlChar* val) {	
-	pcrecpp::RE_Options opt;
-	opt.set_caseless(true);
-	pcrecpp::RE re(register_regex, opt);
-	if(re.error().length() > 0) {
-		std::cout<< "PCRE: complilation failed with error: " << re.error() << "\n";
-	}
-	//std::cout << XmlStringToStdString(val) << "\n";
-	//if(register_regex.FullMatch(XmlStringToStdString(val))) {
-	if(re.PartialMatch(XmlStringToStdString(val))) {
+	//pcrecpp::RE re(register_regex, opt);
+	if(register_re.PartialMatch(XmlStringToStdString(val))) {
 		//std::cout << "match!";
 		return true;
 	}
@@ -64,38 +76,22 @@ bool isRegisterValue(const xmlChar* val) {
 }
 
 bool isRegisterLink(const xmlChar* val) {
-	pcrecpp::RE_Options opt;
-	opt.set_caseless(true);
-	pcrecpp::RE re_link(uri_regex, opt);
-	pcrecpp::RE re_register(register_regex, opt);
+	//pcrecpp::RE re_link(uri_regex, opt);
+	//pcrecpp::RE re_register(register_regex, opt);
 	if(val == NULL) return false;
-	if(re_link.error().length() > 0) {
-		std::cout<< "PCRE: complilation failed with error: " << re_link.error() << "\n";
-	}
 	//std::cout << XmlStringToStdString(val) << "\n";
 	//if(register_regex.FullMatch(XmlStringToStdString(val))) {
-	if(re_link.FullMatch(XmlStringToStdString(val)) && 
-		 re_register.PartialMatch(XmlStringToStdString(val))) {
+	if(uri_re.FullMatch(XmlStringToStdString(val)) && 
+		 register_re.PartialMatch(XmlStringToStdString(val))) {
 		//std::cout << "++++++Link match!+++++++++\n";
 		return true;
-	}
-	if(re_register.error().length() > 0) {
-		std::cout<< "PCRE: complilation failed with error: " << re_register.error() << "\n";
 	}
 	return false;
 }
 
 bool couldHoldNonce(const xmlChar* val) {
-	//actually if it's referer and not referrer chances are better
-	pcrecpp::RE_Options opt;
-	opt.set_caseless(true);
-	pcrecpp::RE re(name_regex, opt);
-	if(re.error().length() > 0) {
-		std::cout<< "PCRE: complilation failed with error: " << re.error() << "\n";
-	}
-	//std::cout << XmlStringToStdString(val) << "\n";
-	//if(register_regex.FullMatch(XmlStringToStdString(val))) {
-	if(re.PartialMatch(XmlStringToStdString(val))) {
+	//pcrecpp::RE re(name_regex, opt);
+	if(authname_re.PartialMatch(XmlStringToStdString(val))) {
 		//std::cout << "match!";
 		return true;
 	}
@@ -149,14 +145,14 @@ bool FindToken(htmlNodePtr element, string url, Results *results)
                     else if(is_hidden && xmlStrcasecmp(attr->name, (const xmlChar*)"value") == 0) {
 											if(isNonce(attr->children->content)) {
 												token_found = true;
-												printf("possible hidden token value tag is %s\n", attr->children->content);
+												//printf("possible hidden token value tag is %s\n", attr->children->content);
 												results->AddUrlDefense(url, "Secret Validation Token", XmlStringToStdString(attr->children->content) );
 												results->AddDefenseUrl("Secret Validation Token", url, XmlStringToStdString(attr->children->content) );
 												//if pattern matches return true
 											}
 											else if(xmlStrlen(attr->children->content) == 0 && name_is_auth) {
 												token_found = true;
-												printf("possible hidden token name tag is %s\n", auth_name.c_str());
+												//printf("possible hidden token name tag is %s\n", auth_name.c_str());
 												results->AddUrlDefense(url, "Possible Secret Validation Token", auth_name );
 												results->AddDefenseUrl("Possible Secret Validation Token", url, auth_name );
 											}
@@ -190,6 +186,7 @@ void FindRegisterLink(htmlNodePtr element,
     {
         if(node->type == XML_ELEMENT_NODE)
         {
+#if 0
             if(xmlStrcasecmp(node->name, (const xmlChar*)"input") == 0)
             {
                 for(attr1 = node->properties; attr1 != NULL; attr1 = attr1->next)
@@ -202,7 +199,7 @@ void FindRegisterLink(htmlNodePtr element,
 												for(attr2 = node->properties; attr2 != NULL; attr2 = attr2->next) {
 													if(xmlStrcasecmp(attr2->name, (const xmlChar*)"value") == 0)	{
 														if(isRegisterValue(attr2->name)) {
-															printf("Ha, found register button, now how we click on it?\n");
+															//printf("Ha, found register button, now how we click on it?\n");
 														}
 													}
 												}
@@ -218,7 +215,7 @@ void FindRegisterLink(htmlNodePtr element,
 												for(attr2 = node->properties; attr2 != NULL; attr2 = attr2->next) {
 													if(xmlStrcasecmp(attr2->name, (const xmlChar*)"type") == 0) {
 														if(xmlStrcasecmp(attr2->children->content, (const xmlChar*)"submit") == 0) {
-															printf("Ha, submit register button found, now what?\n");
+															//printf("Ha, submit register button found, now what?\n");
 														}
 													}
 												}
@@ -227,6 +224,7 @@ void FindRegisterLink(htmlNodePtr element,
 										}
                 }
             }
+#endif
 						//printf("Element=%s\n", node->name);
 #if 0
 					  if(xmlStrcasecmp(node->name, (const xmlChar*)"a") == 0 ||
@@ -252,7 +250,7 @@ void FindRegisterLink(htmlNodePtr element,
 									//printf("node=%s\n", attr->children->content);
 									if(isRegisterLink(attr->children->content)) {
 										if(currDepth <= MAX_DEPTH) {
-											printf("Register link found:%s\n", attr->children->content);
+											//printf("Register link found:%s\n", attr->children->content);
 											visited_link = true;
 											process_url(XmlStringToStdString(attr->children->content), results, currDepth+1);
 											//printf("returned from depth=%d\n", currDepth+1);
@@ -261,7 +259,7 @@ void FindRegisterLink(htmlNodePtr element,
 									}
 									else if(node->children != NULL && isRegisterLink(node->children->content)) {
 										if(currDepth <= MAX_DEPTH) {
-											printf("Register link found:%s\n", attr->children->content);
+											//printf("Register link found:%s\n", attr->children->content);
 											visited_link = true;
 											process_url(XmlStringToStdString(attr->children->content), results, currDepth+1);
 											//printf("returned from depth=%d\n", currDepth+1);

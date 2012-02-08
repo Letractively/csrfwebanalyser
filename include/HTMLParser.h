@@ -6,6 +6,8 @@
 #include "includes.h"
 #include "Results.h"
 
+void initHTMLParser(void);
+
 /* parses html document and tries to
 	identify CSRF defence pattern */
 void parseHTML(const char* code,
