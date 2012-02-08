@@ -24,7 +24,7 @@ $(OBJ_DIR)/Results.o: Results.cc Results.h
 crawler: crawler.cc $(OBJ_DIR)/Results.o $(OBJ_DIR)/HTTPHeaderParser.o $(OBJ_DIR)/HTMLParser.o
 	$(CC)  $(CFLAGS) $(INCLUDE) $^ -o $(BIN_DIR)/$@ $(LIB_DIR) $(LIB)
 
-htmlParser: htmlParserTest.cc Results.cc $(OBJ_DIR)/HTMLParser.o
+htmlParser: htmlParserTest.cc $(OBJ_DIR)/Results.o $(OBJ_DIR)/HTMLParser.o
 	$(CC)  $(CFLAGS) $(INCLUDE) $^ -o $(BIN_DIR)/$@ $(LIB_DIR) $(LIB)
 
 clean: 
