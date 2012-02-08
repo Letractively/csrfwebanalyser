@@ -5,13 +5,14 @@
 
 #include <list>
 #include "includes.h"
+#include "Results.h"
 
 using namespace std;
 
-#define DEBUG_LEVEL 1
+#define DEBUG_LEVEL 0
 
 
 /* parses headers and tries to identify CSRF defence */
-void check_for_headers(char* header, const char* url, list< pair < CSRF_Defenses, string > > * results);
+void check_for_headers(char* header, const char* url, Results * results);
 
 #endif

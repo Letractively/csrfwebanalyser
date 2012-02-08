@@ -18,10 +18,13 @@ $(OBJ_DIR)/HTMLParser.o: HTMLParser.cc HTMLParser.h
 $(OBJ_DIR)/HTTPHeaderParser.o: HTTPHeaderParser.cc HTTPHeaderParser.h
 	$(CC) -c $(CFLAGS) $(INCLUDE) $< -o $@ 
 
-crawler: crawler.cc $(OBJ_DIR)/HTTPHeaderParser.o $(OBJ_DIR)/HTMLParser.o
+$(OBJ_DIR)/Results.o: Results.cc Results.h
+	$(CC) -c $(CFLAGS) $(INCLUDE) $< -o $@
+
+crawler: crawler.cc $(OBJ_DIR)/Results.o $(OBJ_DIR)/HTTPHeaderParser.o $(OBJ_DIR)/HTMLParser.o
 	$(CC)  $(CFLAGS) $(INCLUDE) $^ -o $(BIN_DIR)/$@ $(LIB_DIR) $(LIB)
 
-htmlParser: htmlParserTest.cc $(OBJ_DIR)/HTMLParser.o
+htmlParser: htmlParserTest.cc Results.cc $(OBJ_DIR)/HTMLParser.o
 	$(CC)  $(CFLAGS) $(INCLUDE) $^ -o $(BIN_DIR)/$@ $(LIB_DIR) $(LIB)
 
 clean: 
