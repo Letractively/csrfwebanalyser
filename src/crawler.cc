@@ -232,7 +232,7 @@ void process_url(string url, Results *results, unsigned int currDepth){
   		}
 		if(website.body){
 			//printf("=======================================%s\n==========================", website.body);
-			parseHTML(website.body, &results, process_url, currDepth);
+			//parseHTML(website.body, &results, process_url, currDepth);
 			free(website.body);
   		}
 }
@@ -299,7 +299,7 @@ int main(int argc, char* argv[])
 
           char url_buff[100];
           int c;
-          const char * opstr = "fn";
+          const char * opstr = "f:n:";
 
           sem_init(&websites_file_sem, 0, 1);
           sem_init(&url_id_sem, 0, 1);
@@ -309,10 +309,10 @@ int main(int argc, char* argv[])
           while ((c = getopt(argc, argv, opstr)) != -1) {
                 switch(c){
                         case 'f':
-                    		websites = string(argv[optind]);
+                    		websites = string(optarg);
                     		break;
                         case 'n':
-                            nthreads = atoi(argv[optind]);
+                            nthreads = atoi(optarg);
                             break;
                         default:
                                 break;
