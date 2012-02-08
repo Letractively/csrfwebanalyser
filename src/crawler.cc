@@ -15,6 +15,7 @@
 #include "HTTPHeaderParser.h"
 #include "HTMLParser.h"
 #include "Results.h"
+#include <stdlib.h>
 
 using namespace std;
 
