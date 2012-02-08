@@ -28,15 +28,15 @@ void add_to_results(CSRF_Defenses header_type, char* header, int location, int o
 
 //check if first line of header returns 200 OK code
 bool acceptHeader(const char* val) {
-  string accept_code = ".*(200\\sOK).*";
+  string accept_code = ".*(200\\s*OK).*";
 	pcrecpp::RE_Options opt;
 	opt.set_caseless(true);
 	pcrecpp::RE csp_field_re(accept_code, opt);
 	if(csp_field_re.FullMatch((char *)val)) {
-		cout << "Header accepted, code: " << val << endl;	
+		//cout << "Header accepted, code: " << val << endl;	
 		return true;
 	}
-	cout << "Header rejected, code: " << val << endl;
+	//cout << "Header rejected, code: " << val << endl;
 	return false;	
 }
 
@@ -72,6 +72,7 @@ bool isContentField(const char* val, const char * url, Results * results) {
 }
 
 void check_for_headers(char* header, const char* url, Results* results){
+	 //static cnt = 0;
 	/*  CSRF defense headers */
 	/***********************************************
 	Custom HTTP Header
@@ -92,13 +93,19 @@ void check_for_headers(char* header, const char* url, Results* results){
 	stringstream hds;
 	hds << string(header);
 	//get first line
+	//cout << header << endl;
+	//cout << "**********************************" << endl;
 	getline(hds, buff);
-	if(!acceptHeader(buff.c_str())) return;
-	
+	cout << "processign url: " << url << endl;
+	//if(!acceptHeader(buff.c_str())) return;
+	bool header_accepted = false;
 	while(!hds.eof()) {
 		getline(hds, buff);
-		cout << " Searching at " << buff <<endl;
-		isContentField(buff.c_str(), url, results);
+		//cout << " Searching at " << buff <<endl;
+		if(acceptHeader(buff.c_str())) 
+			header_accepted = true;
+		if (header_accepted) 
+			isContentField(buff.c_str(), url, results);
 	}
 	
 #if 0	
@@ -124,6 +131,4 @@ void check_for_headers(char* header, const char* url, Results* results){
 		add_to_results(X_WEBKIT_CSP, header, location, 13, results);
 	}
 #endif
-
-
 }
