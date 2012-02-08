@@ -7,21 +7,72 @@
 #include <iostream>
 #include <sstream>
 #include <curl/curl.h>
-#include <semaphore.h>
 #include <string.h>
 #include <map>
 #include <unistd.h>
+#include <pthread.h>
+#include <openssl/crypto.h>
+
+#define OPENSSL_THREAD_DEFINES
+#include <openssl/opensslconf.h>
 
 #include "HTTPHeaderParser.h"
 #include "HTMLParser.h"
 #include "Results.h"
-#include <stdlib.h>
 
 using namespace std;
 
 #define REDIRECTIONS 0
 #define SAVE_ALL_SITES 0
 
+// START OF SSL CRYPTO LOCKS
+/* we have this global to let the callback get easy access to it */ 
+static pthread_mutex_t *lockarray;
+
+static void lock_callback(int mode, int type,const char *file, int line)
+{
+	(void)file;
+	(void)line;
+	if (mode & CRYPTO_LOCK) {
+		pthread_mutex_lock(&(lockarray[type]));
+	}
+	else {
+		pthread_mutex_unlock(&(lockarray[type]));
+	}
+}
+
+static unsigned long thread_id(void)
+{
+	unsigned long ret;
+	
+	ret=(unsigned long)pthread_self();
+	return(ret);
+}
+
+static void init_locks(void)
+{
+	int i;
+	
+	lockarray=(pthread_mutex_t *)OPENSSL_malloc(CRYPTO_num_locks()*sizeof(pthread_mutex_t));
+	for (i=0; i<CRYPTO_num_locks(); i++) {
+		pthread_mutex_init(&(lockarray[i]),NULL);
+	}
+	
+	CRYPTO_set_id_callback(thread_id); //function pointers motherfucker!
+	CRYPTO_set_locking_callback(lock_callback);
+}
+
+static void kill_locks(void)
+{
+	int i;
+	
+	CRYPTO_set_locking_callback(NULL);
+	for (i=0; i<CRYPTO_num_locks(); i++)
+		pthread_mutex_destroy(&(lockarray[i]));
+	
+	OPENSSL_free(lockarray);
+}
+// END OF SSL CRYPTO LOCKS
 
 FILE* websites_filep;
 unsigned int websites_startpos=1;
@@ -33,13 +84,12 @@ int url_id=1;
 int operations=3; /* 0 for header checking, 1 for html body checking, 2 for referer checking, 3 for all */
 
 
-
 typedef struct Website{
 	char* header;
 	char* body;
 	size_t header_size;
 	size_t body_size;
-}Website;
+} Website;
 
 bool header_check_on = true;
 bool body_check_on = true;
@@ -207,18 +257,21 @@ void process_url(string url, Results *results, unsigned int currDepth){
 			/* we pass our 'chunk' struct to the callback function */ 
 		  	curl_easy_setopt(curl_handle, CURLOPT_WRITEHEADER, (void *)&website);
 		}
-	  	curl_easy_setopt(curl_handle, CURLOPT_NOPROGRESS, 1);
+	  	curl_easy_setopt(curl_handle, CURLOPT_NOPROGRESS, 1L);
 
-		curl_easy_setopt(curl_handle, CURLOPT_NOSIGNAL, 1);
+		curl_easy_setopt(curl_handle, CURLOPT_NOSIGNAL, 1L);
 
-
+		/* we don't verify the server's certificate, which means we
+		might be downloading stuff from an impostor */ 
+		curl_easy_setopt(curl_handle, CURLOPT_SSL_VERIFYPEER, 0L);
+		curl_easy_setopt(curl_handle, CURLOPT_SSL_VERIFYHOST, 0L);
+		
  
-		/* some servers don't like requests that are made without a user-agent
-	    	field, so we provide one */ 
-	  	curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "Mozilla/4.73 [en] (X11; U; Linux 2.2.15 i686)");
+		/* hehe, we are firefox now */ 
+	  curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "Mozilla/4.73 [en] (X11; U; Linux 2.2.15 i686)");
  
 	 	/* get it! */ 
-  		curl_easy_perform(curl_handle);
+  	curl_easy_perform(curl_handle);
  
  		/* cleanup curl stuff */ 
 		curl_easy_cleanup(curl_handle);
@@ -285,13 +338,9 @@ void* do_crawl(void* threadresults){
 		#if DEBUG_LEVEL > 1
 			fprintf(stderr, "Thread %d process_url completed!!...\n",  ((Threadresults*)threadresults)->threadid);
 		#endif
-		if (get_url_id() > 10000){
-			fprintf(stderr, "Thread %d do_crawl THE END!!...\n",  ((Threadresults*)threadresults)->threadid);
-			break;
-		}
 	}
 }
-
+#if 0
 string enum_to_str(int csrf_def){
 	switch(csrf_def){
 		case SECRET_VALIDATION_TOKEN:
@@ -320,6 +369,7 @@ string enum_to_str(int csrf_def){
 			return "Defense not assigned";
 	}
 }
+#endif
 
 int main(int argc, char* argv[])
 {
@@ -335,6 +385,7 @@ int main(int argc, char* argv[])
           sem_init(&url_id_sem, 0, 1);
 
           curl_global_init(CURL_GLOBAL_ALL);
+					init_locks();
 					
           while ((c = getopt(argc, argv, opstr)) != -1) {
                 switch(c){
@@ -402,26 +453,25 @@ int main(int argc, char* argv[])
 
           threads = (pthread_t*)  malloc(nthreads * sizeof(pthread_t));
           threadresults = (Threadresults*) malloc(nthreads * sizeof(Threadresults));
-
-	initHTMLParser();
+					initHTMLParser();
 
           for(i=0; i< nthreads; i++) {
-		threadresults[i].results = Results();
-                threadresults[i].threadid = i;
-                thread_error = pthread_create(&threads[i], NULL, /* default attributes please */ do_crawl,(void *) &threadresults[i]);
-                 if(thread_error != 0)
-                      fprintf(stderr, "Couldn't run thread number %d, errno %d\n", i, thread_error);
+						threadresults[i].results = Results();
+						threadresults[i].threadid = i;
+						thread_error = pthread_create(&threads[i], NULL, /* default attributes please */ do_crawl,(void *) &threadresults[i]);
+						if(thread_error != 0)
+							fprintf(stderr, "Couldn't run thread number %d, errno %d\n", i, thread_error);
           }
 
 
 
           /* now wait for all threads to terminate */
           for(i=0; i< nthreads; i++) {
-	      thread_error = pthread_join(threads[i], NULL);
+					thread_error = pthread_join(threads[i], NULL);
               fprintf(stderr, "Thread %d terminated\n", i);
           }
 
-
+kill_locks();
 
           #if DEBUG_LEVEL >= 0 //8a to kanw define -1 gia na ma8eis...
           /* print the results */

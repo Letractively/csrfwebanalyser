@@ -12,8 +12,8 @@
 #include "pcrecpp.h"
 #include "includes.h"
 #include "HTMLParser.h"
-
-#define MAX_DEPTH 1 //haven't seen any improvement from visiting links in greater depth, and takes significant more time for https
+//haven't seen any improvement from visiting links in greater depth, and takes significant more time for https
+#define MAX_DEPTH 1 
 
 pcrecpp::RE nonce_re(""), register_re(""), uri_re(""), authname_re(""); 
 pcrecpp::RE_Options opt;

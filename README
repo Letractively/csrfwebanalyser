@@ -2,4 +2,8 @@
 
 -Edit the include and load paths in the Makefile, if you compile and install to other path than 
 your system's default, you'll probably need to set the LD_LIBRARY_PATH variable to check your 
-library directories. 
+library directories.
+
+-if you plan to use the crawler with threads, you need to build libcurl with c-ares.  If your
+system does not provide c-ares, built it from sources and configure curl with --configure 
+--use-ares=<full path to c-ares installation>  
