@@ -96,7 +96,9 @@ void check_for_headers(char* header, const char* url, Results* results){
 	//cout << header << endl;
 	//cout << "**********************************" << endl;
 	getline(hds, buff);
-	cout << "processign url: " << url << endl;
+	#if DEBUG_LEVEL > 0
+		printf("[HTTPHeaderParser.cc] : processing url %s\n", url);
+	#endif
 	//if(!acceptHeader(buff.c_str())) return;
 	bool header_accepted = false;
 	while(!hds.eof()) {
@@ -108,7 +110,7 @@ void check_for_headers(char* header, const char* url, Results* results){
 			isContentField(buff.c_str(), url, results);
 	}
 	
-#if 0	
+#if 0
 	if((location=string(header).find(string("X-Requested-By")))!=string::npos){
 		add_to_results(CUSTOM_HTTP_HEADER, header, location, 15, results);
 	}
@@ -132,3 +134,5 @@ void check_for_headers(char* header, const char* url, Results* results){
 	}
 #endif
 }
+
+
