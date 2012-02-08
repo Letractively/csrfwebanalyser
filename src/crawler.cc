@@ -30,6 +30,7 @@ bool wholefile = true;
 sem_t websites_file_sem;
 sem_t url_id_sem;
 int url_id=1;
+int operations=2; /* 0 for header checking, 1 for html body checking, 2 for both */
 
 
 
@@ -169,31 +170,42 @@ void process_url(string url, Results *results, unsigned int currDepth){
 		/* specify URL to get */ 
  		curl_easy_setopt(curl_handle, CURLOPT_URL, url.c_str());
  
-	 	/* send all body data to this function  */ 
-  		curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, BodyDataCallback);
+		if( operations != 0) { /* body checking is selected */
+		 	/* send all body data to this function  */ 
+  			curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, BodyDataCallback);
+		}
 
-		/* send all header data to this function  */
-        	curl_easy_setopt(curl_handle, CURLOPT_HEADERFUNCTION, HeaderDataCallback);
+		if( operations != 1) { /* header checking is selected */
+			/* send all header data to this function  */
+        		curl_easy_setopt(curl_handle, CURLOPT_HEADERFUNCTION, HeaderDataCallback);
+		}
 
 		/* redirection limit is set to 10 redirections */
-        curl_easy_setopt(curl_handle, CURLOPT_MAXREDIRS, 10);
+	        curl_easy_setopt(curl_handle, CURLOPT_MAXREDIRS, 10);
 
-        /* total transfer operation maximum time limit is set to 120 seconds */
-        curl_easy_setopt(curl_handle, CURLOPT_TIMEOUT, 120);
+ 	       /* total transfer operation maximum time limit is set to 120 seconds */
+        	curl_easy_setopt(curl_handle, CURLOPT_TIMEOUT, 120);
 
-//        /* total time for the connection with the server is set to 20 seconds */
-  //      curl_easy_setopt(curl_handle, CURLOPT_CONNECTTIMEOUT, 20);
+	       /* total time for the connection with the server is set to 20 seconds */
+  	       // curl_easy_setopt(curl_handle, CURLOPT_CONNECTTIMEOUT, 20);
 	  	
-        /* follow locations  */
-        curl_easy_setopt(curl_handle, CURLOPT_FOLLOWLOCATION, 1);
+ 	       /* follow locations  */
+       	       curl_easy_setopt(curl_handle, CURLOPT_FOLLOWLOCATION, 1);
  
-		/* we pass our 'chunk' struct to the callback function */ 
- 	 	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&website);
 
-		/* we pass our 'chunk' struct to the callback function */ 
-	  	curl_easy_setopt(curl_handle, CURLOPT_WRITEHEADER, (void *)&website);
+		if( operations != 0) { /* body checking is selected */
+			/* we pass our 'chunk' struct to the callback function */ 
+ 		 	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&website);
+		}
 
+
+		if( operations != 1) { /* header checking is selected */
+			/* we pass our 'chunk' struct to the callback function */ 
+		  	curl_easy_setopt(curl_handle, CURLOPT_WRITEHEADER, (void *)&website);
+		}
 	  	curl_easy_setopt(curl_handle, CURLOPT_NOPROGRESS, 1);
+
+		curl_easy_setopt(curl_handle, CURLOPT_NOSIGNAL, 1);
 
 
  
@@ -218,35 +230,38 @@ void process_url(string url, Results *results, unsigned int currDepth){
 	   	* you're done with it, you should free() it as a nice application.
   		*/
 		//printf("%lu bytes retrieved\n", (long)website.size);
-		stringstream ss;
-		ss<< string(website.header);
-		string firstline;
-		getline(ss, firstline);
+		if( operations != 1) { /* header checking is selected */
+			stringstream ss;
+			ss<< string(website.header);
+			string firstline;
+			getline(ss, firstline);
 		
-		if(website.header){
-			check_for_headers(website.header, url.c_str(), results);
-			if(firstline.find(string("200"))==string::npos && firstline.find(string("301"))==string::npos && firstline.find(string("302"))==string::npos ) {
-				fprintf(stderr,  "------------------\n");
-				fprintf(stdout, "%s not 200, 301, 302, but %s\n", url.c_str(), firstline.c_str());
-			}
-			//printf(" --------%s-----------\n", url.c_str());
-			//printf("=======================================%s\n==========================\n", website.header);
+			if(website.header){
+				check_for_headers(website.header, url.c_str(), results);
+				if(firstline.find(string("200"))==string::npos && firstline.find(string("301"))==string::npos && firstline.find(string("302"))==string::npos ) {
+					fprintf(stderr,  "------------------\n");
+					fprintf(stdout, "%s not 200, 301, 302, but %s\n", url.c_str(), firstline.c_str());
+				}
+				//printf(" --------%s-----------\n", url.c_str());
+				//printf("=======================================%s\n==========================\n", website.header);
 #if REDIRECTIONS
-			int location_header_pos;
-			if((location_header_pos = string(website.header).find(string("Location:")) ) != string::npos){
-				string redirect_url = string(website.header+location_header_pos+10);
-				fprintf(stderr, "Redirecting to %s\n", redirect_url.c_str());
-				process_url(redirect_url, results, currDepth);
-			}
+				int location_header_pos;
+				if((location_header_pos = string(website.header).find(string("Location:")) ) != string::npos){
+					string redirect_url = string(website.header+location_header_pos+10);
+					fprintf(stderr, "Redirecting to %s\n", redirect_url.c_str());
+					process_url(redirect_url, results, currDepth);
+				}
 #endif
-			free(website.header);
-
-  		}
-		if(website.body){
-			//printf("=======================================%s\n==========================", website.body);
-			parseHTML(website.body, url, results, process_url, currDepth);
-			free(website.body);
-  		}
+				free(website.header);
+	  		}
+		}
+		if( operations != 0) { /* body checking is selected */
+			if(website.body){
+				//printf("=======================================%s\n==========================", website.body);
+				parseHTML(website.body, url, results, process_url, currDepth);
+				free(website.body);
+	  		}
+		}
 }
 
 typedef struct Threadresults{
@@ -311,12 +326,11 @@ int main(int argc, char* argv[])
 
           char url_buff[100];
           int c;
-          const char * opstr = "f:n:s:e:";
+          const char * opstr = "f:n:s:e:o:";
           sem_init(&websites_file_sem, 0, 1);
           sem_init(&url_id_sem, 0, 1);
 
           curl_global_init(CURL_GLOBAL_ALL);
-					initHTMLParser();
 					
           while ((c = getopt(argc, argv, opstr)) != -1) {
                 switch(c){
@@ -334,10 +348,22 @@ int main(int argc, char* argv[])
                         	websites_endpos = atoi(optarg);
                         	wholefile = false;
                         	break;
+			case 'o':
+				if(strcmp(optarg, "header") == 0){
+					operations = 0;
+				}
+				if(strcmp(optarg, "body") == 0){
+					operations = 1;
+				}
+				if(strcmp(optarg, "both") == 0){
+					operations = 2;
+				}
+				break;
                         default:
                             break;
                 }
           }
+
 
           if (!get_websites(websites) ){
             fprintf(stderr, "Could not open websites file\n");
@@ -347,19 +373,25 @@ int main(int argc, char* argv[])
           threads = (pthread_t*)  malloc(nthreads * sizeof(pthread_t));
           threadresults = (Threadresults*) malloc(nthreads * sizeof(Threadresults));
 
+	initHTMLParser();
+
           for(i=0; i< nthreads; i++) {
-								threadresults[i].results = Results();
+		threadresults[i].results = Results();
                 threadresults[i].threadid = i;
                 thread_error = pthread_create(&threads[i], NULL, /* default attributes please */ do_crawl,(void *) &threadresults[i]);
                  if(thread_error != 0)
                       fprintf(stderr, "Couldn't run thread number %d, errno %d\n", i, thread_error);
           }
 
+
+
           /* now wait for all threads to terminate */
           for(i=0; i< nthreads; i++) {
 	      thread_error = pthread_join(threads[i], NULL);
               fprintf(stderr, "Thread %d terminated\n", i);
           }
+
+
 
           #if DEBUG_LEVEL >= 0 //8a to kanw define -1 gia na ma8eis...
           /* print the results */
