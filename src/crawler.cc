@@ -217,7 +217,7 @@ void process_url(string url, Results *results, unsigned int currDepth){
 				fprintf(stderr,  "------------------\n");
 				fprintf(stdout, "%s not 200, 301, 302, but %s\n", url.c_str(), firstline.c_str());
 			}
-			//printf(" %s\n", url.c_str());
+			//printf(" --------%s-----------\n", url.c_str());
 			//printf("=======================================%s\n==========================\n", website.header);
 #if REDIRECTIONS
 			int location_header_pos;
@@ -232,7 +232,7 @@ void process_url(string url, Results *results, unsigned int currDepth){
   		}
 		if(website.body){
 			//printf("=======================================%s\n==========================", website.body);
-			//parseHTML(website.body, &results, process_url, currDepth);
+			parseHTML(website.body, &results, process_url, currDepth);
 			free(website.body);
   		}
 }
