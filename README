@@ -1,2 +1,5 @@
-You need libxml and libcurl to compile
-Edit the include paths in the Makefile 
+-You need libcurl, libxml and libpcre to compile
+
+-Edit the include and load paths in the Makefile, if you compile and install to other path than 
+your system's default, you'll probably need to set the LD_LIBRARY_PATH variable to check your 
+library directories. 
