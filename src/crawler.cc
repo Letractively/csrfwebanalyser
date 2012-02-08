@@ -117,13 +117,13 @@ int get_websites(string websites){
  
 string get_next_url(){
 	  string url = "http://www.";
-	  int url_alexa_number;
+	  int url_alexa_number, ret;
 	  char url_buff [100];
 	  memset(url_buff, 0, 100 * sizeof(char));
     int url_id_alexa;
 	  sem_wait(&websites_file_sem);
 	  sem_wait(&url_id_sem);
-	    fscanf(websites_filep, "%d,%s\n", &url_alexa_number, url_buff);
+	    ret = fscanf(websites_filep, "%d,%s\n", &url_alexa_number, url_buff);
 	    url_id++;
 	  sem_post(&url_id_sem);
 	  sem_post(&websites_file_sem);
