@@ -123,7 +123,7 @@ bool isRegisterValue(const xmlChar* val) {
 }
 #endif
 
-bool FindToken(htmlNodePtr element, std::list<std::pair<CSRF_Defenses, string> > *result)
+bool FindToken(htmlNodePtr element, string url, Results *results)
 {
 	  bool is_hidden = false;
 		bool name_is_auth = false;
@@ -150,14 +150,15 @@ bool FindToken(htmlNodePtr element, std::list<std::pair<CSRF_Defenses, string> >
 											if(isNonce(attr->children->content)) {
 												token_found = true;
 												printf("possible hidden token value tag is %s\n", attr->children->content);
-												result->push_back(make_pair(SECRET_VALIDATION_TOKEN, 
-																					XmlStringToStdString(attr->children->content)));
+												results->AddUrlDefense(url, "Secret Validation Token", XmlStringToStdString(attr->children->content) );
+												results->AddDefenseUrl("Secret Validation Token", url, XmlStringToStdString(attr->children->content) );
 												//if pattern matches return true
 											}
 											else if(xmlStrlen(attr->children->content) == 0 && name_is_auth) {
 												token_found = true;
 												printf("possible hidden token name tag is %s\n", auth_name.c_str());
-												result->push_back(make_pair(POSSIBLE_SECRET_VALIDATION_TOKEN, auth_name));
+												results->AddUrlDefense(url, "Possible Secret Validation Token", auth_name );
+												results->AddDefenseUrl("Possible Secret Validation Token", url, auth_name );
 											}
 										}
 										else if(is_hidden && xmlStrcasecmp(attr->name, (const xmlChar*)"name") == 0) {
@@ -170,16 +171,17 @@ bool FindToken(htmlNodePtr element, std::list<std::pair<CSRF_Defenses, string> >
             }
             if(node->children != NULL)
             {
-                FindToken(node->children, result);
+                FindToken(node->children, url, results);
             }
         }
     }
     return false;
 }
 
-void FindRegisterLink(htmlNodePtr element, 
-											std::list<std::pair<CSRF_Defenses, string> > *result,
-											std::list<std::pair<CSRF_Defenses, std::string> > (*process_url)(std::string, unsigned int),
+void FindRegisterLink(htmlNodePtr element,
+											string url,
+											Results *results,
+											void (*process_url)(std::string, Results *results, unsigned int),
 											unsigned int currDepth)
 {
 	  bool visited_link = false;
@@ -252,7 +254,7 @@ void FindRegisterLink(htmlNodePtr element,
 										if(currDepth <= MAX_DEPTH) {
 											printf("Register link found:%s\n", attr->children->content);
 											visited_link = true;
-											process_url(XmlStringToStdString(attr->children->content), currDepth+1);
+											process_url(XmlStringToStdString(attr->children->content), results, currDepth+1);
 											//printf("returned from depth=%d\n", currDepth+1);
 											break;
 										}
@@ -261,7 +263,7 @@ void FindRegisterLink(htmlNodePtr element,
 										if(currDepth <= MAX_DEPTH) {
 											printf("Register link found:%s\n", attr->children->content);
 											visited_link = true;
-											process_url(XmlStringToStdString(attr->children->content), currDepth+1);
+											process_url(XmlStringToStdString(attr->children->content), results, currDepth+1);
 											//printf("returned from depth=%d\n", currDepth+1);
 											break;
 										}
@@ -272,15 +274,16 @@ void FindRegisterLink(htmlNodePtr element,
 						if(visited_link) break;
             if(node->children != NULL)
             {
-                FindRegisterLink(node->children, result, process_url, currDepth);
+                FindRegisterLink(node->children, url, results, process_url, currDepth);
             }
         }
     }
 }
 
-void parseHTML(const char* code, 
-							 std::list<std::pair<CSRF_Defenses, std::string> > *result,
-							 std::list<std::pair<CSRF_Defenses, std::string> > (*process_url)(std::string, unsigned int),
+void parseHTML(const char* code,
+							 string url,
+							 Results *results,
+							 void (*process_url)(std::string, Results *results, unsigned int),
 							 unsigned int currDepth)
 {
 	  if(currDepth == MAX_DEPTH) return;
@@ -295,7 +298,7 @@ void parseHTML(const char* code,
         if(root != NULL)
         {
 					  //printf("searching for token (depth=%d)\n", currDepth);
-					  if(FindToken(root, result)) {
+					  if(FindToken(root, url, results)) {
 							//token found, add to possible csrf defences
 							return;
 						}
@@ -305,7 +308,7 @@ void parseHTML(const char* code,
 							//we could also mark the sites that possibly use this defence, to see if
 							//token changes when starting a new session
 							//printf("no token was found, searching for  singIn/signUp forms\n");
-							FindRegisterLink(root, result, process_url, currDepth);
+							FindRegisterLink(root, url, results, process_url, currDepth);
 						}
         }
         xmlFreeDoc(doc);

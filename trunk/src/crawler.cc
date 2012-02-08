@@ -14,6 +14,7 @@
 
 #include "HTTPHeaderParser.h"
 #include "HTMLParser.h"
+#include "Results.h"
 
 using namespace std;
 
@@ -118,7 +119,7 @@ string get_next_url(){
 	  int url_alexa_number;
 	  char url_buff [100];
 	  memset(url_buff, 0, 100 * sizeof(char));
-
+    int url_id_alexa;
 	  sem_wait(&websites_file_sem);
 	  sem_wait(&url_id_sem);
 	    fscanf(websites_filep, "%d,%s\n", &url_alexa_number, url_buff);
@@ -140,7 +141,7 @@ int get_url_id(){
 	return curr_url_id;
 }
 
-list< pair < CSRF_Defenses, string > > process_url(string url, unsigned int currDepth){
+void process_url(string url, Results *results, unsigned int currDepth){
 		CURL* curl_handle;
 		Website website;
 		website.body = (char*)  malloc(1);  /* will be grown as needed by the realloc above */ 
@@ -209,9 +210,9 @@ list< pair < CSRF_Defenses, string > > process_url(string url, unsigned int curr
 		ss<< string(website.header);
 		string firstline;
 		getline(ss, firstline);
-		list< pair < CSRF_Defenses, string > > results = list< pair < CSRF_Defenses, string > >();
+		
 		if(website.header){
-			check_for_headers(website.header, url.c_str(), &results);
+			check_for_headers(website.header, url.c_str(), results);
 			if(firstline.find(string("200"))==string::npos && firstline.find(string("301"))==string::npos && firstline.find(string("302"))==string::npos ) {
 				fprintf(stderr,  "------------------\n");
 				fprintf(stdout, "%s not 200, 301, 302, but %s\n", url.c_str(), firstline.c_str());
@@ -223,7 +224,7 @@ list< pair < CSRF_Defenses, string > > process_url(string url, unsigned int curr
 			if((location_header_pos = string(website.header).find(string("Location:")) ) != string::npos){
 				string redirect_url = string(website.header+location_header_pos+10);
 				fprintf(stderr, "Redirecting to %s\n", redirect_url.c_str());
-				process_url(redirect_url, currDepth);
+				process_url(redirect_url, results, currDepth);
 			}
 #endif
 			free(website.header);
@@ -234,11 +235,10 @@ list< pair < CSRF_Defenses, string > > process_url(string url, unsigned int curr
 			//parseHTML(website.body, &results, process_url, currDepth);
 			free(website.body);
   		}
-  		return results;
 }
 
 typedef struct Threadresults{
-	map <string, list< pair<CSRF_Defenses, string > > > CrawlResultsMap;
+	Results results;
 	int threadid;
 }Threadresults;
 
@@ -250,14 +250,7 @@ void* do_crawl(void* threadresults){
 			fprintf(stderr, "Thread %d got url %s...\n",  ((Threadresults*)threadresults)->threadid, url.c_str());
 		#endif
 		/* adding map entry for the processed url */
-		#if SAVE_ALL_SITES
-			((Threadresults*)threadresults)->CrawlResultsMap.insert(make_pair(url, process_url( url, 0 ) ) );
-		#else
-			list< pair<CSRF_Defenses, string > > results = process_url( url, 0 );
-			if(results.size() != 0){
-				((Threadresults*)threadresults)->CrawlResultsMap.insert(make_pair(url, results ) );
-			}
-		#endif
+		process_url( url, &((Threadresults*)threadresults)->results,  0 );
 		#if DEBUG_LEVEL > 1
 			fprintf(stderr, "Thread %d process_url completed!!...\n",  ((Threadresults*)threadresults)->threadid);
 		#endif
@@ -335,7 +328,7 @@ int main(int argc, char* argv[])
           threadresults = (Threadresults*) malloc(nthreads * sizeof(Threadresults));
 
           for(i=0; i< nthreads; i++) {
-          	    threadresults[i].CrawlResultsMap = map <string, list< pair<CSRF_Defenses, string > > >();
+								threadresults[i].results = Results();
                 threadresults[i].threadid = i;
                 thread_error = pthread_create(&threads[i], NULL, /* default attributes please */ do_crawl,(void *) &threadresults[i]);
                  if(thread_error != 0)
@@ -351,13 +344,8 @@ int main(int argc, char* argv[])
           #if DEBUG_LEVEL >= 0
           /* print the results */
           for(i=0; i< nthreads; i++) {
-          		for(map <string, list< pair<CSRF_Defenses, string > > >::iterator it=threadresults[i].CrawlResultsMap.begin(); it != threadresults[i].CrawlResultsMap.end(); it++){
-          			cout<< "****** " <<it->first << " ******" <<endl;
-          			cout << (it->second.size()!=0 ? "  Defenses : \n" : "") ;
-          			for(list< pair<CSRF_Defenses, string > >::iterator list_it = it->second.begin(); list_it != it->second.end(); list_it++){
-          				cout << "  - " << enum_to_str(list_it->first) << " : " << list_it->second << endl;
-          			}
-          		}
+						threadresults[i].results.PrintUrlsMap();
+						threadresults[i].results.PrintDefensesMap();
           }
           #endif
 
