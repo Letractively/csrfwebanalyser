@@ -15,8 +15,8 @@ class Results {
 	Results();
 	map<string, list<pair<string, string> > > GetUrlDefensesMap(void);
 	map<string, list<pair<string, string> > > GetDefenseUrlsMap(void);
-	void AddUrlDefense(const string url, const string policy, const string value);
-	void AddDefenseUrl(const string policy, const string url, const string value);
+	void AddUrlDefense(string url, const string policy, const string value);
+	void AddDefenseUrl(string policy, const string url, const string value);
 	void MergeUrlDefensesMaps(map<string, list<pair<string, string> > > mapA);
 	void MergeDefenseUrlsMaps(map<string, list<pair<string, string> > > mapA);
 	void PrintUrlsMap(void);

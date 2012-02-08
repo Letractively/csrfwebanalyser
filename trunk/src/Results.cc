@@ -1,5 +1,6 @@
 #include "Results.h"	
 #include <iostream>
+#include <algorithm>
 
 Results::Results(void) {
 	urlDefensesMap = map<string, list<pair<string, string> > >();
@@ -13,7 +14,8 @@ map<string, list<pair<string, string> > > Results::GetDefenseUrlsMap(void) {
 	return defenseUrlsMap;
 }
 
-void 	Results::AddUrlDefense(const string url, const string policy, const string value) {
+void 	Results::AddUrlDefense(string url, const string policy, const string value) {
+								 
 	if(urlDefensesMap.count(url) != 0) {
 		urlDefensesMap[url].push_back(make_pair(policy, value));
 	}
@@ -23,7 +25,10 @@ void 	Results::AddUrlDefense(const string url, const string policy, const string
 		urlDefensesMap.insert(make_pair(url, policyValueList) );
 	}
 }
-void Results::AddDefenseUrl(const string policy, const string url, const string value){
+void Results::AddDefenseUrl(string policy, const string url, const string value) {
+	transform(policy.begin(), policy.end(), 
+						policy.begin(), (int(*)(int)) ::toupper);
+	
 	if(defenseUrlsMap.count(policy) != 0) {
 		defenseUrlsMap[policy].push_back(make_pair(url, value));
 	}
