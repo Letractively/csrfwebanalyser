@@ -23,9 +23,12 @@ using namespace std;
 
 
 FILE* websites_filep;
+unsigned int websites_startpos=1;
+unsigned int websites_endpos;
+bool wholefile = true;
 sem_t websites_file_sem;
 sem_t url_id_sem;
-int url_id = 0;
+int url_id=1;
 
 
 
@@ -111,20 +114,27 @@ int get_websites(string websites){
 	  	sem_post(&websites_file_sem);
 		return 0;
 	  }
+	  int i=1;
+	  char c;
+	  while(i<websites_startpos){
+	  	  while((c=fgetc(websites_filep)) != '\n');
+		  i++;
+	  }
 	  sem_post(&websites_file_sem);
 	  return 1;
 }
  
 string get_next_url(){
 	  string url = "http://www.";
-	  int url_alexa_number, ret;
+	  int url_id_from_file, ret;
 	  char url_buff [100];
 	  memset(url_buff, 0, 100 * sizeof(char));
-    int url_id_alexa;
 	  sem_wait(&websites_file_sem);
 	  sem_wait(&url_id_sem);
-	    ret = fscanf(websites_filep, "%d,%s\n", &url_alexa_number, url_buff);
-	    url_id++;
+	  	if(url_id <= websites_endpos - websites_startpos ){
+	  		ret = fscanf(websites_filep, "%d,%s\n", &url_id_from_file, url_buff);
+	  		url_id++;
+	  	}
 	  sem_post(&url_id_sem);
 	  sem_post(&websites_file_sem);
 	  if(string(url_buff).empty())
@@ -300,8 +310,7 @@ int main(int argc, char* argv[])
 
           char url_buff[100];
           int c;
-          const char * opstr = "f:n:";
-
+          const char * opstr = "f:n:s:e:";
           sem_init(&websites_file_sem, 0, 1);
           sem_init(&url_id_sem, 0, 1);
 
@@ -311,17 +320,25 @@ int main(int argc, char* argv[])
           while ((c = getopt(argc, argv, opstr)) != -1) {
                 switch(c){
                         case 'f':
-													websites = string(optarg);
-													break;
+                    		websites = string(optarg);
+                    		break;
                         case 'n':
                             nthreads = atoi(optarg);
                             break;
+                        case 's':
+                        	websites_startpos = atoi(optarg);
+                        	wholefile = false;
+                        	break;
+                        case 'e':
+                        	websites_endpos = atoi(optarg);
+                        	wholefile = false;
+                        	break;
                         default:
                             break;
                 }
           }
 
-          if (!get_websites(websites)){
+          if (!get_websites(websites) ){
             fprintf(stderr, "Could not open websites file\n");
             exit(EXIT_FAILURE);
           }
