@@ -6,4 +6,4 @@ library directories.
 
 -if you plan to use the crawler with threads, you need to build libcurl with c-ares.  If your
 system does not provide c-ares, built it from sources and configure curl with --configure 
---use-ares=<full path to c-ares installation>  
+--enable-ares=<full path to c-ares installation>  
