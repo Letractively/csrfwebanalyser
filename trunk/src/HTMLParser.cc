@@ -137,20 +137,21 @@ bool FindToken(htmlNodePtr element, string url, Results *results)
                 {
                     if(xmlStrcasecmp(attr->name, (const xmlChar*)"type") == 0)
                     {
-											if(xmlStrcasecmp(attr->children->content, (const xmlChar*)"hidden") == 0) {
+											if(attr->children && 
+												 xmlStrcasecmp(attr->children->content, (const xmlChar*)"hidden") == 0) {
 												//printf("hidden input tag found, how interesting...\n");
 												is_hidden = true;
 											}
                     }
                     else if(is_hidden && xmlStrcasecmp(attr->name, (const xmlChar*)"value") == 0) {
-											if(isNonce(attr->children->content)) {
+											if(attr->children && isNonce(attr->children->content)) {
 												token_found = true;
 												//printf("possible hidden token value tag is %s\n", attr->children->content);
 												results->AddUrlDefense(url, "Secret Validation Token", XmlStringToStdString(attr->children->content) );
 												results->AddDefenseUrl("Secret Validation Token", url, XmlStringToStdString(attr->children->content) );
 												//if pattern matches return true
 											}
-											else if(xmlStrlen(attr->children->content) == 0 && name_is_auth) {
+											else if(attr->children && xmlStrlen(attr->children->content) == 0 && name_is_auth) {
 												token_found = true;
 												//printf("possible hidden token name tag is %s\n", auth_name.c_str());
 												results->AddUrlDefense(url, "Possible Secret Validation Token", auth_name );
