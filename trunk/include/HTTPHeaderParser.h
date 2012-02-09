@@ -13,6 +13,6 @@ using namespace std;
 
 
 /* parses headers and tries to identify CSRF defence */
-void check_for_headers(char* header, const char* url, Results * results);
+bool check_for_headers(char* header, const char* url, Results * results);
 
 #endif
