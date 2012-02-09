@@ -71,7 +71,7 @@ bool isContentField(const char* val, const char * url, Results * results) {
 	return false;
 }
 
-void check_for_headers(char* header, const char* url, Results* results){
+bool check_for_headers(char* header, const char* url, Results* results){
 	 //static cnt = 0;
 	/*  CSRF defense headers */
 	/***********************************************
@@ -133,6 +133,5 @@ void check_for_headers(char* header, const char* url, Results* results){
 		add_to_results(X_WEBKIT_CSP, header, location, 13, results);
 	}
 #endif
+	return header_accepted; /* referer header check support */
 }
-
-
