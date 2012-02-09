@@ -16,4 +16,13 @@ enum CSRF_Defenses{
 };
 
 
+
+extern bool header_check_on;
+extern bool body_check_on;
+extern bool referer_check_on;
+extern bool add_header_results;
+extern bool add_body_results;
+extern bool add_referer_results;
+
+
 #endif

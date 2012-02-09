@@ -82,6 +82,12 @@ sem_t websites_file_sem;
 sem_t url_id_sem;
 int url_id=1;
 
+bool header_check_on = false;
+bool body_check_on = false;
+bool referer_check_on = false;
+bool add_header_results = false;
+bool add_body_results = false;
+bool add_referer_results = false;
 
 typedef struct Website{
 	char* header;
@@ -89,10 +95,6 @@ typedef struct Website{
 	size_t header_size;
 	size_t body_size;
 } Website;
-
-bool header_check_on = true;
-bool body_check_on = true;
-bool referer_check_on = true;
 
 static size_t
 BodyDataCallback(void *contents, size_t size, size_t nmemb, void *userp)
@@ -297,22 +299,23 @@ void process_url(string url, string referer, Results *results, unsigned int curr
 
 			if(website.header){
 				bool retrieved_ok = check_for_headers(website.header, url.c_str(), results); /* referer header check support */
-				if( !referer.empty() && !retrieved_ok){ /* in this call we have already insured that a successful normal (no referer header) HTTP GET can occur */
+				if( !referer.empty() && !retrieved_ok && add_referer_results){ /* in this call we have already insured that a successful normal (no referer header) HTTP GET can occur */
 															/* so if now the HTTP GET is not successful we can ensure that the website has a referer check */
 					printf("Adding REFERER HEADER ACTIVATED policy for site %s!!!!\n\n\n", url.c_str());
-					exit(-1);
-					results->AddUrlDefense(url, "REFERER HEADER ACTIVATED", "");
-					results->AddDefenseUrl("REFERER HEADER ACTIVATED", url, "");
+					results->AddUrlDefense(url, "REFERER HEADER CHECK ACTIVATED", "");
+					results->AddDefenseUrl("REFERER HEADER CHECK ACTIVATED", url, "");
 				}
-				if(retrieved_ok && referer_check_on && referer.empty()) {
-					printf("Rechecking GET request with referer www.hacker.com\n");
+				//printf(" --------%s----------- (currDepth : %u) (retrieved ok : %d) (referer : %s)\n", url.c_str(), currDepth, retrieved_ok, referer.c_str());
+				if(retrieved_ok && referer_check_on && referer.empty() && currDepth > 0) {
+					#if DEBUG_LEVEL > 0
+						printf("Rechecking GET request with referer www.hacker.com\n");
+					#endif
 					process_url(url, "www.hacker.com", results, currDepth);
 				}
 				if(firstline.find(string("200"))==string::npos && firstline.find(string("301"))==string::npos && firstline.find(string("302"))==string::npos ) {
-					fprintf(stderr,  "------------------\n");
-					fprintf(stdout, "%s not 200, 301, 302, but %s\n", url.c_str(), firstline.c_str());
+					fprintf(stdout, "%s : not 200, 301, 302, but %s\n", url.c_str(), firstline.c_str());
 				}
-				//printf(" --------%s-----------\n", url.c_str());
+				//printf(" --------%s----------- (currDepth : %u)\n", url.c_str(), currDepth);
 				//printf("=======================================%s\n==========================\n", website.header);
 #if REDIRECTIONS
 				int location_header_pos;
@@ -390,10 +393,11 @@ int main(int argc, char* argv[])
           Threadresults * threadresults;
           int nthreads=1, thread_error, i;
           string websites;
+          bool custom_check = false;
 
           char url_buff[100];
           int c;
-          const char * opstr = "f:n:s:e:o:";
+          const char * opstr = "f:n:s:e:HBR";
           sem_init(&websites_file_sem, 0, 1);
           sem_init(&url_id_sem, 0, 1);
 
@@ -416,55 +420,36 @@ int main(int argc, char* argv[])
                         	websites_endpos = atoi(optarg);
                         	wholefile = false;
                         	break;
-			case 'o':
-				if(strcmp(optarg, "header") == 0){
-					header_check_on = true;
-					body_check_on = false;
-					referer_check_on = false;
-					break;
-				}
-				if(strcmp(optarg, "body") == 0){
-					header_check_on = false;
-					body_check_on = true;
-					referer_check_on = false;
-					break;
-				}
-				if(strcmp(optarg, "referer") == 0){
-					header_check_on = true;
-					body_check_on = false;
-					referer_check_on = true;
-					break;
-				}
-				if(strcmp(optarg, "header-referer") == 0 || strcmp(optarg, "referer-header") == 0){
-					header_check_on = true;
-					body_check_on = false;
-					referer_check_on = true;
-					break;
-				}
-				if(strcmp(optarg, "body-referer") == 0 || strcmp(optarg, "referer-body") ){
-					header_check_on = true;
-					body_check_on = true;
-					referer_check_on = true;
-					break;
-				}
-				if(strcmp(optarg, "header-body") == 0 || strcmp(optarg, "body-header")){
-					header_check_on = true;
-					body_check_on = true;
-					referer_check_on = false;
-					break;
-				}
-				if(strcmp(optarg, "all") == 0){
-					header_check_on = true;
-					body_check_on = true;
-					referer_check_on = true;
-					break;
-				}
-				break;
+                 		case 'H':
+                 			custom_check = true;
+	             			header_check_on = true;
+                 			add_header_results = true;
+                 			break;
+                 		case 'B':
+                 			custom_check = true;
+                 			body_check_on = true;
+                 			add_body_results = true;
+                 			break;
+                 		case 'R':
+   		             		custom_check = true;
+                 			referer_check_on = true;
+                 			header_check_on = true;
+                 			body_check_on = true;
+                  			add_referer_results = true;
+                 			break;
                         default:
                             break;
                 }
           }
 
+          if(!custom_check){
+			  header_check_on = true;
+			  body_check_on = true;
+			  referer_check_on = true;
+			  add_header_results = true;
+			  add_body_results = true;
+			  add_referer_results = true;
+		  }
 
           if (!get_websites(websites) ){
             fprintf(stderr, "Could not open websites file\n");
