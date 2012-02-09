@@ -225,7 +225,7 @@ void process_url(string url, string referer, Results *results, unsigned int curr
 		#if DEBUG_LEVEL > 0
 		fprintf(stderr, "Processing %s\n", url.c_str());
 		#endif
-		printf(".");
+		fprintf(stderr, ".");
 		/* init the curl session */ 
 		curl_handle = curl_easy_init();
  
