@@ -1,0 +1,42 @@
+\documentclass[11pt,twocolumn]{article}
+%--------------------------------------------------------------
+%package declaration and setting
+\usepackage[latin1]{inputenc}
+\usepackage{epsfig}
+\usepackage{subfig}
+\usepackage{graphics}
+\usepackage{verbatim}
+\usepackage{listings}
+\lstset{ 
+numbers=left,
+tabsize=2,                      % sets default tabsize to 2 spaces
+}
+\usepackage{float}
+%\floatstyle{boxed} 
+\restylefloat{figure}
+%--------------------------------------------------------------
+%create title and author info
+\title{Title Goes Here}
+\author{
+Dimos Stamatakis, Dimitrios Chasapis \\ \\
+Department of Computer Science, \\
+University of Crete, \\
+P.O. Box 2208, Heraklion, GR 71409, Greece \\
+\{dstamat,hassapis\}@csd.uoc.gr
+} 
+
+%--------------------------------------------------------------
+\begin{document}
+\maketitle
+\input{abstract}
+\input{introduction}
+%\input{results}
+%\input{conclusion}
+%\input{acknowledgments}
+
+{
+\bibliographystyle{abbrv}
+\bibliography{report}
+}
+
+\end{document}

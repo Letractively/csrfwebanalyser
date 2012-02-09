@@ -1,0 +1,23 @@
+\section{Introduction} 
+\paragraph
+Cross Site Request Forgery (CSRF) is an attack which maliciously forces the users web application to sent a
+request to a website, on which the user is authenticated, thus fooling the server that he, the attacker is 
+actually an authenticated user.  The severity of a CSRF attack varies as it depends upon the level of access
+the victim user has. For instance a simple user can only compromise his data, while an administrator user can
+compromise the entire site infastructure.  A common way to launch a CSRF attack is to fool the user, through
+means of social engineering, to click on a link from a fraud website/email, made or sent by the attacker, 
+which redircects to a website that the user has an open session with, thus hijacking that session.  Due to
+the difficulty of achieving these prequirements (user has a running session with target, social engineering),
+many regard a CSRF attack as an unlikely scenario, undermining its importance.  This misconception could not
+be further from the trueth.  CSRF is ranked as the 909th most dangerous software bug ever found (REFERENCE HERE)
+and it is among the twenty most exploited security-vulnerabilities in 2007.
+\paragraph
+The most common CSRF countermeasures are the following:
+\begin{enumerate}
+	\item Secret Validation Token: Few words for each...
+	\item Referer Header
+	\item Custom  XMLHtmlHeader
+	\item Origin Header
+	\item Content Security Policy (CSP)
+\end{enumerate}
+\paragraph
