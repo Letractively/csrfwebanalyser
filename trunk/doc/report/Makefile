@@ -7,6 +7,7 @@ LATEX = latex
 FILES = \
 	report.tex \
 	abstract.tex \
+	results.tex \
 	report.bib
 
 default: pdf

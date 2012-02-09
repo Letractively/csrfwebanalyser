@@ -18,6 +18,7 @@
 pcrecpp::RE nonce_re(""), register_re(""), uri_re(""), authname_re(""); 
 pcrecpp::RE_Options opt;
 
+
 void initHTMLParser(void) {
 	//normally this should be a hash value, but...
 	std::string token_regex = "[A-Za-z0-9_=]{8,}";
@@ -143,7 +144,7 @@ bool FindToken(htmlNodePtr element, string url, Results *results)
 												is_hidden = true;
 											}
                     }
-                    else if(is_hidden && xmlStrcasecmp(attr->name, (const xmlChar*)"value") == 0) {
+                    else if(is_hidden && xmlStrcasecmp(attr->name, (const xmlChar*)"value") == 0 && add_body_results ) { /* only if body check is selected */
 											if(attr->children && isNonce(attr->children->content)) {
 												token_found = true;
 												//printf("possible hidden token value tag is %s\n", attr->children->content);

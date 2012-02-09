@@ -64,8 +64,10 @@ bool isContentField(const char* val, const char * url, Results * results) {
 		cout << policy << ":" << value << endl;
 		std::cout << "++++++Link match for " << url << "!+++++++++\n";
 		#endif
-		results->AddUrlDefense(string(url), policy, value);
-		results->AddDefenseUrl(policy, string(url), value);
+		if(add_header_results) {
+			results->AddUrlDefense(string(url), policy, value);
+			results->AddDefenseUrl(policy, string(url), value);
+		}
 		return true;
 	}
 	return false;
@@ -92,22 +94,24 @@ bool check_for_headers(char* header, const char* url, Results* results){
 	string buff;
 	stringstream hds;
 	hds << string(header);
-	//get first line
 	//cout << header << endl;
 	//cout << "**********************************" << endl;
-	getline(hds, buff);
 	#if DEBUG_LEVEL > 0
 		printf("[HTTPHeaderParser.cc] : processing url %s\n", url);
 	#endif
 	//if(!acceptHeader(buff.c_str())) return;
 	bool header_accepted = false;
 	while(!hds.eof()) {
+		//get each line of the header
 		getline(hds, buff);
 		//cout << " Searching at " << buff <<endl;
+		//cout << "Checking for accepting header : " << buff.c_str() <<endl;
 		if(acceptHeader(buff.c_str())) 
 			header_accepted = true;
-		if (header_accepted) 
+		if (header_accepted) {
 			isContentField(buff.c_str(), url, results);
+		//	cout <<"Header accepted..." <<endl;
+		}
 	}
 	
 #if 0
