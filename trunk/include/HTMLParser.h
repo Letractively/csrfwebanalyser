@@ -13,7 +13,7 @@ void initHTMLParser(void);
 void parseHTML(const char* code,
 							 string url,
 							 Results *result,
-							 void (*process_url)(std::string, Results *result, unsigned int),
+							 void (*process_url)(std::string, std::string, Results *result, unsigned int),
 							 unsigned int currDepth);
 
 #endif
