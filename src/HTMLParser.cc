@@ -246,7 +246,7 @@ void FindRegisterLink(htmlNodePtr element,
 						//if(xmlStrcasecmp(node->name, (const xmlChar*)"a") == 0 ||
 						//	xmlStrcasecmp(node->name, (const xmlChar*)"button") == 0) {
 							for(attr = node->properties; attr != NULL; attr = attr->next) {
-								if(xmlStrcasecmp(attr->name, (const xmlChar*)"href") == 0) {
+								if(attr->children && xmlStrcasecmp(attr->name, (const xmlChar*)"href") == 0) {
 									//printf("node=%s\n", attr->children->content);
 									if(isRegisterLink(attr->children->content)) {
 										if(currDepth <= MAX_DEPTH) {
@@ -257,7 +257,7 @@ void FindRegisterLink(htmlNodePtr element,
 											break;
 										}
 									}
-									else if(node->children != NULL && isRegisterLink(node->children->content)) {
+									else if(node->children && isRegisterLink(node->children->content)) {
 										if(currDepth <= MAX_DEPTH) {
 											//printf("Register link found:%s\n", attr->children->content);
 											visited_link = true;
