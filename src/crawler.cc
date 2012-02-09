@@ -81,7 +81,6 @@ bool wholefile = true;
 sem_t websites_file_sem;
 sem_t url_id_sem;
 int url_id=1;
-int operations=3; /* 0 for header checking, 1 for html body checking, 2 for referer checking, 3 for all */
 
 
 typedef struct Website{
@@ -98,6 +97,9 @@ bool referer_check_on = true;
 static size_t
 BodyDataCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
+  if( !body_check_on ) { /* header checking or referer checking is selected */
+  	return 0;
+  }
   size_t realsize = size * nmemb;
  
   Website *mem = (Website *)userp;
@@ -119,6 +121,9 @@ BodyDataCallback(void *contents, size_t size, size_t nmemb, void *userp)
 static size_t
 HeaderDataCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
+  if( ! header_check_on ){
+  	return 0;
+  }
   size_t realsize = size * nmemb;
  
   Website *mem = (Website *)userp;
@@ -208,7 +213,7 @@ int get_url_id(){
 	return curr_url_id;
 }
 
-void process_url(string url, Results *results, unsigned int currDepth){
+void process_url(string url, string referer, Results *results, unsigned int currDepth){
 		CURL* curl_handle;
 		Website website;
 		website.body = (char*)  malloc(1);  /* will be grown as needed by the realloc above */ 
@@ -224,15 +229,11 @@ void process_url(string url, Results *results, unsigned int currDepth){
 		/* specify URL to get */ 
  		curl_easy_setopt(curl_handle, CURLOPT_URL, url.c_str());
  
-		if( body_check_on ) { /* body checking is selected */
 		 	/* send all body data to this function  */ 
   			curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, BodyDataCallback);
-		}
 
-		if( header_check_on ) { /* header checking or referer checking is selected */
 			/* send all header data to this function  */
         		curl_easy_setopt(curl_handle, CURLOPT_HEADERFUNCTION, HeaderDataCallback);
-		}
 
 			/* redirection limit is set to 10 redirections */
 	        curl_easy_setopt(curl_handle, CURLOPT_MAXREDIRS, 10);
@@ -247,19 +248,20 @@ void process_url(string url, Results *results, unsigned int currDepth){
        	       curl_easy_setopt(curl_handle, CURLOPT_FOLLOWLOCATION, 1);
  
 
-		if( body_check_on ) { /* body checking is selected */
 			/* we pass our 'chunk' struct to the callback function */ 
  		 	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&website);
-		}
 
 
-		if( header_check_on ) { /* header checking is selected */
 			/* we pass our 'chunk' struct to the callback function */ 
 		  	curl_easy_setopt(curl_handle, CURLOPT_WRITEHEADER, (void *)&website);
-		}
+
 	  	curl_easy_setopt(curl_handle, CURLOPT_NOPROGRESS, 1L);
 
 		curl_easy_setopt(curl_handle, CURLOPT_NOSIGNAL, 1L);
+
+		if(!referer.empty()){
+			curl_easy_setopt(curl_handle, CURLOPT_REFERER, referer.c_str());
+		}
 
 		/* we don't verify the server's certificate, which means we
 		might be downloading stuff from an impostor */ 
@@ -287,14 +289,25 @@ void process_url(string url, Results *results, unsigned int currDepth){
 	   	* you're done with it, you should free() it as a nice application.
   		*/
 		//printf("%lu bytes retrieved\n", (long)website.size);
-		if( operations != 1) { /* header checking is selected */
+		if( header_check_on ) { /* header checking is selected */
 			stringstream ss;
 			ss<< string(website.header);
 			string firstline;
 			getline(ss, firstline);
-		
+
 			if(website.header){
-				check_for_headers(website.header, url.c_str(), results);
+				bool retrieved_ok = check_for_headers(website.header, url.c_str(), results); /* referer header check support */
+				if( !referer.empty() && !retrieved_ok){ /* in this call we have already insured that a successful normal (no referer header) HTTP GET can occur */
+															/* so if now the HTTP GET is not successful we can ensure that the website has a referer check */
+					printf("Adding REFERER HEADER ACTIVATED policy for site %s!!!!\n\n\n", url.c_str());
+					exit(-1);
+					results->AddUrlDefense(url, "REFERER HEADER ACTIVATED", "");
+					results->AddDefenseUrl("REFERER HEADER ACTIVATED", url, "");
+				}
+				if(retrieved_ok && referer_check_on && referer.empty()) {
+					printf("Rechecking GET request with referer www.hacker.com\n");
+					process_url(url, "www.hacker.com", results, currDepth);
+				}
 				if(firstline.find(string("200"))==string::npos && firstline.find(string("301"))==string::npos && firstline.find(string("302"))==string::npos ) {
 					fprintf(stderr,  "------------------\n");
 					fprintf(stdout, "%s not 200, 301, 302, but %s\n", url.c_str(), firstline.c_str());
@@ -306,13 +319,13 @@ void process_url(string url, Results *results, unsigned int currDepth){
 				if((location_header_pos = string(website.header).find(string("Location:")) ) != string::npos){
 					string redirect_url = string(website.header+location_header_pos+10);
 					fprintf(stderr, "Redirecting to %s\n", redirect_url.c_str());
-					process_url(redirect_url, results, currDepth);
+					process_url(redirect_url, "", results, currDepth);
 				}
 #endif
 				free(website.header);
 	  		}
 		}
-		if( operations != 0) { /* body checking is selected */
+		if( body_check_on ) { /* body checking is selected */
 			if(website.body){
 				//printf("=======================================%s\n==========================", website.body);
 				parseHTML(website.body, url, results, process_url, currDepth);
@@ -334,7 +347,7 @@ void* do_crawl(void* threadresults){
 			fprintf(stderr, "Thread %d got url %s...\n",  ((Threadresults*)threadresults)->threadid, url.c_str());
 		#endif
 		/* adding map entry for the processed url */
-		process_url( url, &((Threadresults*)threadresults)->results,  0 );
+		process_url( url, "", &((Threadresults*)threadresults)->results,  0 );
 		#if DEBUG_LEVEL > 1
 			fprintf(stderr, "Thread %d process_url completed!!...\n",  ((Threadresults*)threadresults)->threadid);
 		#endif
@@ -408,36 +421,43 @@ int main(int argc, char* argv[])
 					header_check_on = true;
 					body_check_on = false;
 					referer_check_on = false;
+					break;
 				}
 				if(strcmp(optarg, "body") == 0){
 					header_check_on = false;
 					body_check_on = true;
 					referer_check_on = false;
+					break;
 				}
 				if(strcmp(optarg, "referer") == 0){
 					header_check_on = true;
 					body_check_on = false;
 					referer_check_on = true;
+					break;
 				}
 				if(strcmp(optarg, "header-referer") == 0 || strcmp(optarg, "referer-header") == 0){
 					header_check_on = true;
 					body_check_on = false;
 					referer_check_on = true;
+					break;
 				}
 				if(strcmp(optarg, "body-referer") == 0 || strcmp(optarg, "referer-body") ){
 					header_check_on = true;
 					body_check_on = true;
 					referer_check_on = true;
+					break;
 				}
 				if(strcmp(optarg, "header-body") == 0 || strcmp(optarg, "body-header")){
 					header_check_on = true;
 					body_check_on = true;
 					referer_check_on = false;
+					break;
 				}
 				if(strcmp(optarg, "all") == 0){
 					header_check_on = true;
 					body_check_on = true;
 					referer_check_on = true;
+					break;
 				}
 				break;
                         default:
