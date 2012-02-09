@@ -178,7 +178,7 @@ bool FindToken(htmlNodePtr element, string url, Results *results)
 void FindRegisterLink(htmlNodePtr element,
 											string url,
 											Results *results,
-											void (*process_url)(std::string, Results *results, unsigned int),
+											void (*process_url)(std::string, std::string, Results *results, unsigned int),
 											unsigned int currDepth)
 {
 	  bool visited_link = false;
@@ -253,7 +253,7 @@ void FindRegisterLink(htmlNodePtr element,
 										if(currDepth <= MAX_DEPTH) {
 											//printf("Register link found:%s\n", attr->children->content);
 											visited_link = true;
-											process_url(XmlStringToStdString(attr->children->content), results, currDepth+1);
+											process_url(XmlStringToStdString(attr->children->content), "", results, currDepth+1);
 											//printf("returned from depth=%d\n", currDepth+1);
 											break;
 										}
@@ -262,7 +262,7 @@ void FindRegisterLink(htmlNodePtr element,
 										if(currDepth <= MAX_DEPTH) {
 											//printf("Register link found:%s\n", attr->children->content);
 											visited_link = true;
-											process_url(XmlStringToStdString(attr->children->content), results, currDepth+1);
+											process_url(XmlStringToStdString(attr->children->content), "", results, currDepth+1);
 											//printf("returned from depth=%d\n", currDepth+1);
 											break;
 										}
@@ -282,7 +282,7 @@ void FindRegisterLink(htmlNodePtr element,
 void parseHTML(const char* code,
 							 string url,
 							 Results *results,
-							 void (*process_url)(std::string, Results *results, unsigned int),
+							 void (*process_url)(std::string, std::string, Results *results, unsigned int),
 							 unsigned int currDepth)
 {
 	  if(currDepth == MAX_DEPTH) return;
