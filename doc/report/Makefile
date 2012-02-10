@@ -7,7 +7,11 @@ LATEX = latex
 FILES = \
 	report.tex \
 	abstract.tex \
-	results.tex \
+	introduction.tex \
+	implementation.tex \
+#	limitations.tex \
+#	results.tex \
+#	conclusion.tex \
 	report.bib
 
 default: pdf
