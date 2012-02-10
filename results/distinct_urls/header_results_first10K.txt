@@ -1,0 +1,340 @@
+****** http://www.800notes.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : DENY
+****** http://www.allegro.pl ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.appspot.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : Deny
+****** http://www.aukro.cz ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.aukro.ua ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.avg.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : sameorigin
+****** http://www.bankofamerica.com ******
+total defenses: 1
+  Defenses : 
+  - X-FRAME-OPTIONS : DENY
+****** http://www.battle.net ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.battlenet.com.cn ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.blizzard.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.blogger.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : Deny
+****** http://www.blogspot.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : Deny
+****** http://www.boxrec.com ******
+total defenses: 1
+  Defenses : 
+  - x-frame-options : SAMEORIGIN
+****** http://www.dojki.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : sameorigin
+****** http://www.fab.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.fbcdn.net ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : DENY
+****** http://www.feedburner.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : Deny
+****** http://www.flashgot.net ******
+total defenses: 1
+  Defenses : 
+  - X-FRAME-OPTIONS : SAMEORIGIN
+****** http://www.gmail.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : Deny
+****** http://www.gmodules.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.google.co.hu ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.google.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.googleadservices.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.googlecode.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.googlegroups.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.googlelabs.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.headwaythemes.com ******
+total defenses: 1
+  Defenses : 
+  - Access-Control-Allow-Origin : *
+****** http://www.hotmail.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : deny
+****** http://www.icloud.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.ifile.it ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : sameorigin
+****** http://www.jquery.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.lastpass.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.library.nu ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : sameorigin
+****** http://www.live.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : deny
+****** http://www.maktoob.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.meinvz.net ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.modcloth.com ******
+total defenses: 1
+  Defenses : 
+  - Access-Control-Allow-Origin : http://www.modcloth.com
+****** http://www.moikrug.ru ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : DENY
+****** http://www.molotok.ru ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.moodle.org ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : sameorigin
+****** http://www.nwolb.com ******
+total defenses: 1
+  Defenses : 
+  - X-FRAME-OPTIONS : SAMEORIGIN
+****** http://www.orkut.co.in ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : Deny
+****** http://www.orkut.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : Deny
+****** http://www.orkut.com.br ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : Deny
+****** http://www.outlook.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : deny
+****** http://www.ovi.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.paypal.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.paypal.com.au ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.paypal.de ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.paypal.it ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.sendgrid.com ******
+total defenses: 1
+  Defenses : 
+  - Access-Control-Allow-Origin : *
+****** http://www.sourceforge.net ******
+total defenses: 1
+  Defenses : 
+  - Access-Control-Allow-Origin : *
+****** http://www.studiverzeichnis.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.syosetu.com ******
+total defenses: 1
+  Defenses : 
+  - X-FRAME-OPTIONS : sameorigin
+****** http://www.thehungersite.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : deny
+****** http://www.tvarsivi.com ******
+total defenses: 1
+  Defenses : 
+  - Access-Control-Allow-Origin : http://tvarsivi.com
+****** http://www.tvtv.de ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : deny
+****** http://www.twitter.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.wellsfargo.com ******
+total defenses: 1
+  Defenses : 
+  - X-frame-options : SAMEORIGIN
+****** http://www.whocallsme.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : DENY
+****** http://www.xxeronetxx.info ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : deny
+****** http://www.xxxbunker.com ******
+total defenses: 1
+  Defenses : 
+  - Access-Control-Allow-Origin : *
+****** http://www.yahoo.com ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** http://www.yammer.com ******
+total defenses: 1
+  Defenses : 
+  - Access-Control-Allow-Origin : https://ymodules.yammer.com
+****** http://www.youtu.be ******
+total defenses: 1
+  Defenses : 
+  - X-Frame-Options : SAMEORIGIN
+****** Access-Control-Allow-Origin ******
+total urls: 7
+  URLs : 
+  - http://www.modcloth.com : http://www.modcloth.com
+  - http://www.sendgrid.com : *
+  - http://www.sourceforge.net : *
+  - http://www.tvarsivi.com : http://tvarsivi.com
+  - http://www.xxxbunker.com : *
+  - http://www.yammer.com : https://ymodules.yammer.com
+  - http://www.headwaythemes.com : *
+****** X-FRAME-OPTIONS ******
+total urls: 4
+  URLs : 
+  - http://www.bankofamerica.com : DENY
+  - http://www.flashgot.net : SAMEORIGIN
+  - http://www.nwolb.com : SAMEORIGIN
+  - http://www.syosetu.com : sameorigin
+****** X-Frame-Options ******
+total urls: 52
+  URLs : 
+  - http://www.blogger.com : Deny
+  - http://www.blogspot.com : Deny
+  - http://www.fbcdn.net : DENY
+  - http://www.feedburner.com : Deny
+  - http://www.google.co.hu : SAMEORIGIN
+  - http://www.battle.net : SAMEORIGIN
+  - http://www.google.com : SAMEORIGIN
+  - http://www.googlegroups.com : SAMEORIGIN
+  - http://www.live.com : deny
+  - http://www.avg.com : sameorigin
+  - http://www.googlecode.com : SAMEORIGIN
+  - http://www.aukro.cz : SAMEORIGIN
+  - http://www.orkut.co.in : Deny
+  - http://www.orkut.com : Deny
+  - http://www.library.nu : sameorigin
+  - http://www.molotok.ru : SAMEORIGIN
+  - http://www.outlook.com : deny
+  - http://www.hotmail.com : deny
+  - http://www.paypal.com : SAMEORIGIN
+  - http://www.orkut.com.br : Deny
+  - http://www.allegro.pl : SAMEORIGIN
+  - http://www.fab.com : SAMEORIGIN
+  - http://www.icloud.com : SAMEORIGIN
+  - http://www.ifile.it : sameorigin
+  - http://www.moikrug.ru : DENY
+  - http://www.paypal.com.au : SAMEORIGIN
+  - http://www.studiverzeichnis.com : SAMEORIGIN
+  - http://www.thehungersite.com : deny
+  - http://www.twitter.com : SAMEORIGIN
+  - http://www.appspot.com : Deny
+  - http://www.ovi.com : SAMEORIGIN
+  - http://www.800notes.com : DENY
+  - http://www.moodle.org : sameorigin
+  - http://www.gmail.com : Deny
+  - http://www.whocallsme.com : DENY
+  - http://www.dojki.com : sameorigin
+  - http://www.paypal.it : SAMEORIGIN
+  - http://www.xxeronetxx.info : deny
+  - http://www.tvtv.de : deny
+  - http://www.yahoo.com : SAMEORIGIN
+  - http://www.maktoob.com : SAMEORIGIN
+  - http://www.jquery.com : SAMEORIGIN
+  - http://www.googleadservices.com : SAMEORIGIN
+  - http://www.paypal.de : SAMEORIGIN
+  - http://www.lastpass.com : SAMEORIGIN
+  - http://www.blizzard.com : SAMEORIGIN
+  - http://www.googlelabs.com : SAMEORIGIN
+  - http://www.youtu.be : SAMEORIGIN
+  - http://www.meinvz.net : SAMEORIGIN
+  - http://www.battlenet.com.cn : SAMEORIGIN
+  - http://www.gmodules.com : SAMEORIGIN
+  - http://www.aukro.ua : SAMEORIGIN
+****** X-frame-options ******
+total urls: 1
+  URLs : 
+  - http://www.wellsfargo.com : SAMEORIGIN
+****** x-frame-options ******
+total urls: 1
+  URLs : 
+  - http://www.boxrec.com : SAMEORIGIN

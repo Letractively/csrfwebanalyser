@@ -1,0 +1,641 @@
+http://www.222.73.105.210 : not 200, 301, 302, but à:UÛ7
+http://www.4cun.com : not 200, 301, 302, but 
+http://www.hubimg.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.gnspf.com : not 200, 301, 302, but x
+http://www.sougames.com : not 200, 301, 302, but ®
+http://www.netsolstores.com : not 200, 301, 302, but ®
+http://www.aiononline.com : not 200, 301, 302, but HTTP/1.1 500 Internal Server Error
+http://www.openbank.com : not 200, 301, 302, but `º™*
+http://www.phonedetective.com : not 200, 301, 302, but HTTP/1.1 307 Temporary Redirect
+http://www.leiren1.com : not 200, 301, 302, but ê+é
+Adding REFERER HEADER ACTIVATED policy for site http://www.drugs-forum.com/forum/register.php!!!!
+
+
+http://www.drugs-forum.com/forum/register.php : not 200, 301, 302, but HTTP/1.1 400 Bad Request
+http://www.51wma.com : not 200, 301, 302, but h:UÛ7
+http://www.psall.net : not 200, 301, 302, but h:UÛ7
+Adding REFERER HEADER ACTIVATED policy for site http://www.drugs-forum.com/forum/register.php!!!!
+
+
+http://www.drugs-forum.com/forum/register.php : not 200, 301, 302, but HTTP/1.1 400 Bad Request
+http://ad.doubleclick.net/jump/classeditori.milanofinanza/login;pos=top;tile=5;sz=300x250,300x600;ord=123456789? : not 200, 301, 302, but HTTP/1.1 204 No Content
+http://www.cnmp3.com : not 200, 301, 302, but –µº™*
+Adding REFERER HEADER ACTIVATED policy for site http://www.drugs-forum.com/forum/register.php!!!!
+
+
+http://www.drugs-forum.com/forum/register.php : not 200, 301, 302, but HTTP/1.1 400 Bad Request
+http://www.78.109.199.251 : not 200, 301, 302, but h:UÛ7
+Adding REFERER HEADER ACTIVATED policy for site http://www.drugs-forum.com/forum/register.php!!!!
+
+
+http://www.drugs-forum.com/forum/register.php : not 200, 301, 302, but HTTP/1.1 400 Bad Request
+http://www.baidu.mobi : not 200, 301, 302, but –•~
+http://azstarnet.com/register/ : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.eonlineapply.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.link88.be : not 200, 301, 302, but »
+http://www.nnzgtj.com : not 200, 301, 302, but HTTP/1.1 500 Internal Server Error
+Adding REFERER HEADER ACTIVATED policy for site http://www.seositemanager.com/wp-login.php?action=register!!!!
+
+
+http://www.seositemanager.com/wp-login.php?action=register : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.seositemanager.com/wp-login.php!!!!
+
+
+http://www.seositemanager.com/wp-login.php : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.acesso.uol.com.br : not 200, 301, 302, but h:UÛ7
+Adding REFERER HEADER ACTIVATED policy for site http://www.seositemanager.com/category/internet/joint-ventures!!!!
+
+
+http://www.seositemanager.com/category/internet/joint-ventures : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.seositemanager.com/wp-login.php?action=register!!!!
+
+
+http://www.seositemanager.com/wp-login.php?action=register : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.seositemanager.com/wp-login.php!!!!
+
+
+http://www.seositemanager.com/wp-login.php : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.msoms-anime.net/register.php!!!!
+
+
+http://www.msoms-anime.net/register.php : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.msoms-anime.net/register.php!!!!
+
+
+http://www.msoms-anime.net/register.php : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.yixieshi.com : not 200, 301, 302, but h:UÛ7
+http://www.go.gov.br : not 200, 301, 302, but q@–™*
+http://msds.bpweb.bp.com/login.asp : not 200, 301, 302, but ®
+http://www.swaia.biz : not 200, 301, 302, but ®
+http://sis.ud.edu.sa:8000/psp/hcs9prd/?cmd=login&languageCd=ARA& : not 200, 301, 302, but ®
+http://www.locoplace.jp : not 200, 301, 302, but ú¨™*
+http://www.211.98.70.195 : not 200, 301, 302, but `‡Í
+https://www.campaigncommander.com/loginccmd/jsp/login/login.jsp : not 200, 301, 302, but HTTP/1.1 500 Internal Server Error
+http://www.paygo.17zhifu.com/user/10005 : not 200, 301, 302, but ®
+http://www.avi.jp : not 200, 301, 302, but @‡¨™*
+https://www.foto.ne.jp/mypage/login.php : not 200, 301, 302, but ®
+http://www.traffic2drive.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.hospedagemdesites.ws : not 200, 301, 302, but h:UÛ7
+Adding REFERER HEADER ACTIVATED policy for site http://www.html.de/register.php!!!!
+
+
+http://www.html.de/register.php : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.html.de/php/42784-mysql-left-join-zu-langsam-post307908.html!!!!
+
+
+http://www.html.de/php/42784-mysql-left-join-zu-langsam-post307908.html : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.jointheteam.com/!!!!
+
+
+http://www.jointheteam.com/ : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://www.actiongirls.com/joinkorean.html!!!!
+
+
+http://www.actiongirls.com/joinkorean.html : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site https://www.facebook.com/login.php?api_key=200183103347113&cancel_url=http%3A%2F%2Fwww.resultados-futbol.com%2Fajax%2Ffbconnect%2Fexec_login.php&display=page&fbconnect=1&next=http%3A%2F%2Fwww.resultados-futbol.com%2Fajax%2Ffbconnect%2Fexec_login.php&return_session=1&session_version=3&v=1.0&req_perms=email!!!!
+
+
+https://www.facebook.com/login.php?api_key=200183103347113&cancel_url=http%3A%2F%2Fwww.resultados-futbol.com%2Fajax%2Ffbconnect%2Fexec_login.php&display=page&fbconnect=1&next=http%3A%2F%2Fwww.resultados-futbol.com%2Fajax%2Ffbconnect%2Fexec_login.php&return_session=1&session_version=3&v=1.0&req_perms=email : not 200, 301, 302, but ®
+http://www.cside.com : not 200, 301, 302, but ÄÂ4–™*
+Adding REFERER HEADER ACTIVATED policy for site http://ecadforum.com/blog1/2012/01/23/join-ethiopian-patriots-in-new-york-city/!!!!
+
+
+http://ecadforum.com/blog1/2012/01/23/join-ethiopian-patriots-in-new-york-city/ : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.imagesbox.com : not 200, 301, 302, but –a
+Adding REFERER HEADER ACTIVATED policy for site http://ecadforum.com/wp-login.php!!!!
+
+
+http://ecadforum.com/wp-login.php : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.fbgdc.com : not 200, 301, 302, but ¿7º™*
+http://www.9966.org : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.luowubao.com : not 200, 301, 302, but HTTP/1.1 500 Internal Server Error
+http://www.scotiaweb.com.mx : not 200, 301, 302, but êº™*
+Adding REFERER HEADER ACTIVATED policy for site http://www.torrent-invites.com/register.php!!!!
+
+
+http://www.torrent-invites.com/register.php : not 200, 301, 302, but ®
+http://www.intellectmoney.ru : not 200, 301, 302, but  -1–™*
+http://www.metroblog.com/register?regreferer=H : not 200, 301, 302, but ®
+http://www.niigata.jp : not 200, 301, 302, but ®
+http://www.pirori2ch.com : not 200, 301, 302, but HTTP/1.1 404 Not Found
+Adding REFERER HEADER ACTIVATED policy for site http://www.txtlinks.com/login.php!!!!
+
+
+http://www.txtlinks.com/login.php : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+https://mygoodtogo.com/olcsc/AccountLogin.do : not 200, 301, 302, but `¨OÃ™*
+https://mygoodtogo.com/olcsc/AccountLogin.do : not 200, 301, 302, but 
+http://www.jugem.cc : not 200, 301, 302, but HTTP/1.1 401 Authorization Required
+http://www.zetagalleries.com : not 200, 301, 302, but HTTP/1.1 404 Not Found
+Adding REFERER HEADER ACTIVATED policy for site https://www.ebookjapan.jp/ebj/user/trunk_gate.asp?aid=TRUNK_LOGIN!!!!
+
+
+http://www.uiraqi.com : not 200, 301, 302, but »
+http://www.mshcdn.com : not 200, 301, 302, but ¿Aº™*
+http://www.linkpt.net : not 200, 301, 302, but ®
+http://www.cnadslink.com : not 200, 301, 302, but P§H∏™*
+http://www.pcs-sd.net : not 200, 301, 302, but Ÿ&Ã™*
+http://www.blogglue.com : not 200, 301, 302, but ®
+http://www.techimo.com : not 200, 301, 302, but 
+http://www.aftonbladet-cdn.se : not 200, 301, 302, but Äyq¿™*
+http://www.uitm.edu.my : not 200, 301, 302, but HTTP/1.1 303 See Other
+http://www.nyud.net : not 200, 301, 302, but  Í
+http://www.banoo1.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.pentaxforums.com : not 200, 301, 302, but ‡∏™*
+http://www.wordpressthemeshock.com/free-login-window-box/ : not 200, 301, 302, but ®
+http://www.matomeantena.com : not 200, 301, 302, but †Ÿ#–™*
+http://www.678ad.com : not 200, 301, 302, but HTTP/1.1 500 Internal Server Error
+http://www.sharing588.com : not 200, 301, 302, but HTTP/1.1 500 Internal Server Error
+http://www.stratfor.com : not 200, 301, 302, but ®
+http://www.shizuoka.jp : not 200, 301, 302, but h:UÛ7
+http://academy777.com/wp-login.php?action=logout&redirect_to=http%3A%2F%2Facademy777.com%2Fsaludos%2F&_wpnonce=0f07ee86e7 : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://academy777.com/wp-login.php?action=logout&redirect_to=http%3A%2F%2Facademy777.com%2Fsaludos%2F&_wpnonce=0f07ee86e7 : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.markethack.net : not 200, 301, 302, but P~ƒ™*
+http://www.actiongirls.com/revsignup/ : not 200, 301, 302, but 
+http://www.fruitmail.net/my/p.cgi?fmail_login.html : not 200, 301, 302, but h:UÛ7
+http://www.brinkster.net : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.amazesoft.com : not 200, 301, 302, but ®
+http://www.elcaribe.com.do : not 200, 301, 302, but P¿º™*
+http://www.k12.il.us : not 200, 301, 302, but p©–™*
+Adding REFERER HEADER ACTIVATED policy for site http://siteinspire.com/register!!!!
+
+
+http://siteinspire.com/register : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://siteinspire.com/users/login!!!!
+
+
+http://siteinspire.com/users/login : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.findrjp.com : not 200, 301, 302, but ®
+http://www.cdxs.gov.cn : not 200, 301, 302, but HTTP/1.1 400 Bad Request
+Adding REFERER HEADER ACTIVATED policy for site http://socialfresh.com/wp-login.php?redirect_to=%2F!!!!
+
+
+http://socialfresh.com/wp-login.php?redirect_to=%2F : not 200, 301, 302, but HTTP/1.1 400 Bad Behavior
+http://www.sirsi.net : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://socialfresh.com/wp-login.php?action=register&redirect_to=wp_login.php!!!!
+
+
+http://socialfresh.com/wp-login.php?action=register&redirect_to=wp_login.php : not 200, 301, 302, but HTTP/1.1 400 Bad Behavior
+http://www.suero.ru : not 200, 301, 302, but 0[qº™*
+http://www.gop.pk : not 200, 301, 302, but 08–™*
+http://accounts.adoos.in/signup/ : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.k12.or.us : not 200, 301, 302, but –T¥™*
+http://accounts.adoos.in/signup/ : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.primecurves.com : not 200, 301, 302, but •5¿™*
+http://www.custkb.com : not 200, 301, 302, but  xH¿™*
+http://www.55277.com : not 200, 301, 302, but ®
+http://www.lnwow.com : not 200, 301, 302, but h:UÛ7
+http://www.rima-tde.net : not 200, 301, 302, but ê„-¿™*
+http://www.billpaysite.com : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://www.red-team-design.com/slick-login-form-with-html5-css3!!!!
+
+
+http://www.red-team-design.com/slick-login-form-with-html5-css3 : not 200, 301, 302, but ®
+http://www.facebook.com/sharer.php?s=100&p[title]=The Craig James Anti-Boom&p[url]=http%3A%2F%2Fwww.washingtonmonthly.com%2Fpolitical-animal-a%2F2012_02%2Fthe_craig_james_antiboom035304.php&p[images][0]=http://s3.amazonaws.com/wamo/admin/logo_political_animal_2012.gif&p[summary]=Sometimes%20a%20widely%20disliked%20public%20figure%20will%20get%20an%20itch%20to%20run%20for%20political%20office%2C%20and%20even%20people%20who%20care%20nothing%20about%20politics%20will%20join%20in%20a%20festival%20of%20schadenfreude%20watching%20the%20legend-in-his-or-her-own-mind%20go%20predictably%20down%20the%20tubes.%20There%20was : not 200, 301, 302, but HTTP/1.1 400 Bad Request
+Adding REFERER HEADER ACTIVATED policy for site http://mipagina.1001consejos.com/main/authorization/signUp/!!!!
+
+
+http://mipagina.1001consejos.com/main/authorization/signUp/ : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.megalodon.jp : not 200, 301, 302, but Pùh¿™*
+http://www.ddstatic.com : not 200, 301, 302, but P6Ä∏™*
+http://www.gamechu.jp : not 200, 301, 302, but ®
+http://www.ok-magazine.com : not 200, 301, 302, but †Ë*»™*
+http://www.ca-mpr.jp : not 200, 301, 302, but ®
+http://www.uumad.com : not 200, 301, 302, but ¿0#º™*
+http://www.indiaeducation.net/Alerts/Punjab-State-Board-of-Technical-Education-Joint-Entrance-Test-JET-2012-Examination-Notice-07022012 : not 200, 301, 302, but ®
+http://www.newsdaily7.tv : not 200, 301, 302, but Ä∞5∏™*
+http://usuarios.quesabesde.com/login.html?iurl=http%3A%2F%2Fwww%2Equesabesde%2Ecom%2Findex%2Easp : not 200, 301, 302, but HTTP/1.1 401 Unauthorized
+http://usuarios.quesabesde.com/login.html : not 200, 301, 302, but HTTP/1.1 401 Unauthorized
+http://www.kyoto.jp : not 200, 301, 302, but –Ê¥∏™*
+http://www.guim.co.uk : not 200, 301, 302, but ∞K¿™*
+http://www.92.242.195.194 : not 200, 301, 302, but  »™*
+Adding REFERER HEADER ACTIVATED policy for site http://join.privatepornpass.com/track/OTE4Ojg6MjI/!!!!
+
+
+http://join.privatepornpass.com/track/OTE4Ojg6MjI/ : not 200, 301, 302, but ®
+http://www.m-e-c.biz : not 200, 301, 302, but @gX»™*
+http://www.sqlite.org : not 200, 301, 302, but ®
+http://www.facebook.com/dialog/oauth?client_id=140304072755979&redirect_uri=http://shersingh.com/facebook/index/login/co/2/&scope=email,offline_access,publish_stream : not 200, 301, 302, but ®
+http://www.blogdlya.com : not 200, 301, 302, but P‚í∏™*
+http://www.alliance-leicesterbusinessbanking.co.uk : not 200, 301, 302, but ®
+http://www.check-domains.com : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://www.wzayef.com/register_cv!!!!
+
+
+http://www.yokimono.com : not 200, 301, 302, but HTTP/1.1 500 Internal Server Error
+Adding REFERER HEADER ACTIVATED policy for site https://secure.italki.com/user/login.htm!!!!
+
+
+https://secure.italki.com/user/login.htm : not 200, 301, 302, but ®
+https://www.jsports.co.jp/web_member/login.php?url=/ : not 200, 301, 302, but HTTP/1.0 500 Internal Server Error
+http://www.powerhomebiz.com : not 200, 301, 302, but Ä¥bÃ™*
+http://bbs.sgnet.cc/member.php?mod=register&referer=http%3A//bbs.sgnet.cc/ : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://www.wzayef.com/ar/register_cv!!!!
+
+
+http://www.2chspa.com : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://join.mrskin.com/track/MTkzODk6Mzox/blog!!!!
+
+
+http://join.mrskin.com/track/MTkzODk6Mzox/blog : not 200, 301, 302, but ®
+http://www.deepdiscounts.com : not 200, 301, 302, but ®
+http://www.hitmv.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.j-live.tv : not 200, 301, 302, but ∞-@Ã™*
+http://www.rcil.gov.in : not 200, 301, 302, but `Ä[¥™*
+http://www.news-medical.net : not 200, 301, 302, but P≥íº™*
+http://www.shegods.com : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://forum.codecall.net/classes-code-snippets/25566-c-vbulletin-login-function.html!!!!
+
+
+http://forum.codecall.net/classes-code-snippets/25566-c-vbulletin-login-function.html : not 200, 301, 302, but å∆º™*
+http://www.saitama.jp : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site https://www.arabictrader.com/accounts/users/register?service=fs!!!!
+
+
+https://www.arabictrader.com/accounts/users/register?service=fs : not 200, 301, 302, but ®
+http://www.edgecastcdn.net : not 200, 301, 302, but ‡$G¥™*
+http://www.tatacommunications.com : not 200, 301, 302, but HTTP/1.1 500 Internal Server Error
+http://www.lanxtra.com : not 200, 301, 302, but Pt[¥™*
+http://www.facebook.com/dialog/oauth/?state=http%3A%2F%2Fwww.diretube.com%2F &client_id=189561677738735&cancel_url=http://www.diretube.com&redirect_uri=http://www.diretube.com/fblogin.php&scope=user_location,email,user_birthday,user_location,user_about_me,user_website&response_type=token : not 200, 301, 302, but HTTP/1.1 400 Bad Request
+http://www.sapporo.jp : not 200, 301, 302, but ê;Kƒ™*
+http://www.fastbooking.ch : not 200, 301, 302, but ®
+http://www.servertrust.com : not 200, 301, 302, but ®
+http://www.okweb3.jp : not 200, 301, 302, but 
+http://www.adultpartypics.com : not 200, 301, 302, but  'UÃ™*
+http://www.pcsbanking.net : not 200, 301, 302, but ®
+http://xnostars.com/webcams/acceso.php?login=xnos : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://join.littlelatingfs.com/track/MTU0Mzo0OjM/!!!!
+
+
+http://www.111.175.242.23 : not 200, 301, 302, but –õ≤Ã™*
+http://www.whservidor.com : not 200, 301, 302, but h:UÛ7
+https://www.jointheteam.com : not 200, 301, 302, but ®
+http://passport.chaoxing.com/join.shtml : not 200, 301, 302, but ®
+http://www.514rc.com : not 200, 301, 302, but HTTP/1.1 500 Internal Server Error
+Adding REFERER HEADER ACTIVATED policy for site https://www.ems.com/coreg/index.jsp?step=register!!!!
+
+
+https://www.ems.com/coreg/index.jsp?step=register : not 200, 301, 302, but ®
+http://www.s-msn.com : not 200, 301, 302, but 0 A»™*
+http://www.217.175.53.72 : not 200, 301, 302, but 
+http://www.game-debate.com/login/index.php : not 200, 301, 302, but ®
+http://www.main-hosting.com : not 200, 301, 302, but Ä˝‘¨™*
+http://www.80076.net : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.nohold.net : not 200, 301, 302, but ®
+http://www.lib.oh.us : not 200, 301, 302, but ®
+http://www.dn888.com : not 200, 301, 302, but pØ¨™*
+Adding REFERER HEADER ACTIVATED policy for site https://www.arabictrader.com/accounts/users/register?service=fs!!!!
+
+
+https://www.arabictrader.com/accounts/users/register?service=fs : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://www.thetruthaboutcars.com/2012/02/john-hunstman-joining-fords-board/!!!!
+
+
+http://www.thetruthaboutcars.com/2012/02/john-hunstman-joining-fords-board/ : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.thetruthaboutcars.com/2012/02/john-hunstman-joining-fords-board/#more-430203!!!!
+
+
+http://www.thetruthaboutcars.com/2012/02/john-hunstman-joining-fords-board/#more-430203 : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.digicame-info.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.thetruthaboutcars.com/2012/02/john-hunstman-joining-fords-board/#comments!!!!
+
+
+http://www.thetruthaboutcars.com/2012/02/john-hunstman-joining-fords-board/#comments : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.psi.gov.sg : not 200, 301, 302, but ®
+http://www.577gc.biz : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.tmweb.ru : not 200, 301, 302, but ÿ ƒ™*
+http://www.iwire.jp : not 200, 301, 302, but ®
+http://www.deriheru-1m.com : not 200, 301, 302, but †\>¥™*
+http://alaannual.org/registration : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://alaannual.org/registration : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://alaannual.org/registration : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.9dzc.com : not 200, 301, 302, but HTTP/1.0 503 Service Unavailable
+http://designinstruct.com/visual-inspiration/web-design-inspiration/beautiful-dark-web-designs/ : not 200, 301, 302, but ®
+http://www.mpls.mn.us : not 200, 301, 302, but 
+http://www.mykavirmusic8.com : not 200, 301, 302, but HTTP/1.1 303 See Other
+http://www.otpbankdirekt.hu : not 200, 301, 302, but @Gq∏™*
+http://www.duapp.com : not 200, 301, 302, but HTTP/1.1 404 Not Found
+Adding REFERER HEADER ACTIVATED policy for site http://www.sheetalcreation.com/website-designing-services.html!!!!
+
+
+http://www.sheetalcreation.com/website-designing-services.html : not 200, 301, 302, but ®
+http://www.losviajeros.com : not 200, 301, 302, but ®
+http://irctc.co.in/cgi-bin/bv60.dll/irctc/services/register.do?click=true : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.gearlive.com/profile/login/!!!!
+
+
+http://www.gearlive.com/profile/login/ : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.gearlive.com/profile/register/!!!!
+
+
+http://www.gearlive.com/profile/register/ : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+https://secure.lhj.com/common/profile/quicksignup.jsp?regSource=1643 : not 200, 301, 302, but ®
+http://www.67.220.93.13 : not 200, 301, 302, but †K¥™*
+Adding REFERER HEADER ACTIVATED policy for site http://movies.gearlive.com/movies/article/q309-rooney-mara-joins-side-effects/!!!!
+
+
+http://movies.gearlive.com/movies/article/q309-rooney-mara-joins-side-effects/ : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.lebanese-forces.com : not 200, 301, 302, but Ÿî»™*
+http://www.softlatest.info : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.119.147.41.16 : not 200, 301, 302, but ®
+http://www.6theory.com : not 200, 301, 302, but ®
+http://www.impaqmsn.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.gamestop-email.com : not 200, 301, 302, but †J$»™*
+http://www.p33p.com : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://www.videochaterotico.com/?login=CANGREJAS!!!!
+
+
+http://www.videochaterotico.com/?login=CANGREJAS : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://www.insaf.pk/News/tabid/60/articleType/ArticleView/articleId/9911/Jahinger-Saifullah-and-former-IGP-joins-PTI.aspx!!!!
+
+
+http://www.insaf.pk/News/tabid/60/articleType/ArticleView/articleId/9911/Jahinger-Saifullah-and-former-IGP-joins-PTI.aspx : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.insaf.pk/News/tabid/60/articleType/ArticleView/articleId/9921/Joinings-in-Nowshera-and-Charsadda-Imran-Khan-is-the-last-hope-for-the-nation-Khawaja-Hoti.aspx!!!!
+
+
+http://www.insaf.pk/News/tabid/60/articleType/ArticleView/articleId/9921/Joinings-in-Nowshera-and-Charsadda-Imran-Khan-is-the-last-hope-for-the-nation-Khawaja-Hoti.aspx : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.insaf.pk/News/tabid/60/articleType/ArticleView/articleId/9916/Pakistan-needs-revolution-the-nation-should-join-hands-with-Imran-Khan-Shaukat-Yousafzai-speaks-at-Shangla-workers-convention.aspx!!!!
+
+
+http://www.insaf.pk/News/tabid/60/articleType/ArticleView/articleId/9916/Pakistan-needs-revolution-the-nation-should-join-hands-with-Imran-Khan-Shaukat-Yousafzai-speaks-at-Shangla-workers-convention.aspx : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.index.hr/indexklub/login.aspx : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.life800.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.lpsg.org : not 200, 301, 302, but †≠à¥™*
+http://www.libyan-sat.com : not 200, 301, 302, but †∂Ω¿™*
+http://www.homesteadmail.com : not 200, 301, 302, but P.°∏™*
+http://www.juntais.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.sougouwiki.com : not 200, 301, 302, but ®
+http://www.happyfree.info : not 200, 301, 302, but ∞hi¿™*
+http://www.cc.ca.us : not 200, 301, 302, but ‡√ì
+http://www.wenxuewu.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.97youku.com : not 200, 301, 302, but P$–™*
+http://www.v-cash.com : not 200, 301, 302, but “E»™*
+http://www.6788787.com : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.spfc.net : not 200, 301, 302, but ®
+http://www.ziweistar.net : not 200, 301, 302, but HTTP/1.1 500 Internal Server Error
+http://www.lostwebtracker.com : not 200, 301, 302, but Ùº™*
+Adding REFERER HEADER ACTIVATED policy for site http://designinstruct.com/author/isaac-gube/!!!!
+
+
+http://designinstruct.com/author/isaac-gube/ : not 200, 301, 302, but ®
+http://community.heartifb.com/account/register.php : not 200, 301, 302, but h:UÛ7
+http://www.buffalo-ggn.net : not 200, 301, 302, but êÃ™*
+http://www.alfatak.com : not 200, 301, 302, but ®
+http://www.site-secure.com : not 200, 301, 302, but ®
+http://www.jra.jp : not 200, 301, 302, but Ä—™*
+http://www.es.gov.br : not 200, 301, 302, but ÄΩÕ™*
+http://www.rakurakuhp.net : not 200, 301, 302, but ®
+http://www.blogsys.jp : not 200, 301, 302, but @bΩ…™*
+http://www.cc120.cn : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.video.az : not 200, 301, 302, but @â≠…™*
+http://www.jhushi.com : not 200, 301, 302, but HTTP/1.1 500 Internal Server Error
+http://www.shrinktheweb.com : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://www.ddanzi.com/wp-login.php!!!!
+
+
+http://www.ddanzi.com/wp-login.php : not 200, 301, 302, but HTTP/1.1 400 Bad Behavior
+http://www.comercioeletronico.com.br : not 200, 301, 302, but ê˚-–™*
+http://www.cedyna.co.jp : not 200, 301, 302, but ‡©∏™*
+Adding REFERER HEADER ACTIVATED policy for site http://www.videochaterotico.com/?login=CANGREJAS!!!!
+
+
+http://www.videochaterotico.com/?login=CANGREJAS : not 200, 301, 302, but ®
+http://www.objectmix.com : not 200, 301, 302, but HTTP/1.1 503 Service Temporarily Unavailable
+http://www.hexiesl.com : not 200, 301, 302, but HTTP/1.1 500 Internal Server Error
+http://programmersforum.ru/register.php?do=requestemail&email= : not 200, 301, 302, but h:UÛ7
+http://al-khaleej.ae:8011/login.aspx : not 200, 301, 302, but à:UÛ7
+http://www.design-develop.net : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.senavirtual.edu.co : not 200, 301, 302, but  ≈Lƒ™*
+https://www.diyseo.com/signup : not 200, 301, 302, but h:UÛ7
+http://www.87.101.230.11 : not 200, 301, 302, but @Õí
+http://www.eugeneo.com : not 200, 301, 302, but HTTP/1.1 503 Service Unavailable
+http://www.kishou.go.jp : not 200, 301, 302, but `¢–™*
+http://www.emb-japan.go.jp : not 200, 301, 302, but p≤"–™*
+http://www.tuanku.com : not 200, 301, 302, but ®
+http://www.eventseye.com : not 200, 301, 302, but 0è–™*
+Adding REFERER HEADER ACTIVATED policy for site http://superdit.com/2011/12/19/60-freebies-psd-login-screen-for-inspiration/#comments!!!!
+
+
+http://superdit.com/2011/12/19/60-freebies-psd-login-screen-for-inspiration/#comments : not 200, 301, 302, but ®
+http://www.glbimg.com : not 200, 301, 302, but 0©W¥™*
+http://www.salesforce.com/events/details/cs12-sf/registration.jsp?d=70130000000sDfa : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.img-dpreview.com : not 200, 301, 302, but h:UÛ7
+http://www.www.gov.hk : not 200, 301, 302, but ®
+http://www.babyblue1000.com : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.bluefountainmedia.com : not 200, 301, 302, but @©®∏™*
+http://www.paragonrels.com : not 200, 301, 302, but HTTP/1.1 400 Bad Request
+http://www.madbid.com : not 200, 301, 302, but HTTP/1.1 204 No Content
+http://www.uptoten.com : not 200, 301, 302, but ®
+http://www.jhpds.net : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.web-town.org/register.php!!!!
+
+
+http://www.web-town.org/register.php : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.arealchange.com : not 200, 301, 302, but ®
+http://www.zigsow.com : not 200, 301, 302, but h:UÛ7
+http://www.womenhealth1.com : not 200, 301, 302, but ®
+http://www.addpr.com : not 200, 301, 302, but fT≈™*
+http://www.mh3g.org : not 200, 301, 302, but `îÅ»™*
+http://www.postoffice.net : not 200, 301, 302, but ®
+http://twitter.com/share?url=http://www.consumerqueen.com/online-deals/sign-up-for-a-guest-pass-to-curves-for-only-10&via=consumerqueen&text=Sign up for a guest pass to Curves for only $10&related=:&lang=en&count=horizontal : not 200, 301, 302, but HTTP/1.0 400 Bad Request
+http://www.movistar.com.ve : not 200, 301, 302, but ®
+http://foro.argenteam.net/profile.php?mode=register : not 200, 301, 302, but HTTP/1.1 404 Not Found
+HTTP://XXGK.WH.CN:8080/bground/login.aspx : not 200, 301, 302, but ®
+http://www.thebrazzers.com : not 200, 301, 302, but HTTP/1.1 500 Internal Server Error
+http://www.9899.cn : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.49.247.252.86 : not 200, 301, 302, but ®
+http://www.ni.net.tr : not 200, 301, 302, but ‡jÃ™*
+http://www.gaotie.cn : not 200, 301, 302, but ®
+http://www.costasur.com : not 200, 301, 302, but HTTP/1.0 502 Bad Gateway
+http://www.videochatamateur.com/?login=CANGREJAS : not 200, 301, 302, but ®
+http://www.secure.weebly.com : not 200, 301, 302, but ∞˛ƒ™*
+http://www.398222.com : not 200, 301, 302, but Pçµ™*
+http://sso.kiskegyed.hu/login : not 200, 301, 302, but HTTP/1.1 401 Unauthorized
+Adding REFERER HEADER ACTIVATED policy for site http://www.placementindia.com/job-recruiters/join-now.php?type=1!!!!
+
+
+http://www.placementindia.com/job-recruiters/join-now.php?type=1 : not 200, 301, 302, but ®
+http://www.customersvc.com : not 200, 301, 302, but i<Ã™*
+http://www.ebanking-services.com : not 200, 301, 302, but ®
+http://www.njlss.gov.cn/NJLD/web_access/UserLogin.jsp : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.njlss.gov.cn/NJLD/web_access/UserLogin.jsp : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.spon.me : not 200, 301, 302, but ®
+http://www.tudouui.com : not 200, 301, 302, but pk»™*
+http://www.justrich.net : not 200, 301, 302, but h:UÛ7
+http://www2.371.com/members/login.asp : not 200, 301, 302, but ®
+http://www.s3s.fr : not 200, 301, 302, but ®
+http://www.zcache.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.onjira.com : not 200, 301, 302, but ®
+http://www.redirectingat.com : not 200, 301, 302, but HTTP/1.1 404 File Not Found
+http://www.googleratings.com : not 200, 301, 302, but ®
+http://www.alfahosting-server.de : not 200, 301, 302, but ®
+http://www.psx-scene.com : not 200, 301, 302, but pDÎ
+http://www.cey-ebanking.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.apesal.com/webmaster/signup : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.sologig.com/Share/Login.aspx!!!!
+
+
+http://www.sologig.com/Share/Login.aspx : not 200, 301, 302, but ®
+http://www.lss.gov.cn : not 200, 301, 302, but @x`¬™*
+http://www.rsch.jp : not 200, 301, 302, but h:UÛ7
+http://www.fullblog.com.ar : not 200, 301, 302, but ‡( ¥™*
+http://www.karmalynx.com : not 200, 301, 302, but HTTP/1.1 503 Service Unavailable
+http://www.wenku.baidu.com/user/index : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://blog.scanlover.com/wp-register.php!!!!
+
+
+http://blog.scanlover.com/wp-register.php : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://blog.scanlover.com/wp-login.php?action=register!!!!
+
+
+http://blog.scanlover.com/wp-login.php?action=register : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://blog.scanlover.com/wp-login.php!!!!
+
+
+http://blog.scanlover.com/wp-login.php : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://wpengineer.com/wp-login.php : not 200, 301, 302, but HTTP/1.1 401 Authorization Required
+http://www.mugshots.com : not 200, 301, 302, but HTTP/1.1 503 Service Unavailable: Back-end server is at capacity
+http://www.webhostbox.net : not 200, 301, 302, but P·ÇÃ™*
+https://filer.codal.ir/Login.aspx : not 200, 301, 302, but ®
+http://www.oliver.de : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.videochatamateur.com/?login=CANGREJAS : not 200, 301, 302, but 
+http://www.wednet.edu : not 200, 301, 302, but –\_»™*
+http://www.bloggforus.com : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.programosy.pl : not 200, 301, 302, but Ö»™*
+http://www.smadav.net : not 200, 301, 302, but ®
+http://www.booksamillion.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+https://secure.moshimo.com/ac/owner/register/entry/ds : not 200, 301, 302, but ®
+http://sp.uni-wise.com/portal/login.jsp : not 200, 301, 302, but ®
+http://brokerage.linkadage.com/signup_adv.php : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://www.film-mkv.com/wp-login.php!!!!
+
+
+http://www.film-mkv.com/wp-login.php : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.linkadage.com/f?p=130:LOGIN:4395489305347166 : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.2fq.net : not 200, 301, 302, but –q÷…™*
+Adding REFERER HEADER ACTIVATED policy for site http://www.articlefield.com/wp-login.php!!!!
+
+
+http://www.articlefield.com/wp-login.php : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.blogdumoderateur.com : not 200, 301, 302, but ®
+http://mail12.bigmailbox.com/users/narakmailcom/signup.cgi?sw=1&tt=full : not 200, 301, 302, but ®
+http://www.static.tumblr.com : not 200, 301, 302, but ê≥]
+http://www.yourreservation.net : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.aipsurveys.com : not 200, 301, 302, but  n
+Adding REFERER HEADER ACTIVATED policy for site http://www.myhq.com/cgi-bin/all/register.cgi!!!!
+
+
+http://www.myhq.com/cgi-bin/all/register.cgi : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://digg.com/submit?phase=2&url=http%3A%2F%2Frkjsw.sh.gov.cn%2Fuser%2Fprofile%2F95381.page&title=all about maternity wear&bodytext=Funmum maternity clothes are designed to guarantee a stylish pregnancy. Whatever the season or occasion, Funmum maternity clothes have the perfect outfit for you. Style and comfort are our buzzwords when it comes to designing maternity clothes. : not 200, 301, 302, but HTTP/1.1 400 Bad Request
+http://www.ezinearticles.biz/authors/login.php : not 200, 301, 302, but HTTP/1.0 401 Unauthorized
+http://www.ezinearticles.biz/authors/login.php : not 200, 301, 302, but HTTP/1.0 401 Unauthorized
+http://www.nagoya.jp : not 200, 301, 302, but ®
+http://www.dllapp.info : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.order.xiaomi.com/user/orderView : not 200, 301, 302, but ®
+http://www.fednetbank.com : not 200, 301, 302, but †^º™*
+http://www.exclusivecpa.com : not 200, 301, 302, but ®
+http://www.hohomp3.com : not 200, 301, 302, but –©o¨™*
+http://www.idxjmp.com : not 200, 301, 302, but ®
+http://www.hostingprod.com : not 200, 301, 302, but ®
+http://www.bhel.in : not 200, 301, 302, but Ä·•º™*
+http://www.flickr.net : not 200, 301, 302, but HTTP/1.1 404 Not Found on Accelerator
+http://www.211.151.64.140 : not 200, 301, 302, but P4I–™*
+http://www.adsenseflippers.com : not 200, 301, 302, but ®
+http://www.futebolpremium.com : not 200, 301, 302, but Äπ¨™*
+http://www.myhindiserials.com : not 200, 301, 302, but @mµ™*
+Adding REFERER HEADER ACTIVATED policy for site http://www.cinecolombia.com.co/Register.aspx!!!!
+
+
+http://www.cinecolombia.com.co/Register.aspx : not 200, 301, 302, but ®
+https://www.freeconference.com/Signup.aspx?Redir=account.aspx_-72736E3D70636F64264352656469723-D486F6D652E6173707826526564697-23D53686F774E6577557365722E617-370785F2D373036333646363433443-6313634363436353634 : not 200, 301, 302, but ®
+http://www.94.77.215.37 : not 200, 301, 302, but 
+http://www.exposay.com : not 200, 301, 302, but h:UÛ7
+http://www.asset-cache.net : not 200, 301, 302, but HTTP/1.0 400 Bad Request
+http://www.topmobile-tr.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://bbs.sports.cn/register.php : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.videochatamateur.com/?login=CANGREJAS : not 200, 301, 302, but 
+http://www.m-cocolog.jp : not 200, 301, 302, but h:UÛ7
+Adding REFERER HEADER ACTIVATED policy for site Http://planetphim.com/forum/index.php?app=core&module=global&section=login!!!!
+
+
+Http://planetphim.com/forum/index.php?app=core&module=global&section=login : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.pornicana.com/galleries/rk/pt0001/eurosexparties-olivia-two_in_one-12-01-2011/join0006.htm : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site Http://planetphim.com/forum/index.php?app=core&module=global&section=login&&do=deleteCookies&k=880ea6a14ea49e853634fbdc5015a024!!!!
+
+
+Http://planetphim.com/forum/index.php?app=core&module=global&section=login&&do=deleteCookies&k=880ea6a14ea49e853634fbdc5015a024 : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.acasa.ro : not 200, 301, 302, but HTTP/1.0 500 Internal Server Error
+http://www.blogprojekt.de/wp-login.php : not 200, 301, 302, but HTTP/1.1 401 Authorization Required
+http://www.playyy.cn : not 200, 301, 302, but @≥é
+http://www.cubicinfo.com : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.ic3.com : not 200, 301, 302, but h:UÛ7
+http://www.thelifeerotic.com : not 200, 301, 302, but ™Èµ™*
+http://www.218.3.133.18 : not 200, 301, 302, but ®
+http://www.usaid.gov : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site https://www.wholesalepages.co.uk/amember/signup.php!!!!
+
+
+https://www.wholesalepages.co.uk/amember/signup.php : not 200, 301, 302, but ®
+http://www.ms.gov.br : not 200, 301, 302, but ®
+http://www.profile.typepad.com : not 200, 301, 302, but  z≥º™*
+https://www.torrid.com/torrid/member/Login.jsp;jsessionid=SrHPP0VJs1snMFTJ0Yrhvf91GJyFvj2dWnSqLQbM28JpNTn2ntTN!302373304!NONE : not 200, 301, 302, but ®
+https://registration.tricolor.tv/trPrivate/DealerPage.aspx : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.ownersleague.jp : not 200, 301, 302, but ‡F2¥™*
+http://www.spicewarez.com : not 200, 301, 302, but ®
+http://www.millionleadsforfree.com : not 200, 301, 302, but ®
+http://www.mysexgames.com : not 200, 301, 302, but pé7Ã™*
+Adding REFERER HEADER ACTIVATED policy for site http://www.smallbusinessbrief.com/user.php?login=tamar!!!!
+
+
+http://www.smallbusinessbrief.com/user.php?login=tamar : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site https://www.recipe-blog.jp/register/!!!!
+
+
+https://www.recipe-blog.jp/register/ : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://www.smallbusinessbrief.com/user.php?login=tamar!!!!
+
+
+http://www.smallbusinessbrief.com/user.php?login=tamar : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.fukuoka.lg.jp : not 200, 301, 302, but 	∂™*
+Adding REFERER HEADER ACTIVATED policy for site http://www.wordswithfriendscheat.net/wp-content/plugins/theme-my-login/theme-my-login.css?ver=6.1.4!!!!
+
+
+http://www.wordswithfriendscheat.net/wp-content/plugins/theme-my-login/theme-my-login.css?ver=6.1.4 : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+Adding REFERER HEADER ACTIVATED policy for site http://www.wordswithfriendscheat.net/blog/words-with-friends-cheat-tournament-registration/!!!!
+
+
+http://www.wordswithfriendscheat.net/blog/words-with-friends-cheat-tournament-registration/ : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.neweggimages.com.cn : not 200, 301, 302, but `0–™*
+http://www.billetreduc.com : not 200, 301, 302, but `µƒ™*
+http://www.125.21.240.99 : not 200, 301, 302, but 1B∏™*
+http://www.restfile.com/register.php : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.yapy.jp : not 200, 301, 302, but pƒÃ™*
+http://www.poblanerias.com : not 200, 301, 302, but 0Ÿ¥™*
+http://www.51recruiting.com : not 200, 301, 302, but ®
+http://www.videochatamateur.com/?login=CANGREJAS : not 200, 301, 302, but 
+http://www.2bare.ir : not 200, 301, 302, but –uR¨™*
+http://www.67.220.90.10 : not 200, 301, 302, but –.0Ã™*
+http://www.financialtrans.com : not 200, 301, 302, but Äcó
+Adding REFERER HEADER ACTIVATED policy for site https://secure.sofitel.com/gb/profil/login.shtml!!!!
+
+
+https://secure.sofitel.com/gb/profil/login.shtml : not 200, 301, 302, but ®
+http://www.97sechong.com : not 200, 301, 302, but ®
+http://www.221.231.148.195 : not 200, 301, 302, but ®
+http://www.mg7.info : not 200, 301, 302, but ‡‘§–™*
+http://www.todayntomorrow.com : not 200, 301, 302, but ¿™—
+http://bbs.guitarchina.com/register.php : not 200, 301, 302, but HTTP/1.1 404 Not Found
+http://www.netinterbank.com.pe : not 200, 301, 302, but 0õ
+http://www.guj.nic.in : not 200, 301, 302, but HTTP/1.1 403 Forbidden
+http://www.us.my.alibaba.com/user/company : not 200, 301, 302, but @°S¡™*
+http://www.singpass-services.gov.sg : not 200, 301, 302, but HTTP/1.0 403 Forbidden
+http://signup.younglibertines.com/signup/signup.php?nats=NTg1MToyOjE0&step=2&tpl=join2 : not 200, 301, 302, but ®
+http://www.pcrint.net : not 200, 301, 302, but ®
+https://www.cpaway.com/pubsignup : not 200, 301, 302, but ®
+Adding REFERER HEADER ACTIVATED policy for site http://www.mysansar.com/wp-login.php!!!!
+
+
+http://www.mysansar.com/wp-login.php : not 200, 301, 302, but HTTP/1.1 400 Bad Behavior
+http://www.fourerr.com : not 200, 301, 302, but ®
+http://www.tundaowata.com : not 200, 301, 302, but Ò»™*
+http://www.renault.com : not 200, 301, 302, but h:UÛ7
+http://www.zeemind.com : not 200, 301, 302, but HTTP/1.1 303 See Other
