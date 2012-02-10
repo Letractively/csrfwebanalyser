@@ -14,10 +14,18 @@ and it is among the twenty most exploited security-vulnerabilities in 2007.
 \paragraph
 The most common CSRF countermeasures are the following:
 \begin{enumerate}
-	\item Secret Validation Token: Few words for each...
+	\item Secret Validation Token:
+The idea in this defense is to send an additional information in each HTTP request. This information should be hard to guess and it should be used to detect wether a request comes from the authorized user, or an attacker.  The server should reject requests with different token, or with no token at all.
+The secret validation token can be generated from a Session Identifier which is unique for each user, and hard to guess. A disadvantage of this technique is that if the session identifier leaks to a web site, then anyone that visits that website can see that session identifier, and impersonate its owner. Another method is to use a random generated nonce, store it in a cookie and check it on every request. Finally, there is an option of maintaining state that stores a user's CSRF token for each Session Identifier (Session-Dependent Nonce) and in some cases it can be encrypted (see Ruby on Rails). We perform secret validation check at each URL, analyzing the HTML body content and finding possible patterns as described in (sectionX).
 	\item Referer Header
+Referer header is an optional HTTP Header that indicates the URL that initiated the HTTP request. Server can detect requests that originated for another site, if they do not send a Referer header with the expected URL as a value. The disadvantage here is that the Referer header includes the exact URL of the user, thus it can leak privacy information. On the other hand, some services such as search engines keeps this information for maintaining a user profile to help them return more relevant search results.
+The strictness of the Referer header can be chosen by the server. The first option is to tolerate a lack of Referer header, but to reject a wrong Referer header value. It is very easy for an attacker to tell the browser to ommit the Referer header, and then his request will be accepted. In our experiments in (sectionX) we perform HTTP requests at internal site links with a custom header and find the servers that reject these requests.
+The other second option for Referer header checking rejects all the requests that lack a Referer header, but this also rejects legitimate user requests with an incompatible browser to handle the referer header.
+
 	\item Custom  XMLHtmlHeader
+This technique can be used as a CSRF defense, since the browser prevents sites from sending custom HTTP headers to another site, but allows them to send custom HTTP headers to themselves via XMLHttpRequest. This defense ......
 	\item Origin Header
 	\item Content Security Policy (CSP)
+Content Security Policy is an added layer of security and can be used as a defense for CSRF attacks. CSP is fully backward compatible, which means that browsers that don't support CSP simply ignore it. .....
 \end{enumerate}
 \paragraph
