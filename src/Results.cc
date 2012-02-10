@@ -115,7 +115,7 @@ map<string, map<string, string> > Results::GetDefenseUrlsMap(void) {
 void 	Results::AddUrlDefense(string url, const string policy, const string value) {
 	int pos = url.substr(8).find("/");
 	if( pos != string::npos){
-		url = url.substr(0, pos);
+		url = url.substr(0, 8+pos);
 	}
 	if(urlDefensesMap.count(url) != 0) {
 		urlDefensesMap[url].insert(make_pair(policy, value));
@@ -130,8 +130,9 @@ void Results::AddDefenseUrl(string policy, string url, const string value) {
 	transform(policy.begin(), policy.end(), 
 						policy.begin(), (int(*)(int)) ::toupper);
 	int pos = url.substr(8).find("/");
+	printf(" For url %s , pos = %d\n", url.c_str(), pos);
 	if( pos != string::npos){
-		url = url.substr(0, pos);
+		url = url.substr(0, 8+pos);
 	}
 	if(defenseUrlsMap.count(policy) != 0) {
 		defenseUrlsMap[policy].insert(make_pair(url, value));
@@ -167,37 +168,39 @@ void Results::PrintDefensesMap(void){
 
 // TODO !
 void Results::MergeUrlDefensesMaps(map<string, map<string, string> > mapA) 
-{/*
+{
 	map<string, map<string, string> >::iterator itA = mapA.begin();
 	string curr_key;
 	while(itA != mapA.end()) {
 		curr_key = itA->first;
 		if(urlDefensesMap.count(curr_key) != 0) {
-			urlDefensesMap[curr_key].merge(mapA[curr_key]);
+			for(map<string, string> ::iterator it = mapA[curr_key].begin(); it != mapA[curr_key].end(); it++)
+				urlDefensesMap[curr_key].insert(make_pair(it->first, it->second));
 		}
 		else {
-			urlDefensesMap[curr_key] = list<pair<string, string> >(mapA[curr_key]);
+			urlDefensesMap[curr_key] = map<string, string> (mapA[curr_key]);
 		}	
 		itA++;
-	}*/
+	}
 	//urlDefensesMap = map<string, list<pair<string, string> > >(mapA);
 }
 
 													
 void Results::MergeDefenseUrlsMaps(map<string, map<string, string> > mapA)
-{/*
-	map<string, list<pair<string, string> > >::iterator itA = mapA.begin();
+{
+	map<string, map<string, string> >::iterator itA = mapA.begin();
 	string curr_key;
 	while(itA != mapA.end()) {
 		curr_key = itA->first;
 		if(defenseUrlsMap.count(curr_key) != 0) {
-			defenseUrlsMap[curr_key].merge(mapA[curr_key]);
+			for(map<string, string> ::iterator it = mapA[curr_key].begin(); it != mapA[curr_key].end(); it++)
+				defenseUrlsMap[curr_key].insert(make_pair(it->first, it->second));
 		}
 		else {
-			defenseUrlsMap[curr_key] = list<pair<string, string> >(mapA[curr_key]);
+			defenseUrlsMap[curr_key] = map<string, string> (mapA[curr_key]);
 		}	
 		itA++;
-	}*/
+	}
 }
 
 #endif
