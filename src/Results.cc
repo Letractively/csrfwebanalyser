@@ -130,7 +130,7 @@ void Results::AddDefenseUrl(string policy, string url, const string value) {
 	transform(policy.begin(), policy.end(), 
 						policy.begin(), (int(*)(int)) ::toupper);
 	int pos = url.substr(8).find("/");
-	printf(" For url %s , pos = %d\n", url.c_str(), pos);
+	//printf(" For url %s , pos = %d\n", url.c_str(), pos);
 	if( pos != string::npos){
 		url = url.substr(0, 8+pos);
 	}
@@ -204,3 +204,4 @@ void Results::MergeDefenseUrlsMaps(map<string, map<string, string> > mapA)
 }
 
 #endif
+

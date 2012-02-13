@@ -268,8 +268,8 @@ void process_url(string url, string referer, Results *results, unsigned int curr
 
 		/* we don't verify the server's certificate, which means we
 		might be downloading stuff from an impostor */ 
-		curl_easy_setopt(curl_handle, CURLOPT_SSL_VERIFYPEER, 0L);
-		curl_easy_setopt(curl_handle, CURLOPT_SSL_VERIFYHOST, 0L);
+		//curl_easy_setopt(curl_handle, CURLOPT_SSL_VERIFYPEER, 0L);
+		//curl_easy_setopt(curl_handle, CURLOPT_SSL_VERIFYHOST, 0L);
 		
  
 		/* hehe, we are firefox now */ 
@@ -314,7 +314,9 @@ void process_url(string url, string referer, Results *results, unsigned int curr
 					process_url(url, "www.hacker.com", results, currDepth);
 				}
 				if(firstline.find(string("200"))==string::npos && firstline.find(string("301"))==string::npos && firstline.find(string("302"))==string::npos ) {
+					#if DEBUG_LEVEL > 0
 					fprintf(stdout, "%s : not 200, 301, 302, but %s\n", url.c_str(), firstline.c_str());
+					#endif
 				}
 				//printf(" --------%s----------- (currDepth : %u)\n", url.c_str(), currDepth);
 				//printf("=======================================%s\n==========================\n", website.header);
@@ -322,7 +324,7 @@ void process_url(string url, string referer, Results *results, unsigned int curr
 				int location_header_pos;
 				if((location_header_pos = string(website.header).find(string("Location:")) ) != string::npos){
 					string redirect_url = string(website.header+location_header_pos+10);
-					fprintf(stderr, "Redirecting to %s\n", redirect_url.c_str());
+					//fprintf(stderr, "Redirecting to %s\n", redirect_url.c_str());
 					process_url(redirect_url, "", results, currDepth);
 				}
 #endif
@@ -495,3 +497,4 @@ kill_locks();
 
           return 0;
 }
+
