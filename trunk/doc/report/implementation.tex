@@ -1,35 +1,35 @@
 \label{implementation}
 \section{Implementation} 
-In order to conduct our experiment, we implemented a web crawler in C++ with the ability to parse http header and the 
-corresponding html bodies in order to find patterns that attempting classify a web site as to what CSRF counter measure it
+In order to conduct our experiment, we implemented a web crawler in C++ with the ability to parse HTTP header and the 
+corresponding HTML bodies in order to find patterns that attempting classify a website as to what CSRF counter measure it
 employs. The tool consists of three main components, the \emph{Network} component 
-which handles the network trafficing, the \emph{Http Header Parser} which parses the Http headers and pattern matches 
+which handles the network trafficking, the \emph{HTTP Header Parser} which parses the HTTP headers and pattern matches 
 the header fields with the headers discussed in section \ref{defenses} and the \emph{HTML Parser} who parses the body of 
-the web pages seeking patterns in Html forms that are canditates for a secret token value.  In the rest of this section we will 
+the web pages seeking patterns in HTML forms that are candidates for a secret token value.  In the rest of this section we will 
 discuss the design of each of the distinct parts of the web crawler and their interaction with one another.
 
 \subsection{Network component}
 The \emph{Network} component handles all request and responses to and from a web server.  It uses the curl library 
 \cite{website:curl}
-which offers an comprehensive API to buffer Http request Headers and Html bodies, in addition to modify the Http response 
-header.  Our implementation uses the pthread library to allow concurrent request to be served silmuntaneously.  The 
-parellelization policy we used allows for concurrent requests to be made and server for every distinct home url we have
-in the queue to be visited.  However, links in a website are server by the same thread that served the home url.  Our 
+which offers an comprehensive API to buffer HTTP request Headers and HTML bodies, in addition to modify the HTTP response 
+header.  Our implementation uses the pthread library to allow concurrent request to be served simultaneously.  The 
+parellelization policy we used allows for concurrent requests to be made and server for every distinct home URL we have
+in the queue to be visited.  However, links in a website are server by the same thread that served the home URL.  Our 
 implementation is lock-free and thread-safe with the exception of the underlying openssl library that is used by 
 the curl library, where we needed to define the locking functions as described in \cite{website:openssl-threads}.  The curl 
 library offered the option to automatically visit websites that offered a Location header, thus we take no special
-actions for such cases.  The \emph{Network} component feeds each new header to the \emph{Http Header parser} and 
-each new body to the \emph{Html Parser}.  The headers are served by the same thread that serves their corresponding
-bodies.  Interaction between the \emph{Network} component and the \emph{Html Parser} is also possible when the second
+actions for such cases.  The \emph{Network} component feeds each new header to the \emph{HTTP Header parser} and 
+each new body to the \emph{HTML Parser}.  The headers are served by the same thread that serves their corresponding
+bodies.  Interaction between the \emph{Network} component and the \emph{HTML Parser} is also possible when the second
 needs to visit a new link, which then goes through the whole a process a queued link would (new header and bodies are
 parsed). Moreover, the \emph{Network} component is also responsible to sent request to the server using a fake Referer
-header, if such a request is denied, then we add the web site to the list of web site's that employ the Referer Header
-defense.  Also note, that we set up the curl libary to set our User Agent header value to 
-\emph{Mozilla/4.73 [en] (X11; U; Linux 2.2.15 i686)} so that we get the same web site a user would.
+header, if such a request is denied, then we add the website to the list of website's that employ the Referer Header
+defense.  Also note, that we set up the curl library to set our User Agent header value to 
+\emph{Mozilla/4.73 [en] (X11; U; Linux 2.2.15 i686)} so that we get the same website a user would.
 
 \subsection{HTTP Header Parser component}
 The \emph{HTTP Header Parser} parses every header it is given by the \emph{Network} component.  Each thread can 
-initiate an Http parser, independently from the other threads.  The \emph{Http Header Parser} drops any headers
+initiate an HTTP parser, independently from the other threads.  The \emph{HTTP Header Parser} drops any headers
 with return code other than 200.  If any header is dropped, the \emph{Network} component does not continue to call
 the \emph{HTML Parser} and drops the link entirely.
 In section \ref{defenses} we presented a number of defenses based on headers,
@@ -39,7 +39,7 @@ aforementioned defenses:
 \begin{itemize}
 	\item X-Requested-(By|With) - Custom XMLHtmlHeader
 	\item X-Frame-Options - X-Frame header
-	\item Access-Control-Allow-Origin - Origin Header (this header is intended to restrict the loading of content outsite
+	\item Access-Control-Allow-Origin - Origin Header (this header is intended to restrict the loading of content outside
 	the website's own domain)
 	\item Content-Security-Policy - Content-Security-Policy header
 \end{itemize}
@@ -49,15 +49,15 @@ which allows us to use Perl like regular expressions in the C++ language. Every 
 we put the home URL to the corresponding list of URLs each defense class maintains.
 
 \subsection{HTML Parser component}
-The Html parsing is done using the libxml2 library \cite{website:libxml}. The \emph{HTML Parser} component serves a dual 
+The HTML parsing is done using the libxml2 library \cite{website:libxml}. The \emph{HTML Parser} component serves a dual 
 purpose.  It parses the HTML body in order to find links that lead to login forms and feed them to the \emph{Network}
 component to process the new URL.  We care especially for login or register forms because they are sensitive, state
-modifying submit forms that are more likey to be protected by a secret token. Again we use the PCRE library to pattern
+modifying submit forms that are more likely to be protected by a secret token. Again we use the PCRE library to pattern
 match links that could lead to such submit forms. The second function it performs is to parse all the Input fields in 
 any Forms found in the web page.  If an Input field has an attribute named type with value equal to "hidden", then 
 we check the value attribute, to see if it could be a secret token value.  Due to the unpredictable nature of the 
-value of the toke, it is very hard to distinct between true secret tokens and false possitives.  We use
-the pattern matching functionality of teh PCRE library once more, to distict between hash values, that are more 
+value of the toke, it is very hard to distinct between true secret tokens and false positives.  We use
+the pattern matching functionality of the PCRE library once more, to distinct between hash values, that are more 
 likely to be secret tokens and purge characters that are unlikely to be found in a token.  If a value is believed to
 be a valid secret token, then it is added to the Secret Validation Token defense list of URLs.  Furthermore, we noticed
 that on many occasions, websites used a hidden Input field in forms that contained no value at all.  The interesting thing

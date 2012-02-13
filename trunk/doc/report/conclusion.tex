@@ -1,2 +1,15 @@
 \label{conclusion}
-\section{Conclusion}
+\section{Conclusion and Future Work}
+	Our evaluation showed that the preferred method to defend against a CSRF attack is the Secret Validation Token.  If correctly implemented,
+	this method provides excellent security.  However, we believe that website administrators can benefit from the Content Security Policy
+	and X-Frame header, which provide an extra layer of security.  The Origin header appears to be a solid solution to the CSRF problem, but
+	web browsers that will not support it can be the reason for a hole in the security of the web page.  A very secure option is to implement
+	the website's interface using AJAX and require a custom XMLHtmlHeader from the web browser.  However, this solutions require considerable
+	effort to redesign and re-write the whole web application.
+	
+	
+	Our method lacks the sophistication to deal efficiently with secret token value, in order to determine if a website employs this kind of
+	defense.  In the future, a better heuristic mechanism could be conceived to deal with this problem.   Furthermore, to increase our tool's
+	efficiency, we require to access the HTML code that an authorized user would view.  It is unfeasible for an automated tool to get this 
+	kind of access, unless accounts are provided for the corresponding websites.  Even then, the arbitrary design of websites and error prone
+	html syntax make it difficult to efficently parse the vast ammount of websites.  After all, spider traps lurk in every corner of the internet. 
