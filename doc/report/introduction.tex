@@ -5,10 +5,10 @@ Cross Site Request Forgery (CSRF) is an attack which maliciously forces the user
 request to a website, on which the user is authenticated, thus fooling the server that he, the attacker is 
 actually an authenticated user.  The severity of a CSRF attack varies as it depends upon the level of access
 the victim user has. For instance a simple user can only compromise his data, while an administrator user can
-compromise the entire site infastructure.  A common way to launch a CSRF attack is to fool the user, through
+compromise the entire site infrastructure.  A common way to launch a CSRF attack is to fool the user, through
 means of social engineering, to click on a link from a fraud website/email, made or sent by the attacker, 
-which redircects to a website that the user has an open session with, thus hijacking that session.  Due to
-the difficulty of achieving these prerequirements (user has a running session with target, social engineering),
+which redirects to a website that the user has an open session with, thus hijacking that session.  Due to
+the difficulty of achieving these prerequisites (user has a running session with target, social engineering),
 many regard a CSRF attack as an unlikely scenario, undermining its importance.  This misconception could not
 be further from the truth.  CSRF is ranked as the 909th most dangerous software bug ever found \cite{website:wiki-csrf-sever}
 and it is among the twenty most exploited security\-vulnerabilities in 2007 \cite{Dhamija:2006:WPW:1124772.1124861}.
@@ -18,16 +18,16 @@ The most common CSRF countermeasures are the following:
 \begin{enumerate}
 	\item \textbf{Secret Validation Token} \\
 The idea in this defense is to send an additional information in each HTTP request. This information should be hard
-to guess and it should be used to detect wether a request comes from the authorized user, or an attacker.  The server
+to guess and it should be used to detect whether a request comes from the authorized user, or an attacker.  The server
 should reject requests with different token, or with no token at all.  A common practice is to store the token in a 
-\emph{hidden} input field in everey form on the website, that should be protected.
+\emph{hidden} input field in every form on the website, that should be protected.
 	\item \textbf{Referer Header} \\
 Referer is a HTTP Header field that indicates the URL that initiated the HTTP request. The server can detect requests
 that originated from an unauthorized website, if they do not send a Referer header with a whitelisted URL as a value. 
 However, the field is optional, thus the server has to deal with cases where there is no Referrer in the request, 
 by either accepting or denying the request.
 	\item \textbf{Custom  XMLHtmlHeader} \\
-	Site's that implement AJAX interfaces have the option to require custon XMLHtmlHeaders to all state modifying actions.
+	Site's that implement AJAX interfaces have the option to require custom XMLHtmlHeaders to all state modifying actions.
 Web browsers only allow XMLHtmlHeaders to be sent from a website to itself, thus a scenario where a fraud website tries
 to sent a custom XMLHtmlHeader to another website is not possible.
 	\item \textbf{Origin Header} \\
@@ -35,8 +35,8 @@ to sent a custom XMLHtmlHeader to another website is not possible.
 	identify the origin of the request. Contrary to the Referer header, it includes no path information that could 
 	leak sensitive data in URL parameters.
 	\item \textbf{X-Frame Header} \\
-	It's an http responce header that instructs the web browser to refuse display the content of 
-	the website in a frame.  It can be set to either allow framing if the web site is the same one that delivered 
+	It's an HTTP response header that instructs the web browser to refuse display the content of 
+	the website in a frame.  It can be set to either allow framing if the website is the same one that delivered 
 	the web page, or it can deny any framing at all.  All major web browsers support it.
 	\item \textbf{Content-Security-Policy Header} \\
 	Content Security Policy is an added layer of security and can be used as a defense for CSRF attacks.  Using 
@@ -52,18 +52,17 @@ domain demanding the resource.
 \end{comment}
 
 
-Given the number of defenses agains CSRF, we are interested to know which one the majority of the websites 
-deploy.  For this purpose we implemented a web crawler that automatically parses http headers and the 
-corresponding html bodies, using pattern matching to deduct, to its best of abilities, which of the above
-defense mechanisms are employed. \\
-DISCUSS RESULTS.
-
+Given the number of defenses again CSRF, we are interested to know which one the majority of the websites 
+deploy.  For this purpose we implemented a web crawler that automatically parses HTTP headers and the 
+corresponding HTML bodies, using pattern matching to deduct, to its best of abilities, which of the above
+defense mechanisms are employed. Our experiment indicates that the most common defense is the secret 
+validation token, a defense that indeed offers a high level of security, if impelemented properly.
 
 The following of this report is organized as follows: \\
 	In section \ref{CSRFattack} we explain how a CSRF attack can be launched.  In section \ref{defenses} we 
 	present the existing CSRF defenses and discuss each's advantages and disadvantages.  In section \ref{implementation}
-	we discuss how we implemented a web crawler that analyses web sites and decides which CSRF defense is deployed.  In
-	section \ref{evaluation} we present our findings, regarding the defense of choice of the most visisted web sites 
-	and of some of the major Conten Management frameworks.  We also evaluate our crawler's performance by comparing
+	we discuss how we implemented a web crawler that analyzes websites and decides which CSRF defense is deployed.  In
+	section \ref{evaluation} we present our findings, regarding the defense of choice of the most visited websites 
+	and of some of the major Content Management frameworks.  We also evaluate our crawler's performance by comparing
 	its findings with our manual examination of some of the most visited websites.  Finally, we conclude in section 
 	\ref{conclusion}.
