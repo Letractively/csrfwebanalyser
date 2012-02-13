@@ -8,10 +8,11 @@ FILES = \
 	report.tex \
 	abstract.tex \
 	introduction.tex \
+	csrf.tex \
+	defenses.tex \
 	implementation.tex \
-#	limitations.tex \
-#	results.tex \
-#	conclusion.tex \
+	evaluation.tex \
+	conclusion.tex \
 	report.bib
 
 default: pdf
@@ -26,8 +27,8 @@ pdf: $(FILES) report.bbl
 	-$(LATEX) report
 	-bibtex   report
 	-$(LATEX) report
-	-$(LATEX) report
-	-$(LATEX) report
+#	-$(LATEX) report
+#	-$(LATEX) report
 	-dvips -t letter -o report.ps report.dvi
 	-dvipdf report.dvi report.pdf
 
