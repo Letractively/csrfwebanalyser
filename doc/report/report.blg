@@ -1,47 +1,55 @@
-This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2010)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: report.aux
 The style file: abbrv.bst
-I found no \citation commands---while reading file report.aux
 Database file #1: report.bib
-You've used 0 entries,
+Warning--to sort, need author or key in website:wiki-csrf-sever
+Warning--to sort, need author or key in website:owasp-csrf
+Warning--to sort, need author or key in website:ruby
+Warning--to sort, need author or key in website:w3c-cors
+Warning--to sort, need author or key in website:curl
+Warning--to sort, need author or key in website:openssl-threads
+Warning--to sort, need author or key in website:pcre
+Warning--to sort, need author or key in website:libxml
+You've used 10 entries,
             2118 wiz_defined-function locations,
-            496 strings with 3701 characters,
-and the built_in function-call counts, 18 in all, are:
-= -- 0
-> -- 0
-< -- 0
-+ -- 0
-- -- 0
-* -- 2
-:= -- 7
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
+            538 strings with 4874 characters,
+and the built_in function-call counts, 2256 in all, are:
+= -- 227
+> -- 44
+< -- 2
++ -- 23
+- -- 12
+* -- 104
+:= -- 288
+add.period$ -- 24
+call.type$ -- 10
+change.case$ -- 36
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 1
+cite$ -- 18
+duplicate$ -- 100
+empty$ -- 260
+format.name$ -- 12
+if$ -- 543
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 3
-num.names$ -- 0
-pop$ -- 0
+int.to.str$ -- 10
+missing$ -- 2
+newline$ -- 45
+num.names$ -- 4
+pop$ -- 76
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 26
 quote$ -- 0
-skip$ -- 1
+skip$ -- 98
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
-text.length$ -- 0
+substring$ -- 107
+swap$ -- 26
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 0
-warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 2
-(There was 1 error message)
+type$ -- 40
+warning$ -- 8
+while$ -- 10
+width$ -- 12
+write$ -- 86
+(There were 8 warnings)

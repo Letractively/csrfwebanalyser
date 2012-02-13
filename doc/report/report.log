@@ -1,19 +1,16 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2010.9.3)  9 FEB 2012 04:17
+This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010) (format=latex 2011.11.18)  14 FEB 2012 20:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **report
 (./report.tex
-LaTeX2e <2009/09/24>
-Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, french, basque, ngerman, german, german-x-2009-06-19, ngerman-x-200
-9-06-19, ibycus, monogreek, greek, ancientgreek, italian, romanian, irish, copt
-ic, serbian, turkish, welsh, esperanto, uppersorbian, estonian, indonesian, int
-erlingua, icelandic, kurmanji, slovenian, loaded.
-(/usr/share/texmf-texlive/tex/latex/base/article.cls
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, lo
+aded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/share/texmf-texlive/tex/latex/base/size11.clo
-File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -26,37 +23,78 @@ File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
-)
-(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
-Package: inputenc 2008/03/30 v1.1d Input encoding file
-\inpenc@prehook=\toks14
-\inpenc@posthook=\toks15
-
-(/usr/share/texmf-texlive/tex/latex/base/latin1.def
-File: latin1.def 2008/03/30 v1.1d Input encoding file
+) (./usenix.sty
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/mathptmx.sty
+Package: mathptmx 2005/04/12 PSNFSS-v9.2a Times w/ Math, improved (SPQR, WaS) 
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/ztmcm/m/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ztmcm/m/n on input line 28.
+LaTeX Font Info:    Redeclaring symbol font `letters' on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/ztmcm/m/it on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/ztmcm/m/it on input line 29.
+LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/ztmcm/m/n on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/ztmcm/m/n on input line 30.
+LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
+\symbold=\mathgroup4
+\symitalic=\mathgroup5
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/ptm/m/it on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 35.
+LaTeX Info: Redefining \hbar on input line 50.
 ))
-(/usr/share/texmf-texlive/tex/latex/graphics/epsfig.sty
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty
+Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/epsfig.sty
 Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
-\KV@toks@=\toks16
+\KV@toks@=\toks14
 )
-(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/etc/texmf/tex/latex/config/graphics.cfg
-File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: dvips.def on input line 91.
 
-(/usr/share/texmf-texlive/tex/latex/graphics/dvips.def
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvips.def
 File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
 \Gin@req@height=\dimen103
@@ -65,14 +103,14 @@ File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 \epsfxsize=\dimen105
 \epsfysize=\dimen106
 )
-(/usr/share/texmf-texlive/tex/latex/subfig/subfig.sty
+(/usr/share/texlive/texmf-dist/tex/latex/subfig/subfig.sty
 Package: subfig 2005/06/28 ver: 1.3 subfig package
 
-(/usr/share/texmf-texlive/tex/latex/caption/caption.sty
-Package: caption 2009/10/09 v3.1k Customizing captions (AR)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2011/09/30 v3.2c Customizing captions (AR)
 
-(/usr/share/texmf-texlive/tex/latex/caption/caption3.sty
-Package: caption3 2009/10/09 v3.1k caption3 kernel (AR)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2011/10/09 v1.4 caption3 kernel (AR)
 \captionmargin=\dimen107
 \captionmargin@=\dimen108
 \captionwidth=\dimen109
@@ -96,16 +134,16 @@ Package: caption3 2009/10/09 v3.1k caption3 kernel (AR)
 \sf@top=\skip46
 \sf@bottom=\skip47
 )
-(/usr/share/texmf-texlive/tex/latex/tools/verbatim.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty
 Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
-\every@verbatim=\toks17
-\verbatim@line=\toks18
+\every@verbatim=\toks15
+\verbatim@line=\toks16
 \verbatim@in@stream=\read1
 )
-(/usr/share/texmf-texlive/tex/latex/listings/listings.sty
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
 \lst@mode=\count95
 \lst@gtempboxa=\box26
-\lst@token=\toks19
+\lst@token=\toks17
 \lst@length=\count96
 \lst@currlwidth=\dimen114
 \lst@column=\count97
@@ -116,84 +154,251 @@ Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
 \lst@lineno=\count100
 \lst@maxwidth=\dimen117
 
-(/usr/share/texmf-texlive/tex/latex/listings/lstmisc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
 \c@lstnumber=\count101
 \lst@skipnumbers=\count102
 \lst@framebox=\box27
 )
-(/usr/share/texmf-texlive/tex/latex/listings/listings.cfg
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
 File: listings.cfg 2007/02/22 1.4 listings configuration
 ))
 Package: listings 2007/02/22 1.4 (Carsten Heinz)
 
-(/usr/share/texmf-texlive/tex/latex/float/float.sty
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count103
-\float@exts=\toks20
+\float@exts=\toks18
 \float@box=\box28
-\@float@everytoks=\toks21
+\@float@everytoks=\toks19
 \@floatcapt=\box29
 )
-\@float@every@figure=\toks22
+\@float@every@figure=\toks20
  (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 36.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+\big@size=\dimen118
 Package caption Info: Begin \AtBeginDocument code.
-Package caption3 Info: subfig package 1.2 or 1.3 is loaded.
-LaTeX Info: Redefining \subref on input line 29.
+Package caption Info: subfig package 1.2 or 1.3 is loaded.
 Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count104
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 30.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 30.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 30.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 30.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 38.
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 38
+.
 
-(/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
+File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 30.
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 38
+.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omlztmcm.fd
+File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
+)
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 38
+.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsztmcm.fd
+File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
+)
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 38
+.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxztmcm.fd
+File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 38.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 38.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 38.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 38.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 38.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 38.
  (./abstract.tex)
 (./introduction.tex
-Underfull \hbox (badness 10000) in paragraph at lines 15--16
-
+Underfull \hbox (badness 1067) in paragraph at lines 2--1
+\OT1/ptm/m/n/10 In this re-port we study Cross-Site Re-quest Forgery
  []
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 13.
+
+LaTeX Warning: Citation `website:wiki-csrf-sever' on page 1 undefined on input 
+line 13.
+
+
+LaTeX Warning: Citation `Dhamija:2006:WPW:1124772.1124861' on page 1 undefined 
+on input line 14.
 
 [1
 
 
-]) (./report.bbl
+]) (./csrf.tex
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 19.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 26.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 26.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 26.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 26.
 
-LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [2
+LaTeX Warning: Citation `website:owasp-csrf' on page 2 undefined on input line 
+26.
 
-] (./report.aux) ) 
+[2]) (./defenses.tex
+
+LaTeX Warning: Citation `website:ruby' on page 3 undefined on input line 19.
+
+
+LaTeX Warning: Citation `Barth:2008:RDC:1455770.1455782' on page 3 undefined on
+ input line 28.
+
+
+LaTeX Warning: Citation `Barth:2008:RDC:1455770.1455782' on page 3 undefined on
+ input line 39.
+
+
+LaTeX Warning: Citation `website:w3c-cors' on page 3 undefined on input line 47
+.
+
+[3]) (./implementation.tex
+
+LaTeX Warning: Citation `website:curl' on page 4 undefined on input line 13.
+
+
+LaTeX Warning: Citation `website:openssl-threads' on page 4 undefined on input 
+line 19.
+
+
+Underfull \hbox (badness 3209) in paragraph at lines 40--41
+[]\OT1/ptm/m/n/10 X-Requested-(By|With) - Cus-tom XML-Html-
+ []
+
+
+LaTeX Warning: Citation `website:pcre' on page 4 undefined on input line 47.
+
+[4]
+
+LaTeX Warning: Citation `website:libxml' on page 5 undefined on input line 52.
+
+) (./evaluation.tex
+File: figs/results_all.ps Graphic file (type eps)
+ <figs/results_all.ps>
+Overfull \hbox (20.77654pt too wide) in paragraph at lines 19--20
+[][] 
+ []
+
+
+Underfull \hbox (badness 1237) in paragraph at lines 20--20
+[]\OT1/ptm/m/n/10 Figure 1: |Pref-ered CSRF De-fense Method for the
+ []
+
+File: figs/results_top.ps Graphic file (type eps)
+<figs/results_top.ps>
+Overfull \hbox (20.77654pt too wide) in paragraph at lines 26--27
+[][] 
+ []
+
+
+Underfull \hbox (badness 1237) in paragraph at lines 50--50
+[]\OT1/ptm/m/n/10 Figure 3: |Pref-ered CSRF De-fense Method for the
+ []
+
+[5]) (./conclusion.tex) (./report.bbl [6]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 5.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 4--6
+[]\OT1/ptm/m/n/10 Cross-origin re-source shar-ing.  $\OT1/pcr/m/n/10 http :
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--6
+\OT1/pcr/m/n/10 / / dvcs . w3 . org / hg / cors / raw-[]file /
+ []
+
+
+Underfull \hbox (badness 6001) in paragraph at lines 8--11
+[]\OT1/ptm/m/n/10 Cross site re-quest forgery.  $\OT1/pcr/m/n/10 http : / / en 
+.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--11
+\OT1/pcr/m/n/10 wikipedia . org / wiki / Cross-[]site _
+ []
+
+
+Underfull \hbox (badness 3579) in paragraph at lines 13--16
+[]\OT1/ptm/m/n/10 Cross site re-quest forgery (csrf).  $\OT1/pcr/m/n/10 https :
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--16
+\OT1/pcr/m/n/10 / / www . owasp . org / index . php /
+ []
+
+
+Underfull \hbox (badness 3428) in paragraph at lines 22--24
+[]\OT1/ptm/m/n/10 Openssl threads.  $\OT1/pcr/m/n/10 http : / / www . openssl .
+
+ []
+
+) [7
+
+] (./report.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 3124 strings out of 494524
- 46807 string characters out of 1169983
- 103835 words of memory out of 3000000
- 6358 multiletter control sequences out of 15000+50000
- 7888 words of font info for 28 fonts, out of 3000000 for 9000
- 334 hyphenation exceptions out of 8191
- 44i,7n,42p,213b,288s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 3395 strings out of 495071
+ 52413 string characters out of 3182420
+ 112553 words of memory out of 3000000
+ 6530 multiletter control sequences out of 15000+200000
+ 30096 words of font info for 78 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 44i,8n,42p,213b,900s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on report.dvi (2 pages, 3676 bytes).
+Output written on report.dvi (7 pages, 40896 bytes).
