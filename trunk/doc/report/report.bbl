@@ -1,3 +1,50 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{10}
+
+\bibitem{website:w3c-cors}
+Cross-origin resource sharing.
+\newblock \url{http://dvcs.w3.org/hg/cors/raw-file/tip/Overview.html}.
+
+\bibitem{website:wiki-csrf-sever}
+Cross site request forgery.
+\newblock
+  \url{http://en.wikipedia.org/wiki/Cross-site_request_forgery#Severity}.
+
+\bibitem{website:owasp-csrf}
+Cross site request forgery (csrf).
+\newblock
+  \url{https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)}.
+
+\bibitem{website:curl}
+Curl.
+\newblock \url{http://curl.haxx.se/}.
+
+\bibitem{website:openssl-threads}
+Openssl threads.
+\newblock \url{http://www.openssl.org/docs/crypto/threads.html}.
+
+\bibitem{website:pcre}
+Perl like regular expressions.
+\newblock \url{http://www.pcre.org/}.
+
+\bibitem{website:ruby}
+Ruby on rails.
+\newblock \url{http://www.rubyonrails.org/}.
+
+\bibitem{website:libxml}
+The xml parser toolkit for gnome.
+\newblock \url{http://xmlsoft.org/}.
+
+\bibitem{Barth:2008:RDC:1455770.1455782}
+A.~Barth, C.~Jackson, and J.~C. Mitchell.
+\newblock Robust defenses for cross-site request forgery.
+\newblock In {\em Proceedings of the 15th ACM conference on Computer and
+  communications security}, CCS '08, pages 75--88, New York, NY, USA, 2008.
+  ACM.
+
+\bibitem{Dhamija:2006:WPW:1124772.1124861}
+R.~Dhamija, J.~D. Tygar, and M.~Hearst.
+\newblock Why phishing works.
+\newblock In {\em Proceedings of the SIGCHI conference on Human Factors in
+  computing systems}, CHI '06, pages 581--590, New York, NY, USA, 2006. ACM.
 
 \end{thebibliography}
