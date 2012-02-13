@@ -1,0 +1,37 @@
+\label{evaluation}
+\section{Experimental Results - Evaluation}
+We run our web crawler described in section \ref{implementation} over the 100,000 most visited web sites as
+rated by alexa.com.  The crawler uses heuristics in order to determine the type of defense a web site employs and
+we provide no formal proof that our results are correct.  In this section we present our findings, regarding the
+number of web sites that choose to use each defense.  In the rest of this section we evaluate the method we
+used to conduct the expirement (our web crawler), compared to a very small number of web sites we examined manually. 
+
+\subsection{Platform} 
+We run our experiments on two Intel(R) Xeon(R) CPU E5405 with 8 cores @2.00GHz machines each with 12GB of RAM. 
+One machine was running Red Hat Enterprise Linux Server 5.2 and the other CentOS 5.6. 
+On each machine we raised 64 threads, since the greater portion of the time was spent on waiting 
+for the requests to be served, the 8 cores could efficiently serve this number of threads.  Each machine used a list 
+of 50,000 URLs we got from Alexa's Top 100,000 website list.  
+
+\subsection{Results}
+Figure MPLA shows the total number of ...
+
+\subsection{Method Evaluation}
+Our method use heuristics in order to asscosiate a defense mechanism with a web site.  This leaves a big margin
+for error which and is difficult to prove the correctness of our results.  Parsing the header to determine the
+different header fields is trivial, but determining if a web site uses secret tokens is not, for two main reasons.
+\begin{enumerate}
+ \item The vast set of possible token values, makes it hard, if not unfeasible to formalize a way to determine 
+ is an arbitary string value is a token value.  On many cases, the token is a hash value, but this not the 
+ necessarily true for all tokens
+ \item Using secret tokens to protect forms, is crucial when the user has already been authorized.  It 
+ is unrealistic for our crawler to get authorized access to all web sites, and then parse its content
+\end{enumerate} 
+We present two cases, where our method failed or was partially correct.  The first case is paypal, which protects none
+of its forms with any token, even the login form when an unauthorized user is viewing the website.  When a user is granted
+authorization, we found out that the forms contained a hidden Input field with a secret token.  The second case, is 
+facebook, where the login form is originally protected by a token, that is generated using the current timestamp.  This
+does not offer the desired security for an authorized user, thus when a user logs in, facebook generates a second 
+token, which is session depended.  Additionally, we provide the number of false possitives we found by manually examining 
+the first 20 websites on alexa's list. MPLA. 
+ 

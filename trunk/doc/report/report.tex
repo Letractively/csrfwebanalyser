@@ -1,45 +1,52 @@
-\documentclass[11pt,twocolumn]{article}
+%\documentclass[11pt,twocolumn]{article}
+\documentclass[letterpaper,twocolumn,11pt]{article}
 %--------------------------------------------------------------
+\usepackage{usenix}
+\usepackage{times}
+\usepackage{latexsym}
+%\setlength\titlebox{6.5cm}    % Expanding the titlebox
+
 %package declaration and setting
-\usepackage[latin1]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage{url}
 \usepackage{epsfig}
 \usepackage{subfig}
 \usepackage{graphics}
 \usepackage{verbatim}
 \usepackage{listings}
 \lstset{ 
-numbers=left,
-tabsize=2,                      % sets default tabsize to 2 spaces
+tabsize=2, % sets default tabsize to 2 spaces
 }
 \usepackage{float}
 %\floatstyle{boxed} 
 \restylefloat{figure}
+
 %--------------------------------------------------------------
 %create title and author info
-\title{Title Goes Here}
+\title{CSRFing the Web}
 \author{
 Dimokritos Stamatakis, Dimitrios Chasapis \\ \\
-Department of Computer Science, \\
-University of Crete, \\
+Department of Computer Science \\
+University of Crete \\
 P.O. Box 2208, Heraklion, GR 71409, Greece \\
 \{dstamat,hassapis\}@csd.uoc.gr
 } 
-
 %--------------------------------------------------------------
+
 \begin{document}
+
 \maketitle
 \input{abstract}
 \input{introduction}
-
+\input{csrf}
+\input{defenses}
 \input{implementation}
-
-%\input{results}
-%\input{conclusion}
+\input{evaluation}
+\input{conclusion}
+%\input{related work}
 %\input{acknowledgments}
-
-{
+%\nocite{*}
 \bibliographystyle{abbrv}
 \bibliography{report}
-}
 
 \end{document}

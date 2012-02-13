@@ -1,0 +1,54 @@
+\label{CSRFattack}
+\section{CSRF Attack}
+
+
+Cross Site Request Forgery (CSRF or XSRF) works by injecting network querries to the victim's web browser.  By doings so
+the attacker is able to hijack the user's session, exploiting the server's trust to that user.  The server would be fooled
+that the attacker is a legitimate user and allow him to change the session state or give him access to sensitive data.
+The CSRF could also be used to exploit the user's trust to a server, by logging the victim under the attacker's, without 
+the first noticing, and logging hist activity or stealing sensitive data the victim may trie to send through querries.
+In this section we will see a possible scenarios of how such an attack could be launched, in order to better understand
+how it works, and define the prerequirements needed to successfully deliver the attack. 
+
+\subsection{Example}
+A user usually interacts with a website by sending requests to a server in a form of a url including parameter values.  
+The attacker simply needs to fool the victim into sending a request url with his parameter values.  For example, consider
+the following GET request: 
+\begin{lstlisting}
+GET 
+http://bank.com/transfer.do?\
+acct=Bob&amount=1000\ 
+HTTP/1.1
+\end{lstlisting}
+Sending this GET request a user can transfer money from his account to another user's account (in our example Bob).
+In order to launch a CSRF attack, an attacker needs to generate his own url in the exact fashion a legitimate url
+would be generated. For example a forged url could be the following
+\footnote{The example was taken from \cite{website:owasp-csrf}}
+, where our attacker's account is Alice:
+\begin{lstlisting}
+http://bank.com/transfer.do?\
+acct=Alice&amount=1000\ 
+HTTP/1.1
+\end{lstlisting}
+All the attacker need to do now is make the user sent a GET request using his url.  A simple scenario would be to
+the link through an email or a fraud website, where the user is tricked to click on the link.  Ofcourse, in order
+to successfully complete the transaction the victim should already be logged in, so that the browser will include
+the cookies that manage the state of the session between the server and the victim.  There are even more 
+sophisticated ways to force the user's web browser to send the request, without requiring any action from the 
+victim other than opening a website or an email.  This is accmplished by putting the url in an html IMAGE, SCRIPT 
+or IFRAME tag src attribute, in which case the web browser will automatically load the elements, and make an GET 
+request for the resource, where in fact he will be senting the request url.  Note that the POST request method
+is not CSRF-proof, since an attacker could include a form with hidden values to generate a POST request with 
+all the necessary parameters.
+
+\subsection{Attack Prerequirements}
+Understanding the above example, we can deduct that following prerequirements are needed for a CSRF attack to be
+successful:
+\begin{enumerate}
+	\item The attacker knows how a valid request url is formed 
+	\item The attacker can provide correct values for all the paremeters
+	\item The attacker need to lure the victim into a fraud website or email, while the victim is logged in the target website.
+\end{enumerate}    
+By observing the above we can see how such an attack could be stopped.  Either the server or the browser needs to know
+where did the request originated from, or make it impossible for the attacker to guess the correct values for all the
+parameters, by using some secret between user and server. 
