@@ -42,8 +42,9 @@ bool acceptHeader(const char* val) {
 
 bool isContentField(const char* val, const char * url, Results * results) {
 	//printf("%s", val);
-	string CSP_field = "(X-Requested-(By|With)|X-Frame-Options|Access-Control-Allow-Origin|\
-	X*-Content-Security-Policy(-Report-Only|X-WebKit-CSP)*):(.*)";
+	string CSP_field = "(X-Requested-By|X-Requested-With|X-XSRF-Cookie|X-Frame-Options|Access-Control-Allow-Origin|\
+X-Content-Security-Policy|Content-Security-Policy|X-WebKit-CSP):(.*)";
+//-Report-Only
 	//string CSP_field = ".*[a-zA-Z]+(-+[a-zA-Z]+){2,}\\s*:.*";
 	pcrecpp::RE_Options opt;
 	opt.set_caseless(true);
@@ -139,3 +140,4 @@ bool check_for_headers(char* header, const char* url, Results* results){
 #endif
 	return header_accepted; /* referer header check support */
 }
+

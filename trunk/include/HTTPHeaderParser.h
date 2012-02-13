@@ -16,3 +16,4 @@ using namespace std;
 bool check_for_headers(char* header, const char* url, Results * results);
 
 #endif
+

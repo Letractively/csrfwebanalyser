@@ -17,3 +17,4 @@ void parseHTML(const char* code,
 							 unsigned int currDepth);
 
 #endif
+

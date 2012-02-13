@@ -196,7 +196,7 @@ void FindRegisterLink(htmlNodePtr element,
 									  //printf("input<%s>=%s\n", attr1->name, attr1->children->content);
                     if(xmlStrcasecmp(attr1->name, (const xmlChar*)"type") == 0)
                     {
-											if(xmlStrcasecmp(attr1->children->content, (const xmlChar*)"submit") == 0) {
+											if(attr->children && xmlStrcasecmp(attr1->children->content, (const xmlChar*)"submit") == 0) {
 												//printf("Submit button found, let's see...\n");
 												for(attr2 = node->properties; attr2 != NULL; attr2 = attr2->next) {
 													if(xmlStrcasecmp(attr2->name, (const xmlChar*)"value") == 0)	{
@@ -212,7 +212,7 @@ void FindRegisterLink(htmlNodePtr element,
                     {
 											//printf("%s=%s\n", attr1->name, attr1->children->content);
 											//printf("sign up\n");
-											if(isRegisterValue(attr1->children->content)) {
+											if(attr->children && isRegisterValue(attr1->children->content)) {
 												//printf("Register value found, let's see...\n");
 												for(attr2 = node->properties; attr2 != NULL; attr2 = attr2->next) {
 													if(xmlStrcasecmp(attr2->name, (const xmlChar*)"type") == 0) {
@@ -315,3 +315,4 @@ void parseHTML(const char* code,
         doc = NULL;
     }
 }
+
