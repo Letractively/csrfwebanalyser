@@ -1,0 +1,1 @@
+A web crawler that tries to identify csrf defence mechanish of a website
